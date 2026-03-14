@@ -5,21 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CYBER SECURITY - IMPLEMENTASI CONSTRUCTOR & ENKAPSULASI DART</title>
     <style>
-        /* ========== VARIABEL TEMA CYBER SECURITY ========== */
-        :root {
-            --primary-color: #00ff9d;      /* Neon hijau */
-            --secondary-color: #00ccff;     /* Neon biru */
-            --danger-color: #ff0055;         /* Neon merah */
-            --warning-color: #ffaa00;         /* Neon kuning */
-            --bg-dark: #0a0e1a;               /* Hitam kebiruan gelap */
-            --bg-card: #141b2b;                /* Biru dongker */
-            --bg-code: #0b0f1c;                 /* Hitam untuk kode */
-            --text-primary: #e0e0e0;             /* Abu terang */
-            --text-secondary: #8892b0;            /* Abu kebiruan */
-            --border-color: #1e2a3a;               /* Border gelap */
-            --glow-color: rgba(0, 255, 157, 0.3);    /* Efek glow hijau */
-        }
-
+        /* ========== TEMA CYBER SECURITY ========== */
         * {
             margin: 0;
             padding: 0;
@@ -27,10 +13,12 @@
         }
 
         body {
-            font-family: 'Segoe UI', 'Courier New', monospace;
-            background: var(--bg-dark);
-            color: var(--text-primary);
+            font-family: 'Courier New', 'Segoe UI', monospace;
+            background: #0a0e1a;
+            color: #e0e0e0;
             line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
             position: relative;
             overflow-x: hidden;
         }
@@ -43,111 +31,80 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(0deg, 
-                rgba(0, 255, 157, 0.03) 0%, 
-                transparent 100%);
+            background: repeating-linear-gradient(0deg, 
+                rgba(0, 255, 157, 0.03) 0px, 
+                rgba(0, 0, 0, 0.9) 2px,
+                transparent 3px);
             pointer-events: none;
             z-index: -1;
-            animation: matrix 20s linear infinite;
-        }
-
-        @keyframes matrix {
-            0% { background-position: 0% 0%; }
-            100% { background-position: 0% 100%; }
         }
 
         .container {
             max-width: 1300px;
-            margin: 20px auto;
-            background: rgba(20, 27, 43, 0.95);
+            margin: 0 auto;
+            background: rgba(10, 14, 26, 0.95);
             backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color);
+            border: 1px solid #00ff9d;
             border-radius: 15px;
-            box-shadow: 0 0 30px var(--glow-color);
+            box-shadow: 0 0 30px rgba(0, 255, 157, 0.2);
             overflow: hidden;
-            position: relative;
-        }
-
-        /* Efek garis berjalan (scan line) */
-        .container::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(0deg, 
-                transparent 0%, 
-                rgba(0, 255, 157, 0.02) 50%, 
-                transparent 100%);
-            pointer-events: none;
-            animation: scan 8s linear infinite;
-        }
-
-        @keyframes scan {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(100%); }
         }
 
         /* ========== HEADER CYBER ========== */
         .header {
             background: linear-gradient(135deg, #0b1a2e, #0d1f2f);
-            border-bottom: 2px solid var(--primary-color);
+            border-bottom: 2px solid #00ff9d;
             padding: 30px;
             text-align: center;
             position: relative;
-            overflow: hidden;
         }
 
-        .header::before {
-            content: "🛡️ SECURE 🛡️";
+        .header::after {
+            content: "🛡️ SECURE ENCRYPTED 🛡️";
             position: absolute;
-            top: 10px;
-            right: 10px;
-            color: var(--primary-color);
-            font-size: 14px;
+            bottom: 10px;
+            right: 20px;
+            color: #00ff9d;
+            font-size: 12px;
             opacity: 0.5;
-            font-family: monospace;
-            transform: rotate(-5deg);
+            letter-spacing: 2px;
         }
 
         .header h1 {
             font-size: 2.8em;
             margin-bottom: 10px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: linear-gradient(135deg, #00ff9d, #00ccff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px var(--glow-color);
+            text-shadow: 0 0 20px rgba(0, 255, 157, 0.5);
             letter-spacing: 3px;
         }
 
         .header h3 {
-            color: var(--text-secondary);
+            color: #8892b0;
             font-weight: 300;
             margin-bottom: 15px;
-            font-family: 'Courier New', monospace;
         }
 
         .header .info {
             background: rgba(0, 255, 157, 0.1);
-            border: 1px solid var(--primary-color);
-            padding: 15px 25px;
+            border: 1px solid #00ff9d;
+            padding: 15px 30px;
             border-radius: 30px;
             display: inline-block;
-            font-family: 'Courier New', monospace;
             font-size: 1.1em;
-            box-shadow: 0 0 15px var(--glow-color);
+            box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
         }
 
         .header .info strong {
-            color: var(--primary-color);
+            color: #00ff9d;
         }
 
         /* ========== TERMINAL BAR ========== */
         .terminal-bar {
-            background: #0b0f1c;
+            background: #05080f;
             padding: 10px 20px;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid #1e2a3a;
             display: flex;
             align-items: center;
             gap: 15px;
@@ -165,94 +122,76 @@
             border-radius: 50%;
         }
 
-        .dot.red { background: #ff5f56; box-shadow: 0 0 8px #ff5f56; }
-        .dot.yellow { background: #ffbd2e; box-shadow: 0 0 8px #ffbd2e; }
-        .dot.green { background: #27c93f; box-shadow: 0 0 8px #27c93f; }
+        .dot.red { background: #ff5f56; }
+        .dot.yellow { background: #ffbd2e; }
+        .dot.green { background: #27c93f; }
 
         .terminal-path {
-            color: var(--primary-color);
+            color: #00ff9d;
             flex-grow: 1;
         }
 
-        .terminal-path span {
-            color: var(--text-secondary);
-        }
-
         .terminal-status {
-            color: var(--secondary-color);
-            border-left: 1px solid var(--border-color);
+            color: #00ccff;
+            border-left: 1px solid #1e2a3a;
             padding-left: 15px;
         }
 
-        /* ========== NAVIGASI TABS CYBER ========== */
+        /* ========== NAVIGASI TABS (YANG DIPERBAIKI) ========== */
         .nav-tabs {
             display: flex;
-            background: #0b0f1c;
-            border-bottom: 2px solid var(--primary-color);
+            background: #05080f;
+            border-bottom: 2px solid #00ff9d;
             flex-wrap: wrap;
-            gap: 2px;
-            padding: 10px 10px 0;
+            padding: 0;
+            margin: 0;
         }
 
         .nav-tab {
-            padding: 12px 20px;
+            padding: 15px 20px;
             cursor: pointer;
             border: none;
             background: transparent;
-            color: var(--text-secondary);
+            color: #8892b0;
             font-size: 0.95em;
             font-weight: 600;
             font-family: 'Courier New', monospace;
             transition: all 0.3s ease;
-            border: 1px solid transparent;
             border-bottom: 3px solid transparent;
-            border-radius: 8px 8px 0 0;
             position: relative;
-            overflow: hidden;
-        }
-
-        .nav-tab::before {
-            content: ">";
-            color: var(--primary-color);
-            opacity: 0;
-            margin-right: 5px;
-            transition: opacity 0.3s;
         }
 
         .nav-tab:hover {
             background: rgba(0, 255, 157, 0.1);
-            color: var(--primary-color);
-            border-color: var(--border-color);
-        }
-
-        .nav-tab:hover::before {
-            opacity: 1;
+            color: #00ff9d;
         }
 
         .nav-tab.active {
-            color: var(--primary-color);
-            border-bottom-color: var(--primary-color);
-            background: linear-gradient(0deg, 
-                rgba(0, 255, 157, 0.1) 0%, 
-                transparent 100%);
-            text-shadow: 0 0 10px var(--primary-color);
+            color: #00ff9d;
+            border-bottom-color: #00ff9d;
+            background: linear-gradient(0deg, rgba(0, 255, 157, 0.1), transparent);
+            text-shadow: 0 0 10px #00ff9d;
         }
 
         .nav-tab.active::before {
-            opacity: 1;
+            content: ">";
+            margin-right: 5px;
+            color: #00ff9d;
             animation: blink 1s infinite;
         }
 
         @keyframes blink {
             0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
+            50% { opacity: 0; }
         }
 
         /* ========== KONTEN UTAMA ========== */
         .content {
             padding: 30px;
+            min-height: 500px;
         }
 
+        /* PENTING: Ini yang bikin tab bisa ganti-ganti */
         .tab-pane {
             display: none;
             animation: fadeIn 0.5s ease;
@@ -269,84 +208,63 @@
 
         /* ========== CARD DESKRIPSI ========== */
         .description {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-left: 4px solid var(--primary-color);
+            background: #141b2b;
+            border: 1px solid #1e2a3a;
+            border-left: 4px solid #00ff9d;
             padding: 20px;
             border-radius: 8px;
             margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
         }
 
         .description h2 {
-            color: var(--primary-color);
+            color: #00ff9d;
             margin-bottom: 10px;
             font-size: 1.8em;
             display: flex;
             align-items: center;
             gap: 10px;
-            font-family: 'Courier New', monospace;
         }
 
         .description h2::before {
-            content: "root@cyber:~$";
-            color: var(--secondary-color);
-            font-size: 0.5em;
-            opacity: 0.7;
-        }
-
-        .description p {
-            color: var(--text-primary);
-            line-height: 1.7;
+            content: ">";
+            color: #00ccff;
         }
 
         /* ========== CODE CONTAINER ========== */
         .code-container {
-            background: var(--bg-code);
-            border: 1px solid var(--border-color);
+            background: #0b0f1c;
+            border: 1px solid #1e2a3a;
             border-radius: 8px;
             overflow: hidden;
-            margin-bottom: 20px;
-            box-shadow: 0 0 20px rgba(0, 255, 157, 0.1);
+            margin-bottom: 30px;
         }
 
         .code-header {
-            background: #0a0e1a;
+            background: #05080f;
             padding: 12px 20px;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid #1e2a3a;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-family: 'Courier New', monospace;
         }
 
         .code-header h3 {
-            color: var(--secondary-color);
+            color: #00ccff;
             font-size: 1.1em;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .code-header h3::before {
-            content: "📁";
-            color: var(--primary-color);
         }
 
         .language-badge {
             background: rgba(0, 255, 157, 0.2);
-            color: var(--primary-color);
+            color: #00ff9d;
             padding: 4px 12px;
             border-radius: 20px;
             font-size: 0.85em;
-            border: 1px solid var(--primary-color);
+            border: 1px solid #00ff9d;
         }
 
         .code-content {
             padding: 20px;
             overflow-x: auto;
-            background: #0b0f1c;
-            position: relative;
         }
 
         .code-content pre {
@@ -357,163 +275,114 @@
             line-height: 1.5;
         }
 
-        /* Syntax Highlighting Cyber Theme */
-        .keyword { color: #ff79c6; }
-        .string { color: #f1fa8c; }
-        .comment { color: #6272a4; }
-        .type { color: #8be9fd; }
-        .function { color: #50fa7b; }
-        .number { color: #bd93f9; }
-
-        /* ========== SECURITY BADGES ========== */
-        .security-badge {
+        /* ========== THREAT LEVEL BADGES ========== */
+        .threat-badge {
             display: inline-block;
-            background: rgba(0, 255, 157, 0.1);
-            border: 1px solid var(--primary-color);
-            color: var(--primary-color);
             padding: 3px 10px;
-            border-radius: 15px;
-            font-size: 0.8em;
-            margin-right: 8px;
+            border-radius: 3px;
+            font-size: 0.75em;
+            font-weight: bold;
+            margin-left: 10px;
             font-family: 'Courier New', monospace;
         }
 
+        .critical { background: rgba(255, 0, 85, 0.2); color: #ff0055; border: 1px solid #ff0055; }
+        .high { background: rgba(255, 170, 0, 0.2); color: #ffaa00; border: 1px solid #ffaa00; }
+        .medium { background: rgba(255, 255, 0, 0.2); color: #ffff00; border: 1px solid #ffff00; }
+        .low { background: rgba(0, 255, 157, 0.2); color: #00ff9d; border: 1px solid #00ff9d; }
+
         /* ========== KESIMPULAN ========== */
         .kesimpulan {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-top: 3px solid var(--primary-color);
+            background: #141b2b;
+            border: 1px solid #1e2a3a;
+            border-top: 3px solid #00ff9d;
             padding: 25px;
             border-radius: 8px;
             margin-top: 30px;
         }
 
         .kesimpulan h3 {
-            color: var(--primary-color);
+            color: #00ff9d;
             margin-bottom: 20px;
             font-size: 1.5em;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .kesimpulan h3::before {
-            content: "🔒";
-            font-size: 1.2em;
-        }
-
-        .kesimpulan ul {
-            list-style: none;
-            padding: 0;
         }
 
         .kesimpulan li {
-            margin-bottom: 15px;
-            padding: 10px 15px;
-            background: rgba(0, 255, 157, 0.05);
-            border-left: 3px solid var(--secondary-color);
-            border-radius: 5px;
-            color: var(--text-primary);
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+            list-style: none;
         }
 
-        .kesimpulan li strong {
-            color: var(--primary-color);
+        .kesimpulan li::before {
+            content: "🔒";
+            position: absolute;
+            left: 0;
         }
-
-        /* ========== THREAT LEVEL TAGS ========== */
-        .threat-level {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 3px;
-            font-size: 0.8em;
-            font-weight: bold;
-            margin-left: 8px;
-            font-family: 'Courier New', monospace;
-        }
-
-        .threat-critical { background: rgba(255, 0, 85, 0.2); color: #ff0055; border: 1px solid #ff0055; }
-        .threat-high { background: rgba(255, 170, 0, 0.2); color: #ffaa00; border: 1px solid #ffaa00; }
-        .threat-medium { background: rgba(255, 255, 0, 0.2); color: #ffff00; border: 1px solid #ffff00; }
-        .threat-low { background: rgba(0, 255, 157, 0.2); color: #00ff9d; border: 1px solid #00ff9d; }
-        .threat-info { background: rgba(0, 204, 255, 0.2); color: #00ccff; border: 1px solid #00ccff; }
 
         /* ========== FOOTER ========== */
         .footer {
-            background: #0b0f1c;
-            border-top: 1px solid var(--border-color);
+            background: #05080f;
+            border-top: 1px solid #1e2a3a;
             padding: 20px;
             text-align: center;
-            color: var(--text-secondary);
+            color: #8892b0;
             font-family: 'Courier New', monospace;
-            font-size: 0.9em;
         }
 
         .footer a {
-            color: var(--primary-color);
+            color: #00ff9d;
             text-decoration: none;
-            border-bottom: 1px dashed var(--primary-color);
         }
 
         .footer a:hover {
-            text-shadow: 0 0 8px var(--primary-color);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header h1 { font-size: 2em; }
-            .nav-tab { padding: 10px 12px; font-size: 0.85em; }
-            .terminal-bar { flex-wrap: wrap; }
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- HEADER CYBER SECURITY -->
+        <!-- HEADER -->
         <div class="header">
-            <h1>⚡ CYBER SECURITY ⚡</h1>
+            <h1>⚡ CYBER SECURITY LAB ⚡</h1>
             <h3>IMPLEMENTASI CONSTRUCTOR & ENKAPSULASI DART</h3>
             <div class="info">
-                <strong>USMAN YAKIN TRIO SINADA</strong> | <span style="color: #00ccff;">NIM: 251410006</span> | Kelas: SI2A
+                <strong>USMAN YAKIN TRIO SINADA</strong> | NIM: 251410006 | Kelas: SI2A
             </div>
         </div>
 
-        <!-- TERMINAL STYLE BAR -->
+        <!-- TERMINAL BAR -->
         <div class="terminal-bar">
             <div class="terminal-dots">
                 <div class="dot red"></div>
                 <div class="dot yellow"></div>
                 <div class="dot green"></div>
             </div>
-            <div class="terminal-path">
-                <span>root@cyber-server:~$</span> /dart/constructor-enkapsulasi
-            </div>
-            <div class="terminal-status">
-                <span style="color: #00ff9d;">●</span> SECURE CONNECTION
-            </div>
+            <div class="terminal-path">root@cyberlab:~$ /dart/constructor-enkapsulasi</div>
+            <div class="terminal-status">🔒 ENCRYPTED CONNECTION</div>
         </div>
 
-        <!-- NAVIGASI TABS -->
+        <!-- NAVIGASI TABS (SEMUA 9 MATERI) -->
         <div class="nav-tabs">
-            <button class="nav-tab active" onclick="showTab(0)">📚 Buku</button>
-            <button class="nav-tab" onclick="showTab(1)">🚗 Mobil</button>
-            <button class="nav-tab" onclick="showTab(2)">🎨 Warna</button>
-            <button class="nav-tab" onclick="showTab(3)">📐 Titik</button>
-            <button class="nav-tab" onclick="showTab(4)">👨‍🎓 Mahasiswa</button>
-            <button class="nav-tab" onclick="showTab(5)">👤 Person</button>
-            <button class="nav-tab" onclick="showTab(6)">📦 Produk</button>
-            <button class="nav-tab" onclick="showTab(7)">🔐 User</button>
-            <button class="nav-tab" onclick="showTab(8)">🏦 RekeningBank</button>
+            <button class="nav-tab active" onclick="showTab(0)">📚 01. BUKU</button>
+            <button class="nav-tab" onclick="showTab(1)">🚗 02. MOBIL</button>
+            <button class="nav-tab" onclick="showTab(2)">🎨 03. WARNA</button>
+            <button class="nav-tab" onclick="showTab(3)">📐 04. TITIK</button>
+            <button class="nav-tab" onclick="showTab(4)">👨‍🎓 05. MAHASISWA</button>
+            <button class="nav-tab" onclick="showTab(5)">👤 06. PERSON</button>
+            <button class="nav-tab" onclick="showTab(6)">📦 07. PRODUK</button>
+            <button class="nav-tab" onclick="showTab(7)">🔐 08. USER</button>
+            <button class="nav-tab" onclick="showTab(8)">🏦 09. REKENING</button>
         </div>
 
-        <!-- KONTEN UTAMA -->
+        <!-- KONTEN 9 MATERI -->
         <div class="content">
-            <!-- TAB 1: BUKU -->
+            <!-- MATERI 1: BUKU -->
             <div class="tab-pane active" id="tab0">
                 <div class="description">
                     <h2>Kelas Buku - Constructor Dasar</h2>
-                    <p>Merepresentasikan buku dengan atribut judul menggunakan parameterized constructor. 
-                    <span class="security-badge">SECURE CODING</span>
-                    <span class="threat-level threat-low">LEVEL: AMAN</span></p>
+                    <p>Merepresentasikan buku dengan atribut judul menggunakan parameterized constructor untuk inisialisasi objek.
+                    <span class="threat-badge low">LEVEL: AMAN</span></p>
                 </div>
                 
                 <div class="code-container">
@@ -522,38 +391,37 @@
                         <span class="language-badge">DART SECURE</span>
                     </div>
                     <div class="code-content">
-                        <pre><code><span class="comment">// Nama   : USMAN YAKIN TRIO SINADA</span>
-<span class="comment">// Nim    : 251410006</span>
-<span class="comment">// Kelas  : SI2A</span>
+                        <pre><span style="color:#6a9955;">// Nama   : USMAN YAKIN TRIO SINADA</span>
+<span style="color:#6a9955;">// Nim    : 251410006</span>
+<span style="color:#6a9955;">// Kelas  : SI2A</span>
 
-<span class="keyword">class</span> <span class="type">Buku</span> {
-  <span class="type">String</span> judul;
+<span style="color:#569cd6;">class</span> <span style="color:#4ec9b0;">Buku</span> {
+  <span style="color:#4ec9b0;">String</span> judul;
 
-  <span class="comment">// Parameterized Constructor</span>
-  <span class="function">Buku</span>(<span class="keyword">this</span>.judul);
+  <span style="color:#6a9955;">// Parameterized Constructor</span>
+  <span style="color:#dcdcaa;">Buku</span>(<span style="color:#569cd6;">this</span>.judul);
 }
 
-<span class="keyword">void</span> <span class="function">main</span>() {
-  <span class="keyword">print</span>(<span class="string">'PROGRAM 1: DEMO KELAS BUKU'</span>);
+<span style="color:#569cd6;">void</span> <span style="color:#dcdcaa;">main</span>() {
+  <span style="color:#dcdcaa;">print</span>(<span style="color:#ce9178;">'PROGRAM 1: DEMO KELAS BUKU'</span>);
   
-  <span class="comment">// Membuat objek Buku</span>
-  <span class="type">Buku</span> buku1 = <span class="function">Buku</span>(<span class="string">"Pemrograman Dart untuk Pemula"</span>);
-  <span class="type">Buku</span> buku2 = <span class="function">Buku</span>(<span class="string">"Clean Code - Robert C. Martin"</span>);
+  <span style="color:#6a9955;">// Membuat objek Buku</span>
+  <span style="color:#4ec9b0;">Buku</span> buku1 = <span style="color:#dcdcaa;">Buku</span>(<span style="color:#ce9178;">"Pemrograman Dart untuk Pemula"</span>);
+  <span style="color:#4ec9b0;">Buku</span> buku2 = <span style="color:#dcdcaa;">Buku</span>(<span style="color:#ce9178;">"Clean Code - Robert C. Martin"</span>);
   
-  <span class="keyword">print</span>(<span class="string">'📚 Judul Buku 1: ${buku1.judul}'</span>);
-  <span class="keyword">print</span>(<span class="string">'📚 Judul Buku 2: ${buku2.judul}'</span>);
-}</code></pre>
+  <span style="color:#dcdcaa;">print</span>(<span style="color:#ce9178;">'📚 Judul Buku 1: ${buku1.judul}'</span>);
+  <span style="color:#dcdcaa;">print</span>(<span style="color:#ce9178;">'📚 Judul Buku 2: ${buku2.judul}'</span>);
+}</pre>
                     </div>
                 </div>
             </div>
 
-            <!-- TAB 2: MOBIL -->
+            <!-- MATERI 2: MOBIL -->
             <div class="tab-pane" id="tab1">
                 <div class="description">
                     <h2>Kelas Mobil - Named Constructor</h2>
                     <p>Memiliki parameterized constructor, named constructor baru() dan dariJson().
-                    <span class="security-badge">FLEXIBLE</span>
-                    <span class="threat-level threat-low">LEVEL: AMAN</span></p>
+                    <span class="threat-badge low">LEVEL: AMAN</span></p>
                 </div>
                 
                 <div class="code-container">
@@ -562,39 +430,38 @@
                         <span class="language-badge">DART SECURE</span>
                     </div>
                     <div class="code-content">
-                        <pre><code><span class="comment">// Nama   : USMAN YAKIN TRIO SINADA</span>
-<span class="comment">// Nim    : 251410006</span>
+                        <pre><span style="color:#6a9955;">// Nama   : USMAN YAKIN TRIO SINADA</span>
+<span style="color:#6a9955;">// Nim    : 251410006</span>
 
-<span class="keyword">class</span> <span class="type">Mobil</span> {
-  <span class="type">String</span>? merk;
-  <span class="type">int</span>? tahun;
+<span style="color:#569cd6;">class</span> <span style="color:#4ec9b0;">Mobil</span> {
+  <span style="color:#4ec9b0;">String</span>? merk;
+  <span style="color:#4ec9b0;">int</span>? tahun;
 
-  <span class="comment">// Parameterized Constructor</span>
-  <span class="function">Mobil</span>(<span class="keyword">this</span>.merk, <span class="keyword">this</span>.tahun);
+  <span style="color:#6a9955;">// Parameterized Constructor</span>
+  <span style="color:#dcdcaa;">Mobil</span>(<span style="color:#569cd6;">this</span>.merk, <span style="color:#569cd6;">this</span>.tahun);
 
-  <span class="comment">// Named Constructor: Mobil Baru</span>
-  <span class="function">Mobil.baru</span>() {
-    merk = <span class="string">'Cyber Truck'</span>;
+  <span style="color:#6a9955;">// Named Constructor: Mobil Baru</span>
+  <span style="color:#dcdcaa;">Mobil.baru</span>() {
+    merk = <span style="color:#ce9178;">'Cyber Truck'</span>;
     tahun = 2025;
   }
 
-  <span class="comment">// Named Constructor: dari JSON</span>
-  <span class="function">Mobil.dariJson</span>(<span class="type">Map</span>&lt;<span class="type">String</span>, <span class="type">dynamic</span>&gt; json) {
-    merk = json[<span class="string">'merk'</span>];
-    tahun = json[<span class="string">'tahun'</span>];
+  <span style="color:#6a9955;">// Named Constructor: dari JSON</span>
+  <span style="color:#dcdcaa;">Mobil.dariJson</span>(<span style="color:#4ec9b0;">Map</span>&lt;<span style="color:#4ec9b0;">String</span>, <span style="color:#4ec9b0;">dynamic</span>&gt; json) {
+    merk = json[<span style="color:#ce9178;">'merk'</span>];
+    tahun = json[<span style="color:#ce9178;">'tahun'</span>];
   }
-}</code></pre>
+}</pre>
                     </div>
                 </div>
             </div>
 
-            <!-- TAB 3: WARNA - CYBER SECURITY THEME KHUSUS -->
+            <!-- MATERI 3: WARNA (CYBER SECURITY THEME) -->
             <div class="tab-pane" id="tab2">
                 <div class="description">
                     <h2>Kelas Warna - Threat Level System</h2>
                     <p>Constant constructor untuk standardisasi tingkat ancaman keamanan siber.
-                    <span class="security-badge">CRITICAL SYSTEM</span>
-                    <span class="threat-level threat-critical">LEVEL: KRITIS</span></p>
+                    <span class="threat-badge critical">LEVEL: KRITIS</span></p>
                 </div>
                 
                 <div class="code-container">
@@ -603,37 +470,36 @@
                         <span class="language-badge">SECURITY CORE</span>
                     </div>
                     <div class="code-content">
-                        <pre><code><span class="comment">// TEMA: CYBER SECURITY THREAT LEVEL</span>
-<span class="keyword">class</span> <span class="type">Warna</span> {
-  <span class="keyword">final</span> <span class="type">int</span> r, g, b;
+                        <pre><span style="color:#6a9955;">// TEMA: CYBER SECURITY THREAT LEVEL</span>
+<span style="color:#569cd6;">class</span> <span style="color:#4ec9b0;">Warna</span> {
+  <span style="color:#569cd6;">final</span> <span style="color:#4ec9b0;">int</span> r, g, b;
 
-  <span class="comment">// Constant Constructor</span>
-  <span class="keyword">const</span> <span class="function">Warna</span>(<span class="keyword">this</span>.r, <span class="keyword">this</span>.g, <span class="keyword">this</span>.b);
+  <span style="color:#6a9955;">// Constant Constructor</span>
+  <span style="color:#569cd6;">const</span> <span style="color:#dcdcaa;">Warna</span>(<span style="color:#569cd6;">this</span>.r, <span style="color:#569cd6;">this</span>.g, <span style="color:#569cd6;">this</span>.b);
 }
 
-<span class="comment">// Enum untuk kategori keamanan siber</span>
-<span class="keyword">enum</span> <span class="type">TingkatKeamanan</span> {
-  kritis(<span class="string">'🔴 KRITIS'</span>, <span class="string">'Ancaman sangat berbahaya - Tindakan segera!'</span>),
-  tinggi(<span class="string">'🟠 TINGGI'</span>, <span class="string">'Resiko tinggi - Perlu penanganan cepat'</span>),
-  sedang(<span class="string">'🟡 SEDANG'</span>, <span class="string">'Potensi ancaman - Monitor terus'</span>),
-  rendah(<span class="string">'🟢 RENDAH'</span>, <span class="string">'Aman - Tidak ada ancaman signifikan'</span>),
-  info(<span class="string">'🔵 INFORMASI'</span>, <span class="string">'Informasi umum - Tidak berbahaya'</span>);
+<span style="color:#6a9955;">// Enum untuk kategori keamanan siber</span>
+<span style="color:#569cd6;">enum</span> <span style="color:#4ec9b0;">TingkatKeamanan</span> {
+  kritis(<span style="color:#ce9178;">'🔴 KRITIS'</span>, <span style="color:#ce9178;">'Ancaman sangat berbahaya'</span>),
+  tinggi(<span style="color:#ce9178;">'🟠 TINGGI'</span>, <span style="color:#ce9178;">'Resiko tinggi'</span>),
+  sedang(<span style="color:#ce9178;">'🟡 SEDANG'</span>, <span style="color:#ce9178;">'Potensi ancaman'</span>),
+  rendah(<span style="color:#ce9178;">'🟢 RENDAH'</span>, <span style="color:#ce9178;">'Aman'</span>),
+  info(<span style="color:#ce9178;">'🔵 INFO'</span>, <span style="color:#ce9178;">'Informasi umum'</span>);
 
-  <span class="keyword">final</span> <span class="type">String</span> label;
-  <span class="keyword">final</span> <span class="type">String</span> deskripsi;
-  <span class="keyword">const</span> <span class="function">TingkatKeamanan</span>(<span class="keyword">this</span>.label, <span class="keyword">this</span>.deskripsi);
-}</code></pre>
+  <span style="color:#569cd6;">final</span> <span style="color:#4ec9b0;">String</span> label;
+  <span style="color:#569cd6;">final</span> <span style="color:#4ec9b0;">String</span> deskripsi;
+  <span style="color:#569cd6;">const</span> <span style="color:#dcdcaa;">TingkatKeamanan</span>(<span style="color:#569cd6;">this</span>.label, <span style="color:#569cd6;">this</span>.deskripsi);
+}</pre>
                     </div>
                 </div>
             </div>
 
-            <!-- TAB 4: TITIK -->
+            <!-- MATERI 4: TITIK -->
             <div class="tab-pane" id="tab3">
                 <div class="description">
                     <h2>Kelas Titik - Initializer List</h2>
                     <p>Menggunakan initializer list untuk memproses nilai sebelum objek dibuat.
-                    <span class="security-badge">DATA VALIDATION</span>
-                    <span class="threat-level threat-low">LEVEL: AMAN</span></p>
+                    <span class="threat-badge low">LEVEL: AMAN</span></p>
                 </div>
                 
                 <div class="code-container">
@@ -642,27 +508,26 @@
                         <span class="language-badge">DART SECURE</span>
                     </div>
                     <div class="code-content">
-                        <pre><code><span class="keyword">class</span> <span class="type">Titik</span> {
-  <span class="keyword">final</span> <span class="type">double</span> x, y;
+                        <pre><span style="color:#569cd6;">class</span> <span style="color:#4ec9b0;">Titik</span> {
+  <span style="color:#569cd6;">final</span> <span style="color:#4ec9b0;">double</span> x, y;
 
-  <span class="comment">// Initializer list untuk validasi</span>
-  <span class="function">Titik</span>(<span class="type">double</span> x, <span class="type">double</span> y)
-      : x = x.<span class="function">abs</span>(),
-        y = y.<span class="function">abs</span>() {
-    <span class="keyword">print</span>(<span class="string">'✅ Titik (${this.x}, ${this.y}) dibuat.'</span>);
+  <span style="color:#6a9955;">// Initializer list untuk validasi</span>
+  <span style="color:#dcdcaa;">Titik</span>(<span style="color:#4ec9b0;">double</span> x, <span style="color:#4ec9b0;">double</span> y)
+      : x = x.<span style="color:#dcdcaa;">abs</span>(),
+        y = y.<span style="color:#dcdcaa;">abs</span>() {
+    <span style="color:#dcdcaa;">print</span>(<span style="color:#ce9178;">'✅ Titik (${this.x}, ${this.y}) dibuat.'</span>);
   }
-}</code></pre>
+}</pre>
                     </div>
                 </div>
             </div>
 
-            <!-- TAB 5: MAHASISWA -->
+            <!-- MATERI 5: MAHASISWA -->
             <div class="tab-pane" id="tab4">
                 <div class="description">
                     <h2>Kelas Mahasiswa - Named Constructor</h2>
                     <p>Memiliki default constructor, dariMap(), dan tanpaNama().
-                    <span class="security-badge">FLEXIBLE</span>
-                    <span class="threat-level threat-low">LEVEL: AMAN</span></p>
+                    <span class="threat-badge low">LEVEL: AMAN</span></p>
                 </div>
                 
                 <div class="code-container">
@@ -671,33 +536,32 @@
                         <span class="language-badge">DART SECURE</span>
                     </div>
                     <div class="code-content">
-                        <pre><code><span class="keyword">class</span> <span class="type">Mahasiswa</span> {
-  <span class="type">String</span> nama;
-  <span class="type">String</span> nim;
-  <span class="type">String</span> jurusan;
-  <span class="type">String</span> kelas;
+                        <pre><span style="color:#569cd6;">class</span> <span style="color:#4ec9b0;">Mahasiswa</span> {
+  <span style="color:#4ec9b0;">String</span> nama;
+  <span style="color:#4ec9b0;">String</span> nim;
+  <span style="color:#4ec9b0;">String</span> jurusan;
+  <span style="color:#4ec9b0;">String</span> kelas;
 
-  <span class="comment">// Default Constructor</span>
-  <span class="function">Mahasiswa</span>(<span class="keyword">this</span>.nama, <span class="keyword">this</span>.nim, <span class="keyword">this</span>.jurusan, <span class="keyword">this</span>.kelas);
+  <span style="color:#6a9955;">// Default Constructor</span>
+  <span style="color:#dcdcaa;">Mahasiswa</span>(<span style="color:#569cd6;">this</span>.nama, <span style="color:#569cd6;">this</span>.nim, <span style="color:#569cd6;">this</span>.jurusan, <span style="color:#569cd6;">this</span>.kelas);
 
-  <span class="comment">// Named Constructor: dari Map</span>
-  <span class="function">Mahasiswa.dariMap</span>(<span class="type">Map</span>&lt;<span class="type">String</span>, <span class="type">String</span>&gt; data)
-      : nama = data[<span class="string">'nama'</span>]!,
-        nim = data[<span class="string">'nim'</span>]!,
-        jurusan = data[<span class="string">'jurusan'</span>]!,
-        kelas = data[<span class="string">'kelas'</span>]!;
-}</code></pre>
+  <span style="color:#6a9955;">// Named Constructor: dari Map</span>
+  <span style="color:#dcdcaa;">Mahasiswa.dariMap</span>(<span style="color:#4ec9b0;">Map</span>&lt;<span style="color:#4ec9b0;">String</span>, <span style="color:#4ec9b0;">String</span>&gt; data)
+      : nama = data[<span style="color:#ce9178;">'nama'</span>]!,
+        nim = data[<span style="color:#ce9178;">'nim'</span>]!,
+        jurusan = data[<span style="color:#ce9178;">'jurusan'</span>]!,
+        kelas = data[<span style="color:#ce9178;">'kelas'</span>]!;
+}</pre>
                     </div>
                 </div>
             </div>
 
-            <!-- TAB 6: PERSON -->
+            <!-- MATERI 6: PERSON -->
             <div class="tab-pane" id="tab5">
                 <div class="description">
                     <h2>Kelas Person - Enkapsulasi</h2>
                     <p>Getter dan setter dengan validasi untuk atribut private.
-                    <span class="security-badge">DATA PROTECTION</span>
-                    <span class="threat-level threat-medium">LEVEL: SEDANG</span></p>
+                    <span class="threat-badge medium">LEVEL: SEDANG</span></p>
                 </div>
                 
                 <div class="code-container">
@@ -706,32 +570,31 @@
                         <span class="language-badge">SECURE</span>
                     </div>
                     <div class="code-content">
-                        <pre><code><span class="keyword">class</span> <span class="type">Person</span> {
-  <span class="type">String</span> <span class="keyword">_nama</span>;
-  <span class="type">int</span> <span class="keyword">_umur</span>;
+                        <pre><span style="color:#569cd6;">class</span> <span style="color:#4ec9b0;">Person</span> {
+  <span style="color:#4ec9b0;">String</span> <span style="color:#569cd6;">_nama</span>;
+  <span style="color:#4ec9b0;">int</span> <span style="color:#569cd6;">_umur</span>;
 
-  <span class="function">Person</span>(<span class="keyword">this</span>._nama, <span class="keyword">this</span>._umur);
+  <span style="color:#dcdcaa;">Person</span>(<span style="color:#569cd6;">this</span>._nama, <span style="color:#569cd6;">this</span>._umur);
 
-  <span class="comment">// Getter</span>
-  <span class="type">String</span> <span class="keyword">get</span> nama => _nama;
-  <span class="type">int</span> <span class="keyword">get</span> umur => _umur;
+  <span style="color:#6a9955;">// Getter</span>
+  <span style="color:#4ec9b0;">String</span> <span style="color:#569cd6;">get</span> nama => _nama;
+  <span style="color:#4ec9b0;">int</span> <span style="color:#569cd6;">get</span> umur => _umur;
 
-  <span class="comment">// Setter dengan validasi</span>
-  <span class="keyword">set</span> <span class="function">nama</span>(<span class="type">String</span> namaBaru) {
-    <span class="keyword">if</span> (namaBaru.<span class="function">isNotEmpty</span>) _nama = namaBaru;
+  <span style="color:#6a9955;">// Setter dengan validasi</span>
+  <span style="color:#569cd6;">set</span> <span style="color:#dcdcaa;">nama</span>(<span style="color:#4ec9b0;">String</span> namaBaru) {
+    <span style="color:#569cd6;">if</span> (namaBaru.<span style="color:#dcdcaa;">isNotEmpty</span>) _nama = namaBaru;
   }
-}</code></pre>
+}</pre>
                     </div>
                 </div>
             </div>
 
-            <!-- TAB 7: PRODUK -->
+            <!-- MATERI 7: PRODUK -->
             <div class="tab-pane" id="tab6">
                 <div class="description">
                     <h2>Kelas Produk - Validasi Setter</h2>
                     <p>Validasi nama (min 3 karakter) dan harga (>0).
-                    <span class="security-badge">INPUT VALIDATION</span>
-                    <span class="threat-level threat-medium">LEVEL: SEDANG</span></p>
+                    <span class="threat-badge medium">LEVEL: SEDANG</span></p>
                 </div>
                 
                 <div class="code-container">
@@ -740,31 +603,30 @@
                         <span class="language-badge">SECURE</span>
                     </div>
                     <div class="code-content">
-                        <pre><code><span class="keyword">class</span> <span class="type">Produk</span> {
-  <span class="type">String</span> <span class="keyword">_nama</span>;
-  <span class="type">double</span> <span class="keyword">_harga</span>;
+                        <pre><span style="color:#569cd6;">class</span> <span style="color:#4ec9b0;">Produk</span> {
+  <span style="color:#4ec9b0;">String</span> <span style="color:#569cd6;">_nama</span>;
+  <span style="color:#4ec9b0;">double</span> <span style="color:#569cd6;">_harga</span>;
 
-  <span class="function">Produk</span>(<span class="keyword">this</span>._nama, <span class="keyword">this</span>._harga);
+  <span style="color:#dcdcaa;">Produk</span>(<span style="color:#569cd6;">this</span>._nama, <span style="color:#569cd6;">this</span>._harga);
 
-  <span class="keyword">set</span> <span class="function">nama</span>(<span class="type">String</span> value) {
-    <span class="keyword">if</span> (value.<span class="function">length</span> >= 3) _nama = value;
+  <span style="color:#569cd6;">set</span> <span style="color:#dcdcaa;">nama</span>(<span style="color:#4ec9b0;">String</span> value) {
+    <span style="color:#569cd6;">if</span> (value.<span style="color:#dcdcaa;">length</span> >= 3) _nama = value;
   }
 
-  <span class="keyword">set</span> <span class="function">harga</span>(<span class="type">double</span> value) {
-    <span class="keyword">if</span> (value > 0) _harga = value;
+  <span style="color:#569cd6;">set</span> <span style="color:#dcdcaa;">harga</span>(<span style="color:#4ec9b0;">double</span> value) {
+    <span style="color:#569cd6;">if</span> (value > 0) _harga = value;
   }
-}</code></pre>
+}</pre>
                     </div>
                 </div>
             </div>
 
-            <!-- TAB 8: USER -->
+            <!-- MATERI 8: USER -->
             <div class="tab-pane" id="tab7">
                 <div class="description">
                     <h2>Kelas User - Login System</h2>
                     <p>Enkapsulasi dengan metode login dan ganti password.
-                    <span class="security-badge">AUTHENTICATION</span>
-                    <span class="threat-level threat-critical">LEVEL: KRITIS</span></p>
+                    <span class="threat-badge critical">LEVEL: KRITIS</span></p>
                 </div>
                 
                 <div class="code-container">
@@ -773,28 +635,49 @@
                         <span class="language-badge">SECURE AUTH</span>
                     </div>
                     <div class="code-content">
-                        <pre><code><span class="keyword">class</span> <span class="type">User</span> {
-  <span class="type">String</span> <span class="keyword">_username</span>;
-  <span class="type">String</span> <span class="keyword">_password</span>;
-  <span class="type">String</span> <span class="keyword">_email</span>;
+                        <pre><span style="color:#569cd6;">class</span> <span style="color:#4ec9b0;">User</span> {
+  <span style="color:#4ec9b0;">String</span> <span style="color:#569cd6;">_username</span>;
+  <span style="color:#4ec9b0;">String</span> <span style="color:#569cd6;">_password</span>;
+  <span style="color:#4ec9b0;">String</span> <span style="color:#569cd6;">_email</span>;
 
-  <span class="function">User</span>(<span class="keyword">this</span>._username, <span class="keyword">this</span>._password, <span class="keyword">this</span>._email);
+  <span style="color:#dcdcaa;">User</span>(<span style="color:#569cd6;">this</span>._username, <span style="color:#569cd6;">this</span>._password, <span style="color:#569cd6;">this</span>._email);
 
-  <span class="type">bool</span> <span class="function">login</span>(<span class="type">String</span> username, <span class="type">String</span> password) {
-    <span class="keyword">return</span> username == _username && password == _password;
+  <span style="color:#4ec9b0;">bool</span> <span style="color:#dcdcaa;">login</span>(<span style="color:#4ec9b0;">String</span> username, <span style="color:#4ec9b0;">String</span> password) {
+    <span style="color:#569cd6;">return</span> username == _username && password == _password;
   }
 
-  <span class="keyword">void</span> <span class="function">gantiPassword</span>(<span class="type">String</span> lama, <span class="type">String</span> baru) {
-    <span class="keyword">if</span> (lama == _password && baru.<span class="function">length</span> >= 6) {
+  <span style="color:#569cd6;">void</span> <span style="color:#dcdcaa;">gantiPassword</span>(<span style="color:#4ec9b0;">String</span> lama, <span style="color:#4ec9b0;">String</span> baru) {
+    <span style="color:#569cd6;">if</span> (lama == _password && baru.<span style="color:#dcdcaa;">length</span> >= 6) {
       _password = baru;
     }
   }
-}</code></pre>
+}</pre>
                     </div>
                 </div>
             </div>
 
-            <!-- TAB 9: REKENING BANK -->
+            <!-- MATERI 9: REKENING BANK -->
             <div class="tab-pane" id="tab8">
                 <div class="description">
                     <h2>Kelas RekeningBank - Transaksi</h2>
+                    <p>Enkapsulasi dengan metode deposit, tarik tunai, dan transfer.
+                    <span class="threat-badge high">LEVEL: TINGGI</span></p>
+                </div>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <h3>rekening_bank.dart</h3>
+                        <span class="language-badge">FINANCIAL SECURE</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><span style="color:#569cd6;">class</span> <span style="color:#4ec9b0;">RekeningBank</span> {
+  <span style="color:#4ec9b0;">String</span> <span style="color:#569cd6;">_nomorRekening</span>;
+  <span style="color:#4ec9b0;">double</span> <span style="color:#569cd6;">_saldo</span>;
+
+  <span style="color:#dcdcaa;">RekeningBank</span>(<span style="color:#569cd6;">this</span>._nomorRekening, <span style="color:#569cd6;">this</span>._saldo);
+
+  <span style="color:#569cd6;">void</span> <span style="color:#dcdcaa;">deposit</span>(<span style="color:#4ec9b0;">double</span> jumlah) {
+    <span style="color:#569cd6;">if</span> (jumlah > 0) _saldo += jumlah;
+  }
+
+  <span style="color:#569cd6;">void</span> <span style="color:#dcdcaa;">tarik</span>(<span style="color:#4ec9b0;">double</span>
