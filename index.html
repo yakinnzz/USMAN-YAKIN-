@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMPLEMENTASI CONSTRUCTOR DAN ENKAPSULASI - USMAN YAKIN</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header h3 {
+            font-size: 1.2em;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .header .info {
+            margin-top: 15px;
+            font-size: 1.1em;
+            background: rgba(255,255,255,0.2);
+            padding: 10px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+            flex-wrap: wrap;
+        }
+
+        .nav-tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 1em;
+            font-weight: 600;
+            color: #495057;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-tab:hover {
+            background: #e9ecef;
+            color: #667eea;
+        }
+
+        .nav-tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+            background: white;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        .description {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border-left: 5px solid #667eea;
+        }
+
+        .description h2 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+
+        .description p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .code-container {
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .code-header {
+            background: #2d2d2d;
+            color: #fff;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #3d3d3d;
+        }
+
+        .code-header h3 {
+            font-size: 1.1em;
+            font-weight: 400;
+            color: #fff;
+        }
+
+        .code-header .language {
+            background: #667eea;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            color: white;
+        }
+
+        .code-content {
+            padding: 20px;
+            overflow-x: auto;
+        }
+
+        .code-content pre {
+            margin: 0;
+            color: #d4d4d4;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .code-content code {
+            display: block;
+        }
+
+        /* Syntax Highlighting */
+        .keyword { color: #569cd6; }
+        .string { color: #ce9178; }
+        .comment { color: #6a9955; }
+        .type { color: #4ec9b0; }
+        .function { color: #dcdcaa; }
+        .number { color: #b5cea8; }
+
+        .dartpad-container {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 25px;
+        }
+
+        .dartpad-container h3 {
+            margin-bottom: 15px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dartpad-container h3 i {
+            color: #667eea;
+        }
+
+        .dartpad-iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-run {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-run:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #dee2e6;
+            color: #666;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .kesimpulan {
+            background: #e8f4fd;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border-left: 5px solid #2196f3;
+        }
+
+        .kesimpulan h3 {
+            color: #1976d2;
+            margin-bottom: 15px;
+        }
+
+        .kesimpulan ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .kesimpulan li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .kesimpulan li:before {
+            content: "✓";
+            color: #4caf50;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>IMPLEMENTASI CONSTRUCTOR DAN ENKAPSULASI</h1>
+            <h3>PEMROGRAMAN DART - OBJECT ORIENTED PROGRAMMING</h3>
+            <div class="info">
+                <strong>USMAN YAKIN TRIO SINADA</strong> | NIM: 251410006 | Kelas: SI2A
+            </div>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab(0)">📚 Buku</button>
+            <button class="nav-tab" onclick="showTab(1)">🚗 Mobil</button>
+            <button class="nav-tab" onclick="showTab(2)">🎨 Warna (Cyber Security)</button>
+            <button class="nav-tab" onclick="showTab(3)">📐 Titik</button>
+            <button class="nav-tab" onclick="showTab(4)">👨‍🎓 Mahasiswa</button>
+            <button class="nav-tab" onclick="showTab(5)">👤 Person</button>
+            <button class="nav-tab" onclick="showTab(6)">📦 Produk</button>
+            <button class="nav-tab" onclick="showTab(7)">🔐 User</button>
+            <button class="nav-tab" onclick="showTab(8)">🏦 RekeningBank</button>
+        </div>
+
+        <div class="content">
+            <!-- Tab 1: Buku -->
+            <div class="tab-pane active" id="tab0">
+                <div class="description">
+                    <h2>📚 Kelas Buku - Constructor Dasar</h2>
+                    <p>Merepresentasikan buku dengan atribut judul menggunakan parameterized constructor untuk inisialisasi objek. Kelas ini menunjukkan cara paling sederhana dalam membuat constructor di Dart.</p>
+                </div>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <h3>buku.dart</h3>
+                        <span class="language">Dart</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><code>// Nama   : USMAN YAKIN TRIO SINADA
+// Nim    : 251410006
+// Kelas  : SI2A
+
+class Buku {
+  String judul;
+
+  // Parameterized Constructor
+  Buku(this.judul);
+}
+
+void main() {
+  print('==================================================');
+  print('PROGRAM 1: DEMO KELAS BUKU');
+  print('==================================================');
+
+  // Membuat objek Buku
+  Buku buku1 = Buku("Pemrograman Dart untuk Pemula");
+  Buku buku2 = Buku("Clean Code - Robert C. Martin");
+  Buku buku3 = Buku("Design Patterns");
+
+  // Menampilkan data buku
+  print('Daftar Buku Perpustakaan:');
+  print('1. ${buku1.judul}');
+  print('2. ${buku2.judul}');
+  print('3. ${buku3.judul}');
+
+  print('\nKesimpulan:');
+  print('- Parameterized constructor memudahkan inisialisasi objek');
+  print('- Setiap objek Buku memiliki judul yang berbeda');
+  print('==================================================');
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 2: Mobil -->
+            <div class="tab-pane" id="tab1">
+                <div class="description">
+                    <h2>🚗 Kelas Mobil - Named Constructor</h2>
+                    <p>Merepresentasikan mobil dengan atribut merk dan tahun. Memiliki parameterized constructor, named constructor baru() dan dariJson() untuk fleksibilitas pembuatan objek.</p>
+                </div>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <h3>mobil.dart</h3>
+                        <span class="language">Dart</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><code>// Nama   : USMAN YAKIN TRIO SINADA
+// Nim    : 251410006
+// Kelas  : SI2A
+
+class Mobil {
+  String? merk;
+  int? tahun;
+
+  // Parameterized Constructor
+  Mobil(this.merk, this.tahun);
+
+  // Named Constructor: Mobil Baru
+  Mobil.baru() {
+    merk = 'Nissan Skyline GT-R R34';
+    tahun = 2002;
+  }
+
+  // Named Constructor: dari JSON
+  Mobil.dariJson(Map&lt;String, dynamic&gt; json) {
+    merk = json['merk'];
+    tahun = json['tahun'];
+  }
+
+  void infoMobil() {
+    print('   Merk : $merk');
+    print('   Tahun: $tahun');
+    print('   --------------------');
+  }
+}
+
+void main() {
+  print('==================================================');
+  print('PROGRAM 2: DEMO KELAS MOBIL');
+  print('==================================================');
+
+  // 1. Parameterized Constructor
+  print('\n[1] Parameterized Constructor:');
+  Mobil mobil1 = Mobil('Toyota', 2018);
+  mobil1.infoMobil();
+
+  // 2. Named Constructor baru()
+  print('[2] Named Constructor (baru()):');
+  Mobil mobil2 = Mobil.baru();
+  mobil2.infoMobil();
+
+  // 3. Named Constructor dariJson()
+  print('[3] Named Constructor (dariJson()):');
+  Map&lt;String, dynamic&gt; dataMobil = {'merk': 'Honda', 'tahun': 2020};
+  Mobil mobil3 = Mobil.dariJson(dataMobil);
+  mobil3.infoMobil();
+
+  print('\nKesimpulan:');
+  print('- Named constructor memberikan fleksibilitas pembuatan objek');
+  print('- dariJson() memudahkan konversi dari format data lain');
+  print('==================================================');
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 3: Warna (Cyber Security) -->
+            <div class="tab-pane" id="tab2">
+                <div class="description">
+                    <h2>🎨 Kelas Warna - Cyber Security Theme</h2>
+                    <p>Merepresentasikan tingkat keamanan siber dengan kode warna RGB menggunakan constant constructor untuk membuat objek immutable. Cocok untuk standardisasi threat level dalam sistem keamanan.</p>
+                </div>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <h3>warna_cyber.dart</h3>
+                        <span class="language">Dart</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><code>// Nama   : USMAN YAKIN TRIO SINADA
+// Nim    : 251410006
+// Kelas  : SI2A
+
+// TEMA: CYBER SECURITY
+class Warna {
+  final int r, g, b;
+
+  // Constant Constructor
+  const Warna(this.r, this.g, this.b);
+
+  @override
+  String toString() {
+    return 'Warna(r: $r, g: $g, b: $b)';
+  }
+}
+
+// Enum untuk kategori keamanan siber
+enum TingkatKeamanan {
+  kritis('🔴 KRITIS', 'Ancaman sangat berbahaya - Tindakan segera!'),
+  tinggi('🟠 TINGGI', 'Resiko tinggi - Perlu penanganan cepat'),
+  sedang('🟡 SEDANG', 'Potensi ancaman - Monitor terus'),
+  rendah('🟢 RENDAH', 'Aman - Tidak ada ancaman signifikan'),
+  info('🔵 INFORMASI', 'Informasi umum - Tidak berbahaya');
+
+  final String label;
+  final String deskripsi;
+
+  const TingkatKeamanan(this.label, this.deskripsi);
+}
+
+void main() {
+  print('==================================================');
+  print('PROGRAM 3: DEMO KELAS WARNA');
+  print('TEMA: CYBER SECURITY - KODE WARNA KEAMANAN');
+  print('==================================================');
+
+  // Definisi warna untuk tingkat keamanan
+  print('\n[1] PALET WARNA CYBER SECURITY:');
+  
+  const warnaKritis = Warna(255, 0, 0);      // Merah - KRITIS
+  const warnaTinggi = Warna(255, 165, 0);    // Oranye - TINGGI
+  const warnaSedang = Warna(255, 255, 0);    // Kuning - SEDANG
+  const warnaRendah = Warna(0, 255, 0);      // Hijau - RENDAH
+  const warnaInfo = Warna(0, 0, 255);        // Biru - INFO
+
+  print('   🔴 KRITIS  : $warnaKritis');
+  print('   🟠 TINGGI  : $warnaTinggi');
+  print('   🟡 SEDANG  : $warnaSedang');
+  print('   🟢 RENDAH  : $warnaRendah');
+  print('   🔵 INFO    : $warnaInfo');
+
+  // Canonicalization
+  print('\n[2] CANONICALIZATION:');
+  const warnaKritis1 = Warna(255, 0, 0);
+  const warnaKritis2 = Warna(255, 0, 0);
+  print('   Apakah kritis1 dan kritis2 sama? ${identical(warnaKritis1, warnaKritis2)}');
+
+  // Security Dashboard
+  print('\n[3] SECURITY DASHBOARD:');
+  var ancaman = [
+    {'nama': 'Ransomware Attack', 'level': 'KRITIS', 'warna': warnaKritis},
+    {'nama': 'DDoS Attack', 'level': 'TINGGI', 'warna': warnaTinggi},
+    {'nama': 'Phishing Campaign', 'level': 'SEDANG', 'warna': warnaSedang},
+    {'nama': 'Port Scanning', 'level': 'RENDAH', 'warna': warnaRendah},
+    {'nama': 'System Update', 'level': 'INFO', 'warna': warnaInfo},
+  ];
+
+  for (var anc in ancaman) {
+    String ikon = '';
+    if (identical(anc['warna'], warnaKritis)) ikon = '🔴';
+    else if (identical(anc['warna'], warnaTinggi)) ikon = '🟠';
+    else if (identical(anc['warna'], warnaSedang)) ikon = '🟡';
+    else if (identical(anc['warna'], warnaRendah)) ikon = '🟢';
+    else if (identical(anc['warna'], warnaInfo)) ikon = '🔵';
+    
+    print('   $ikon ${anc['level']} : ${anc['nama']}');
+  }
+
+  print('\nKesimpulan:');
+  print('- Constant constructor membuat objek immutable');
+  print('- Canonicalization menghemat memory');
+  print('- Cocok untuk standardisasi threat level dalam Cyber Security');
+  print('==================================================');
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 4: Titik -->
+            <div class="tab-pane" id="tab3">
+                <div class="description">
+                    <h2>📐 Kelas Titik - Initializer List</h2>
+                    <p>Merepresentasikan koordinat dengan atribut x dan y, menggunakan initializer list untuk memproses nilai (menjadikan absolut) sebelum objek dibuat.</p>
+                </div>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <h3>titik.dart</h3>
+                        <span class="language">Dart</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><code>// Nama   : USMAN YAKIN TRIO SINADA
+// Nim    : 251410006
+// Kelas  : SI2A
+
+class Titik {
+  final double x, y;
+
+  // Initializer list untuk memastikan koordinat bernilai absolut
+  Titik(double x, double y)
+      : x = x.abs(),
+        y = y.abs() {
+    print('   ✅ Titik (${this.x}, ${this.y}) berhasil dibuat.');
+  }
+
+  // Method untuk menghitung jarak dari titik (0,0)
+  double jarakDariNol() {
+    return (x * x + y * y).sqrt();
+  }
+}
+
+// Extension untuk menghitung akar kuadrat
+extension Sqrt on double {
+  double sqrt() => this > 0 ? this * this : 0;
+}
+
+void main() {
+  print('==================================================');
+  print('PROGRAM 4: DEMO KELAS TITIK');
+  print('==================================================');
+
+  print('\n[1] Membuat titik dengan koordinat positif:');
+  Titik titik1 = Titik(5.0, 7.0);
+  print('   Titik1: (${titik1.x}, ${titik1.y})');
+  print('   Jarak dari (0,0): ${titik1.jarakDariNol().toStringAsFixed(2)}');
+
+  print('\n[2] Membuat titik dengan koordinat negatif:');
+  Titik titik2 = Titik(-3.5, -8.0);
+  print('   Titik2: (${titik2.x}, ${titik2.y})');
+  print('   Jarak dari (0,0): ${titik2.jarakDariNol().toStringAsFixed(2)}');
+
+  print('\nKesimpulan:');
+  print('- Initializer list dieksekusi SEBELUM constructor body');
+  print('- Berguna untuk validasi atau manipulasi nilai awal');
+  print('- Field final dapat diinisialisasi di initializer list');
+  print('==================================================');
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 5: Mahasiswa -->
+            <div class="tab-pane" id="tab4">
+                <div class="description">
+                    <h2>👨‍🎓 Kelas Mahasiswa - Named Constructor</h2>
+                    <p>Merepresentasikan data mahasiswa dengan atribut nama, nim, jurusan, dan kelas. Memiliki default constructor dan named constructor dariMap() serta tanpaNama().</p>
+                </div>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <h3>mahasiswa.dart</h3>
+                        <span class="language">Dart</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><code>// Nama   : USMAN YAKIN TRIO SINADA
+// Nim    : 251410006
+// Kelas  : SI2A
+
+class Mahasiswa {
+  String nama;
+  String nim;
+  String jurusan;
+  String kelas;
+
+  // Default Constructor
+  Mahasiswa(this.nama, this.nim, this.jurusan, this.kelas);
+
+  // Named Constructor: dari Map
+  Mahasiswa.dariMap(Map&lt;String, String&gt; data)
+      : nama = data['nama']!,
+        nim = data['nim']!,
+        jurusan = data['jurusan']!,
+        kelas = data['kelas']!;
+
+  // Named Constructor: Tanpa Nama (Anonim)
+  Mahasiswa.tanpaNama(this.nim, this.jurusan, this.kelas) : nama = '*** ANONIM ***';
+
+  void tampilData() {
+    print('   Nama   : $nama');
+    print('   NIM    : $nim');
+    print('   Jurusan: $jurusan');
+    print('   Kelas  : $kelas');
+    print('   --------------------');
+  }
+}
+
+void main() {
+  print('==================================================');
+  print('PROGRAM 5: DEMO KELAS MAHASISWA');
+  print('==================================================');
+
+  // 1. Default Constructor
+  print('\n[1] Default Constructor:');
+  var mhs1 = Mahasiswa('Andi Saputra', '251410045', 'Sistem Informasi', 'SI2A');
+  mhs1.tampilData();
+
+  // 2. Named Constructor dariMap()
+  print('[2] Named Constructor (dariMap()):');
+  var mhs2 = Mahasiswa.dariMap({
+    'nama': 'Budi Santoso',
+    'nim': '251410055',
+    'jurusan': 'Informatika',
+    'kelas': 'IF1A'
+  });
+  mhs2.tampilData();
+
+  // 3. Named Constructor tanpaNama()
+  print('[3] Named Constructor (tanpaNama()):');
+  var mhs3 = Mahasiswa.tanpaNama('251410999', 'Sistem Informasi', 'SI2B');
+  mhs3.tampilData();
+
+  print('\nKesimpulan:');
+  print('- Named constructor memberikan fleksibilitas inisialisasi');
+  print('- dariMap() berguna untuk konversi dari format data');
+  print('- tanpaNama() cocok untuk data yang memerlukan privasi');
+  print('==================================================');
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 6: Person -->
+            <div class="tab-pane" id="tab5">
+                <div class="description">
+                    <h2>👤 Kelas Person - Enkapsulasi Dasar</h2>
+                    <p>Merepresentasikan individu dengan atribut nama dan umur, menerapkan enkapsulasi dengan getter dan setter untuk atribut private beserta validasi.</p>
+                </div>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <h3>person.dart</h3>
+                        <span class="language">Dart</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><code>// Nama   : USMAN YAKIN TRIO SINADA
+// Nim    : 251410006
+// Kelas  : SI2A
+
+class Person {
+  String _nama; // Private field
+  int _umur;    // Private field
+
+  Person(this._nama, this._umur);
+
+  // Getter
+  String get nama => _nama;
+  int get umur => _umur;
+
+  // Setter dengan validasi
+  set nama(String namaBaru) {
+    if (namaBaru.isNotEmpty) {
+      _nama = namaBaru;
+      print('   ✅ Nama berhasil diubah menjadi "$namaBaru"');
+    } else {
+      print('   ❌ Error: Nama tidak boleh kosong!');
+    }
+  }
+
+  set umur(int umurBaru) {
+    if (umurBaru > 0 && umurBaru < 150) {
+      _umur = umurBaru;
+      print('   ✅ Umur berhasil diubah menjadi $umurBaru tahun');
+    } else {
+      print('   ❌ Error: Umur harus antara 1-149 tahun! (Input: $umurBaru)');
+    }
+  }
+
+  void info() {
+    print('   Informasi Person: $_nama ($_umur tahun)');
+  }
+}
+
+void main() {
+  print('==================================================');
+  print('PROGRAM 6: DEMO KELAS PERSON (ENKAPSULASI)');
+  print('==================================================');
+
+  // Membuat objek Person
+  print('\n[1] Membuat objek Person:');
+  Person person1 = Person('Citra Dewi', 28);
+  person1.info();
+
+  // Demonstrasi Getter dan Setter
+  print('\n[2] Demonstrasi Getter & Setter:');
+  print('   Nama awal: ${person1.nama}');
+  print('   Umur awal: ${person1.umur}');
+  
+  person1.nama = 'Citra Lestari';
+  person1.umur = 29;
+  print('   Setelah diubah: ${person1.nama} (${person1.umur} tahun)');
+
+  print('\n[3] Demonstrasi Validasi:');
+  person1.nama = ''; // Gagal
+  person1.umur = 200; // Gagal
+
+  print('\nKesimpulan:');
+  print('- Field private tidak bisa diakses langsung dari luar kelas');
+  print('- Getter digunakan untuk membaca data dengan aman');
+  print('- Setter dengan validasi menjaga data tetap konsisten');
+  print('==================================================');
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 7: Produk -->
+            <div class="tab-pane" id="tab6">
+                <div class="description">
+                    <h2>📦 Kelas Produk - Validasi pada Setter</h2>
+                    <p>Merepresentasikan barang dengan atribut nama dan harga, menerapkan enkapsulasi dengan validasi ketat pada setter (nama minimal 3 karakter, harga > 0).</p>
+                </div>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <h3>produk.dart</h3>
+                        <span class="language">Dart</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><code>// Nama   : USMAN YAKIN TRIO SINADA
+// Nim    : 251410006
+// Kelas  : SI2A
+
+class Produk {
+  String _nama;
+  double _harga;
+
+  Produk(this._nama, this._harga);
+
+  // Getter
+  String get nama => _nama;
+  double get harga => _harga;
+
+  // Setter dengan validasi ketat
+  set nama(String value) {
+    if (value.length >= 3) {
+      _nama = value;
+      print('   ✅ Nama produk diubah menjadi "$value"');
+    } else {
+      print('   ❌ Gagal: Nama produk minimal 3 karakter! (Input: "$value")');
+    }
+  }
+
+  set harga(double value) {
+    if (value > 0) {
+      _harga = value;
+      print('   ✅ Harga produk diubah menjadi Rp ${value.toStringAsFixed(0)}');
+    } else {
+      print('   ❌ Gagal: Harga harus lebih besar dari 0! (Input: $value)');
+    }
+  }
+
+  void infoProduk() {
+    print('   📦 Nama : $_nama');
+    print('   💰 Harga: Rp ${_harga.toStringAsFixed(0)}');
+  }
+}
+
+void main() {
+  print('==================================================');
+  print('PROGRAM 7: DEMO KELAS PRODUK (VALIDASI)');
+  print('==================================================');
+
+  // Membuat objek Produk
+  print('\n[1] Membuat produk baru:');
+  Produk laptop = Produk('Laptop ASUS', 8500000);
+  laptop.infoProduk();
+
+  // Demonstrasi setter dengan validasi
+  print('\n[2] Mengubah data dengan Setter (Validasi):');
+  
+  print('\n   a. Mengubah nama dengan nilai valid:');
+  laptop.nama = 'Laptop ASUS ROG';
+  
+  print('\n   b. Mencoba mengubah nama dengan nilai tidak valid:');
+  laptop.nama = 'PC'; // Gagal
+  
+  print('\n   c. Mengubah harga dengan nilai valid:');
+  laptop.harga = 9500000;
+  
+  print('\n   d. Mencoba mengubah harga dengan nilai tidak valid:');
+  laptop.harga = -5000; // Gagal
+
+  print('\n[3] Data produk setelah perubahan:');
+  laptop.infoProduk();
+
+  print('\nKesimpulan:');
+  print('- Setter memungkinkan validasi data sebelum nilai diubah');
+  print('- Mencegah data tidak valid masuk ke dalam objek');
+  print('- Contoh validasi: panjang minimal nama, harga > 0');
+  print('==================================================');
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 8: User -->
+            <div class="tab-pane" id="tab7">
+                <div class="description">
+                    <h2>🔐 Kelas User - Sistem Login</h2>
+                    <p>Merepresentasikan akun dengan atribut username, password, dan email. Menerapkan enkapsulasi dengan metode login dan ganti password yang memiliki validasi berlapis.</p>
+                </div>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <h3>user.dart</h3>
+                        <span class="language">Dart</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><code>// Nama   : USMAN YAKIN TRIO SINADA
+// Nim    : 251410006
+// Kelas  : SI2A
+
+class User {
+  String _username;
+  String _password;
+  String _email;
+
+  User(this._username, this._password, this._email);
+
+  // Getter (password tidak disediakan getter)
+  String get username => _username;
+  String get email => _email;
+
+  // Method Login
+  bool login(String username, String password) {
+    print('\n   🔐 Percobaan Login: "$username"');
+    if (username == _username && password == _password) {
+      print('   ✅ Login BERHASIL! Selamat datang $_username.');
+      return true;
+    } else {
+      print('   ❌ Login GAGAL! Username atau password salah.');
+      return false;
+    }
+  }
+
+  // Method Ganti Password dengan validasi
+  void gantiPassword(String passwordLama, String passwordBaru) {
+    print('\n   🔑 Percobaan Ganti Password:');
+    
+    // Validasi password lama
+    if (passwordLama != _password) {
+      print('   ❌ Gagal: Password lama salah!');
+      return;
+    }
+    
+    // Validasi password baru
+    if (passwordBaru.length < 6) {
+      print('   ❌ Gagal: Password baru minimal 6 karakter!');
+      return;
+    }
+    
+    if (passwordBaru == _password) {
+      print('   ❌ Gagal: Password baru harus berbeda!');
+      return;
+    }
+    
+    _password = passwordBaru;
+    print('   ✅ Password BERHASIL diubah!');
+  }
+
+  void infoUser() {
+    print('   👤 Username: $_username');
+    print('   📧 Email   : $_email');
+    print('   🔒 Password: [PROTECTED]');
+  }
+}
+
+void main() {
+  print('==================================================');
+  print('PROGRAM 8: DEMO KELAS USER (LOGIN SYSTEM)');
+  print('==================================================');
+
+  // Membuat objek User
+  print('\n[1] Membuat user baru:');
+  User user1 = User('dini_putri', 'rahasia123', 'dini@email.com');
+  user1.infoUser();
+
+  // Demonstrasi Login
+  print('\n[2] DEMONSTRASI LOGIN:');
+  user1.login('dini_putri', 'rahasia123'); // Berhasil
+  user1.login('dini_putri', 'salah');      // Gagal
+
+  // Demonstrasi Ganti Password
+  print('\n[3] DEMONSTRASI GANTI PASSWORD:');
+  user1.gantiPassword('rahasia123', 'rahasia456'); // Berhasil
+  user1.login('dini_putri', 'rahasia456');         // Login dengan password baru
+
+  print('\nKesimpulan:');
+  print('- Password disembunyikan (tidak ada getter untuk password)');
+  print('- Method login memvalidasi kredensial sebelum akses');
+  print('- Ganti password memiliki validasi berlapis');
+  print('==================================================');
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 9: RekeningBank -->
+            <div class="tab-pane" id="tab8">
+                <div class="description">
+                    <h2>🏦 Kelas RekeningBank - Simulasi Transaksi</h2>
+                    <p>Merepresentasikan rekening dengan atribut nomor rekening dan saldo. Menerapkan enkapsul
