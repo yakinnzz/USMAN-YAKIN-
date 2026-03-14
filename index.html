@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IMPLEMENTASI CONSTRUCTOR & ENKAPSULASI - USMAN YAKIN</title>
+    <title>CONSTRUCTOR & ENKAPSULASI DART - USMAN YAKIN</title>
     <style>
         * {
             margin: 0;
@@ -13,21 +13,21 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f5f5;
+            background: #f0f2f5;
             color: #333;
             line-height: 1.6;
+            padding: 20px;
         }
 
         .container {
-            max-width: 1000px;
-            margin: 20px auto;
+            max-width: 1100px;
+            margin: 0 auto;
             background: white;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 15px;
             overflow: hidden;
         }
 
-        /* Header */
         .header {
             background: #2c3e50;
             color: white;
@@ -48,7 +48,7 @@
 
         .header .info {
             background: #34495e;
-            padding: 10px 20px;
+            padding: 10px 25px;
             border-radius: 30px;
             display: inline-block;
             font-size: 1.1em;
@@ -58,16 +58,15 @@
             color: #3498db;
         }
 
-        /* Konten Utama */
         .content {
             padding: 30px;
         }
 
-        /* Setiap materi */
+        /* Style untuk setiap materi */
         .materi {
             margin-bottom: 40px;
-            border-bottom: 2px solid #ecf0f1;
             padding-bottom: 30px;
+            border-bottom: 2px solid #ecf0f1;
         }
 
         .materi:last-child {
@@ -76,43 +75,60 @@
 
         .materi h2 {
             color: #2c3e50;
-            margin-bottom: 10px;
-            padding-bottom: 5px;
-            border-bottom: 3px solid #3498db;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 4px solid #3498db;
             display: inline-block;
         }
 
         .materi .deskripsi {
             background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
+            padding: 20px;
+            border-radius: 10px;
             margin: 15px 0;
-            border-left: 4px solid #3498db;
+            border-left: 5px solid #3498db;
         }
 
         .materi .deskripsi p {
-            margin: 5px 0;
+            margin: 8px 0;
             color: #555;
         }
 
-        /* Code container */
+        .materi .highlight {
+            background: #e8f4fd;
+            padding: 12px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-style: italic;
+            border: 1px dashed #3498db;
+        }
+
         .code-container {
             background: #1e1e1e;
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
             margin: 15px 0;
         }
 
         .code-header {
             background: #2d2d2d;
-            padding: 10px 15px;
+            padding: 12px 18px;
             color: #fff;
             font-weight: bold;
             border-bottom: 1px solid #404040;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .code-badge {
+            background: #3498db;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
         }
 
         .code-content {
-            padding: 15px;
+            padding: 20px;
             overflow-x: auto;
         }
 
@@ -125,445 +141,920 @@
             word-wrap: break-word;
         }
 
-        /* Warna syntax sederhana */
+        /* Syntax highlighting */
         .comment { color: #6a9955; }
         .keyword { color: #569cd6; }
         .string { color: #ce9178; }
         .type { color: #4ec9b0; }
 
-        /* Footer */
         .footer {
             background: #2c3e50;
             color: white;
             text-align: center;
             padding: 20px;
-            font-size: 0.9em;
-        }
-
-        .footer a {
-            color: #3498db;
-            text-decoration: none;
-        }
-
-        .footer a:hover {
-            text-decoration: underline;
-        }
-
-        /* Scroll halus */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Daftar isi ringan */
-        .daftar-isi {
-            background: #f8f9fa;
-            padding: 15px 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .daftar-isi a {
-            color: #3498db;
-            text-decoration: none;
-            padding: 5px 12px;
-            border: 1px solid #3498db;
-            border-radius: 20px;
-            font-size: 0.9em;
-        }
-
-        .daftar-isi a:hover {
-            background: #3498db;
-            color: white;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- HEADER -->
         <div class="header">
-            <h1>IMPLEMENTASI CONSTRUCTOR DAN ENKAPSULASI</h1>
-            <h3>PEMROGRAMAN DART - OBJECT ORIENTED PROGRAMMING</h3>
+            <h1>IMPLEMENTASI CONSTRUCTOR & ENKAPSULASI</h1>
+            <h3>PEMROGRAMAN DART - VERSI BERBEDA</h3>
             <div class="info">
                 <strong>USMAN YAKIN TRIO SINADA</strong> | NIM: 251410006 | Kelas: SI2A
             </div>
         </div>
 
-        <!-- CONTENT -->
         <div class="content">
-            <!-- DAFTAR ISI SEDERHANA -->
-            <div class="daftar-isi">
-                <a href="#buku">📚 Buku</a>
-                <a href="#mobil">🚗 Mobil</a>
-                <a href="#warna">🎨 Warna</a>
-                <a href="#titik">📐 Titik</a>
-                <a href="#mahasiswa">👨‍🎓 Mahasiswa</a>
-                <a href="#person">👤 Person</a>
-                <a href="#produk">📦 Produk</a>
-                <a href="#user">🔐 User</a>
-                <a href="#rekening">🏦 Rekening</a>
-            </div>
-
-            <!-- 1. BUKU -->
-            <div id="buku" class="materi">
-                <h2>📚 1. Kelas Buku - Constructor Dasar</h2>
+            <!-- MATERI 1: Constructor Dasar (Kelas Mahasiswa) -->
+            <div class="materi">
+                <h2>1️⃣ CONSTRUCTOR DASAR - Kelas Mahasiswa</h2>
                 <div class="deskripsi">
-                    <p>Mempresentasikan buku dengan atribut judul menggunakan <strong>parameterized constructor</strong> untuk inisialisasi objek.</p>
+                    <p><strong>🔍 Konsep:</strong> Constructor digunakan untuk menginisialisasi data saat objek dibuat. Berbeda dengan contoh buku, di sini kita pakai kelas Mahasiswa dengan cara inisialisasi yang berbeda.</p>
+                    <p><strong>💡 Perbedaan:</strong> Menggunakan <code>required</code> parameter dan default value.</p>
                 </div>
-                
+                <div class="highlight">
+                    📌 Constructor dasar adalah fondasi OOP - memastikan objek lahir dengan data yang valid.
+                </div>
                 <div class="code-container">
-                    <div class="code-header">📁 buku.dart</div>
-                    <div class="code-content">
-                        <pre><span class="comment">// Nama   : USMAN YAKIN TRIO SINADA</span>
-<span class="comment">// Nim    : 251410006</span>
-<span class="comment">// Kelas  : SI2A</span>
-
-<span class="keyword">class</span> <span class="type">Buku</span> {
-  <span class="type">String</span> judul;
-
-  <span class="comment">// Parameterized Constructor</span>
-  <span class="type">Buku</span>(<span class="keyword">this</span>.judul);
-}
-
-<span class="keyword">void</span> main() {
-  <span class="comment">// Membuat objek Buku</span>
-  <span class="type">Buku</span> buku1 = <span class="type">Buku</span>(<span class="string">"Pemrograman Dart untuk Pemula"</span>);
-  <span class="type">Buku</span> buku2 = <span class="type">Buku</span>(<span class="string">"Clean Code - Robert C. Martin"</span>);
-  
-  print(<span class="string">"Judul Buku 1: ${buku1.judul}"</span>);
-  print(<span class="string">"Judul Buku 2: ${buku2.judul}"</span>);
-}</pre>
+                    <div class="code-header">
+                        <span>📁 mahasiswa_baru.dart</span>
+                        <span class="code-badge">DART</span>
                     </div>
-                </div>
-            </div>
-
-            <!-- 2. MOBIL -->
-            <div id="mobil" class="materi">
-                <h2>🚗 2. Kelas Mobil - Named Constructor</h2>
-                <div class="deskripsi">
-                    <p>Memiliki <strong>parameterized constructor</strong>, <strong>named constructor</strong> baru() dan dariJson().</p>
-                </div>
-                
-                <div class="code-container">
-                    <div class="code-header">📁 mobil.dart</div>
                     <div class="code-content">
-                        <pre><span class="comment">// Nama   : USMAN YAKIN TRIO SINADA</span>
-<span class="comment">// Nim    : 251410006</span>
-
-<span class="keyword">class</span> <span class="type">Mobil</span> {
-  <span class="type">String</span>? merk;
-  <span class="type">int</span>? tahun;
-
-  <span class="comment">// Parameterized Constructor</span>
-  <span class="type">Mobil</span>(<span class="keyword">this</span>.merk, <span class="keyword">this</span>.tahun);
-
-  <span class="comment">// Named Constructor: Mobil Baru</span>
-  <span class="type">Mobil</span>.baru() {
-    merk = <span class="string">'Nissan Skyline GT-R R34'</span>;
-    tahun = 2002;
-  }
-
-  <span class="comment">// Named Constructor: dari JSON</span>
-  <span class="type">Mobil</span>.dariJson(<span class="type">Map</span>&lt;<span class="type">String</span>, <span class="type">dynamic</span>&gt; json) {
-    merk = json[<span class="string">'merk'</span>];
-    tahun = json[<span class="string">'tahun'</span>];
-  }
-}</pre>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 3. WARNA -->
-            <div id="warna" class="materi">
-                <h2>🎨 3. Kelas Warna - Constant Constructor</h2>
-                <div class="deskripsi">
-                    <p>Menggunakan <strong>constant constructor</strong> untuk membuat objek immutable (tidak bisa diubah).</p>
-                </div>
-                
-                <div class="code-container">
-                    <div class="code-header">📁 warna.dart</div>
-                    <div class="code-content">
-                        <pre><span class="comment">// Nama   : USMAN YAKIN TRIO SINADA</span>
-<span class="comment">// Nim    : 251410006</span>
-
-<span class="keyword">class</span> <span class="type">Warna</span> {
-  <span class="keyword">final</span> <span class="type">int</span> r, g, b;
-
-  <span class="comment">// Constant Constructor</span>
-  <span class="keyword">const</span> <span class="type">Warna</span>(<span class="keyword">this</span>.r, <span class="keyword">this</span>.g, <span class="keyword">this</span>.b);
-
-  <span class="meta">@override</span>
-  <span class="type">String</span> toString() {
-    <span class="keyword">return</span> <span class="string">'Warna(r: $r, g: $g, b: $b)'</span>;
-  }
-}
-
-<span class="keyword">void</span> main() {
-  <span class="keyword">const</span> warnaMerah = <span class="type">Warna</span>(255, 0, 0);
-  <span class="keyword">const</span> warnaHijau = <span class="type">Warna</span>(0, 255, 0);
-  
-  print(warnaMerah);  <span class="comment">// Output: Warna(r: 255, g: 0, b: 0)</span>
-  print(warnaHijau);   <span class="comment">// Output: Warna(r: 0, g: 255, b: 0)</span>
-}</pre>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 4. TITIK -->
-            <div id="titik" class="materi">
-                <h2>📐 4. Kelas Titik - Initializer List</h2>
-                <div class="deskripsi">
-                    <p>Menggunakan <strong>initializer list</strong> untuk memproses nilai sebelum objek dibuat.</p>
-                </div>
-                
-                <div class="code-container">
-                    <div class="code-header">📁 titik.dart</div>
-                    <div class="code-content">
-                        <pre><span class="comment">// Nama   : USMAN YAKIN TRIO SINADA</span>
-<span class="comment">// Nim    : 251410006</span>
-
-<span class="keyword">class</span> <span class="type">Titik</span> {
-  <span class="keyword">final</span> <span class="type">double</span> x, y;
-
-  <span class="comment">// Initializer list untuk memastikan koordinat bernilai absolut</span>
-  <span class="type">Titik</span>(<span class="type">double</span> x, <span class="type">double</span> y)
-      : x = x.<span class="type">abs</span>(),
-        y = y.<span class="type">abs</span>() {
-    print(<span class="string">'Titik (${this.x}, ${this.y}) berhasil dibuat.'</span>);
-  }
-}
-
-<span class="keyword">void</span> main() {
-  <span class="type">Titik</span> titik1 = <span class="type">Titik</span>(5.0, 7.0);   <span class="comment">// Positif</span>
-  <span class="type">Titik</span> titik2 = <span class="type">Titik</span>(-3.5, -8.0); <span class="comment">// Negatif akan jadi positif</span>
-}</pre>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 5. MAHASISWA -->
-            <div id="mahasiswa" class="materi">
-                <h2>👨‍🎓 5. Kelas Mahasiswa - Named Constructor</h2>
-                <div class="deskripsi">
-                    <p>Memiliki <strong>default constructor</strong> dan <strong>named constructor</strong> dariMap() serta tanpaNama().</p>
-                </div>
-                
-                <div class="code-container">
-                    <div class="code-header">📁 mahasiswa.dart</div>
-                    <div class="code-content">
-                        <pre><span class="comment">// Nama   : USMAN YAKIN TRIO SINADA</span>
-<span class="comment">// Nim    : 251410006</span>
-
-<span class="keyword">class</span> <span class="type">Mahasiswa</span> {
+                        <pre><span class="keyword">class</span> <span class="type">Mahasiswa</span> {
   <span class="type">String</span> nama;
   <span class="type">String</span> nim;
-  <span class="type">String</span> jurusan;
-  <span class="type">String</span> kelas;
+  <span class="type">int</span> angkatan;
+  <span class="type">String</span> prodi;
+  
+  <span class="comment">// Constructor dengan named parameter dan default value</span>
+  <span class="type">Mahasiswa</span>({
+    <span class="keyword">required</span> <span class="keyword">this</span>.nama,
+    <span class="keyword">required</span> <span class="keyword">this</span>.nim,
+    <span class="keyword">this</span>.angkatan = 2024,
+    <span class="keyword">this</span>.prodi = <span class="string">'Sistem Informasi'</span>,
+  });
+  
+  <span class="keyword">void</span> display() {
+    print(<span class="string">'Nama: $nama'</span>);
+    print(<span class="string">'NIM: $nim'</span>);
+    print(<span class="string">'Prodi: $prodi'</span>);
+    print(<span class="string">'Angkatan: $angkatan'</span>);
+  }
+}
 
-  <span class="comment">// Default Constructor</span>
-  <span class="type">Mahasiswa</span>(<span class="keyword">this</span>.nama, <span class="keyword">this</span>.nim, <span class="keyword">this</span>.jurusan, <span class="keyword">this</span>.kelas);
-
-  <span class="comment">// Named Constructor: dari Map</span>
-  <span class="type">Mahasiswa</span>.dariMap(<span class="type">Map</span>&lt;<span class="type">String</span>, <span class="type">String</span>&gt; data)
-      : nama = data[<span class="string">'nama'</span>]!,
-        nim = data[<span class="string">'nim'</span>]!,
-        jurusan = data[<span class="string">'jurusan'</span>]!,
-        kelas = data[<span class="string">'kelas'</span>]!;
-
-  <span class="comment">// Named Constructor: Tanpa Nama (Anonim)</span>
-  <span class="type">Mahasiswa</span>.tanpaNama(<span class="keyword">this</span>.nim, <span class="keyword">this</span>.jurusan, <span class="keyword">this</span>.kelas) : nama = <span class="string">'*** ANONIM ***'</span>;
+<span class="keyword">void</span> main() {
+  <span class="comment">// Cara inisialisasi berbeda</span>
+  <span class="keyword">var</span> mhs1 = <span class="type">Mahasiswa</span>(
+    nama: <span class="string">'Budi Santoso'</span>,
+    nim: <span class="string">'251410045'</span>
+  );
+  
+  <span class="keyword">var</span> mhs2 = <span class="type">Mahasiswa</span>(
+    nama: <span class="string">'Ani Wijaya'</span>,
+    nim: <span class="string">'251410046'</span>,
+    prodi: <span class="string">'Teknik Informatika'</span>,
+    angkatan: 2023
+  );
+  
+  mhs1.display();
+  print(<span class="string">'---'</span>);
+  mhs2.display();
 }</pre>
                     </div>
                 </div>
             </div>
 
-            <!-- 6. PERSON -->
-            <div id="person" class="materi">
-                <h2>👤 6. Kelas Person - Enkapsulasi Dasar</h2>
+            <!-- MATERI 2: Named Constructor (Kelas Pegawai) -->
+            <div class="materi">
+                <h2>2️⃣ NAMED CONSTRUCTOR - Kelas Pegawai</h2>
                 <div class="deskripsi">
-                    <p>Menerapkan <strong>enkapsulasi</strong> dengan getter dan setter untuk atribut private.</p>
+                    <p><strong>🔍 Konsep:</strong> Named constructor memberikan cara alternatif untuk membuat objek dengan konteks berbeda. Di sini kita buat untuk pegawai tetap, kontrak, dan magang.</p>
+                    <p><strong>💡 Perbedaan:</strong> Menggunakan named constructor untuk role yang berbeda dalam perusahaan.</p>
                 </div>
-                
+                <div class="highlight">
+                    📌 Named constructor seperti "jalur khusus" pembuatan objek - memudahkan pembacaan kode.
+                </div>
                 <div class="code-container">
-                    <div class="code-header">📁 person.dart</div>
+                    <div class="code-header">
+                        <span>📁 pegawai.dart</span>
+                        <span class="code-badge">DART</span>
+                    </div>
                     <div class="code-content">
-                        <pre><span class="comment">// Nama   : USMAN YAKIN TRIO SINADA</span>
-<span class="comment">// Nim    : 251410006</span>
-
-<span class="keyword">class</span> <span class="type">Person</span> {
-  <span class="type">String</span> <span class="keyword">_nama</span>; <span class="comment">// Private field</span>
-  <span class="type">int</span> <span class="keyword">_umur</span>;    <span class="comment">// Private field</span>
-
-  <span class="type">Person</span>(<span class="keyword">this</span>._nama, <span class="keyword">this</span>._umur);
-
-  <span class="comment">// Getter</span>
-  <span class="type">String</span> <span class="keyword">get</span> nama => _nama;
-  <span class="type">int</span> <span class="keyword">get</span> umur => _umur;
-
-  <span class="comment">// Setter dengan validasi</span>
-  <span class="keyword">set</span> nama(<span class="type">String</span> namaBaru) {
-    <span class="keyword">if</span> (namaBaru.isNotEmpty) {
-      _nama = namaBaru;
+                        <pre><span class="keyword">class</span> <span class="type">Pegawai</span> {
+  <span class="type">String</span> nama;
+  <span class="type">String</span> id;
+  <span class="type">double</span> gajiPokok;
+  <span class="type">String</span> status;
+  
+  <span class="comment">// Constructor utama (private)</span>
+  <span class="type">Pegawai</span>._(<span class="keyword">this</span>.nama, <span class="keyword">this</span>.id, <span class="keyword">this</span>.gajiPokok, <span class="keyword">this</span>.status);
+  
+  <span class="comment">// Named constructor untuk pegawai tetap</span>
+  <span class="keyword">factory</span> <span class="type">Pegawai</span>.tetap(<span class="type">String</span> nama, <span class="type">String</span> id, <span class="type">double</span> gaji) {
+    <span class="keyword">return</span> <span class="type">Pegawai</span>._(nama, id, gaji, <span class="string">'Tetap'</span>);
+  }
+  
+  <span class="comment">// Named constructor untuk pegawai kontrak</span>
+  <span class="keyword">factory</span> <span class="type">Pegawai</span>.kontrak(<span class="type">String</span> nama, <span class="type">String</span> id) {
+    <span class="keyword">return</span> <span class="type">Pegawai</span>._(nama, id, 3500000, <span class="string">'Kontrak'</span>);
+  }
+  
+  <span class="comment">// Named constructor untuk magang</span>
+  <span class="keyword">factory</span> <span class="type">Pegawai</span>.magang(<span class="type">String</span> nama) {
+    <span class="keyword">return</span> <span class="type">Pegawai</span>._(nama, <span class="string">'MAG-${DateTime.now().year}'</span>, 1500000, <span class="string">'Magang'</span>);
+  }
+  
+  <span class="type">double</span> get tunjangan {
+    <span class="keyword">switch</span> (status) {
+      <span class="keyword">case</span> <span class="string">'Tetap'</span>: <span class="keyword">return</span> gajiPokok * 0.2;
+      <span class="keyword">case</span> <span class="string">'Kontrak'</span>: <span class="keyword">return</span> gajiPokok * 0.1;
+      <span class="keyword">default</span>: <span class="keyword">return</span> 0;
     }
   }
-
-  <span class="keyword">set</span> umur(<span class="type">int</span> umurBaru) {
-    <span class="keyword">if</span> (umurBaru > 0 && umurBaru < 150) {
-      _umur = umurBaru;
-    }
+  
+  <span class="type">double</span> get totalGaji => gajiPokok + tunjangan;
+  
+  <span class="keyword">void</span> info() {
+    print(<span class="string">'$nama ($status) - ID: $id'</span>);
+    print(<span class="string">'Gaji: Rp${totalGaji.toStringAsFixed(0)}'</span>);
   }
+}
+
+<span class="keyword">void</span> main() {
+  <span class="keyword">var</span> pegawai1 = <span class="type">Pegawai</span>.tetap(<span class="string">'Budi'</span>, <span class="string">'P001'</span>, 7000000);
+  <span class="keyword">var</span> pegawai2 = <span class="type">Pegawai</span>.kontrak(<span class="string">'Ani'</span>, <span class="string">'K001'</span>);
+  <span class="keyword">var</span> pegawai3 = <span class="type">Pegawai</span>.magang(<span class="string">'Cici'</span>);
+  
+  pegawai1.info();
+  pegawai2.info();
+  pegawai3.info();
 }</pre>
                     </div>
                 </div>
             </div>
 
-            <!-- 7. PRODUK -->
-            <div id="produk" class="materi">
-                <h2>📦 7. Kelas Produk - Validasi pada Setter</h2>
+            <!-- MATERI 3: Constant Constructor (Kelas Konfigurasi) -->
+            <div class="materi">
+                <h2>3️⃣ CONSTANT CONSTRUCTOR - Kelas Konfigurasi</h2>
                 <div class="deskripsi">
-                    <p>Menerapkan <strong>validasi</strong> pada setter (nama minimal 3 karakter, harga > 0).</p>
+                    <p><strong>🔍 Konsep:</strong> Constant constructor membuat objek yang tidak berubah (immutable) dan dioptimasi memory. Cocok untuk konfigurasi aplikasi.</p>
+                    <p><strong>💡 Perbedaan:</strong> Menggunakan untuk konfigurasi tema aplikasi, bukan warna RGB sederhana.</p>
                 </div>
-                
+                <div class="highlight">
+                    📌 Objek const akan menggunakan memory yang sama jika nilainya identik (canonicalization).
+                </div>
                 <div class="code-container">
-                    <div class="code-header">📁 produk.dart</div>
+                    <div class="code-header">
+                        <span>📁 konfigurasi.dart</span>
+                        <span class="code-badge">DART</span>
+                    </div>
                     <div class="code-content">
-                        <pre><span class="comment">// Nama   : USMAN YAKIN TRIO SINADA</span>
-<span class="comment">// Nim    : 251410006</span>
+                        <pre><span class="keyword">class</span> <span class="type">KonfigurasiAplikasi</span> {
+  <span class="keyword">final</span> <span class="type">String</span> namaAplikasi;
+  <span class="keyword">final</span> <span class="type">String</span> versi;
+  <span class="keyword">final</span> <span class="type">Map</span>&lt;<span class="type">String</span>, <span class="type">String</span>&gt; tema;
+  
+  <span class="keyword">const</span> <span class="type">KonfigurasiAplikasi</span>({
+    <span class="keyword">required</span> <span class="keyword">this</span>.namaAplikasi,
+    <span class="keyword">required</span> <span class="keyword">this</span>.versi,
+    <span class="keyword">required</span> <span class="keyword">this</span>.tema,
+  });
+  
+  <span class="comment">// Konfigurasi default sebagai const</span>
+  <span class="keyword">static</span> <span class="keyword">const</span> <span class="type">KonfigurasiAplikasi</span> defaultConfig = <span class="type">KonfigurasiAplikasi</span>(
+    namaAplikasi: <span class="string">'MyApp'</span>,
+    versi: <span class="string">'1.0.0'</span>,
+    tema: {
+      <span class="string">'primary'</span>: <span class="string">'#3498db'</span>,
+      <span class="string">'secondary'</span>: <span class="string">'#2ecc71'</span>,
+      <span class="string">'background'</span>: <span class="string">'#ffffff'</span>,
+    },
+  );
+  
+  <span class="keyword">static</span> <span class="keyword">const</span> <span class="type">KonfigurasiAplikasi</span> darkConfig = <span class="type">KonfigurasiAplikasi</span>(
+    namaAplikasi: <span class="string">'MyApp'</span>,
+    versi: <span class="string">'1.0.0'</span>,
+    tema: {
+      <span class="string">'primary'</span>: <span class="string">'#9b59b6'</span>,
+      <span class="string">'secondary'</span>: <span class="string">'#e74c3c'</span>,
+      <span class="string">'background'</span>: <span class="string">'#2c3e50'</span>,
+    },
+  );
+}
 
-<span class="keyword">class</span> <span class="type">Produk</span> {
-  <span class="type">String</span> <span class="keyword">_nama</span>;
-  <span class="type">double</span> <span class="keyword">_harga</span>;
+<span class="keyword">class</span> <span class="type">Ukuran</span> {
+  <span class="keyword">final</span> <span class="type">double</span> lebar;
+  <span class="keyword">final</span> <span class="type">double</span> tinggi;
+  
+  <span class="keyword">const</span> <span class="type">Ukuran</span>(<span class="keyword">this</span>.lebar, <span class="keyword">this</span>.tinggi);
+  
+  <span class="type">double</span> get luas => lebar * tinggi;
+}
 
-  <span class="type">Produk</span>(<span class="keyword">this</span>._nama, <span class="keyword">this</span>._harga);
-
-  <span class="comment">// Getter</span>
-  <span class="type">String</span> <span class="keyword">get</span> nama => _nama;
-  <span class="type">double</span> <span class="keyword">get</span> harga => _harga;
-
-  <span class="comment">// Setter dengan validasi</span>
-  <span class="keyword">set</span> nama(<span class="type">String</span> value) {
-    <span class="keyword">if</span> (value.length >= 3) {
-      _nama = value;
-    }
-  }
-
-  <span class="keyword">set</span> harga(<span class="type">double</span> value) {
-    <span class="keyword">if</span> (value > 0) {
-      _harga = value;
-    }
-  }
+<span class="keyword">void</span> main() {
+  <span class="comment">// Const objects - memory sama</span>
+  <span class="keyword">const</span> config1 = <span class="type">KonfigurasiAplikasi</span>.defaultConfig;
+  <span class="keyword">const</span> config2 = <span class="type">KonfigurasiAplikasi</span>.defaultConfig;
+  
+  print(<span class="string">'Apakah config1 dan config2 objek sama? ${identical(config1, config2)}'</span>);
+  print(<span class="string">'Aplikasi: ${config1.namaAplikasi} v${config1.versi}'</span>);
+  print(<span class="string">'Tema primary: ${config1.tema['primary']}'</span>);
+  
+  <span class="keyword">const</span> ukuran1 = <span class="type">Ukuran</span>(100, 200);
+  <span class="keyword">const</span> ukuran2 = <span class="type">Ukuran</span>(100, 200);
+  print(<span class="string">'Ukuran luas: ${ukuran1.luas}'</span>);
+  print(<span class="string">'Ukuran1 == Ukuran2? ${identical(ukuran1, ukuran2)}'</span>);
 }</pre>
                     </div>
                 </div>
             </div>
 
-            <!-- 8. USER -->
-            <div id="user" class="materi">
-                <h2>🔐 8. Kelas User - Sistem Login</h2>
+            <!-- MATERI 4: Initializer List (Kelas Lingkaran) -->
+            <div class="materi">
+                <h2>4️⃣ INITIALIZER LIST - Kelas Lingkaran</h2>
                 <div class="deskripsi">
-                    <p>Enkapsulasi dengan metode <strong>login</strong> dan <strong>ganti password</strong>.</p>
+                    <p><strong>🔍 Konsep:</strong> Initializer list memungkinkan validasi atau manipulasi nilai sebelum constructor body dieksekusi. Berbeda dengan contoh titik, kita gunakan untuk lingkaran.</p>
+                    <p><strong>💡 Perbedaan:</strong> Validasi jari-jari tidak boleh negatif, hitung diameter otomatis.</p>
                 </div>
-                
+                <div class="highlight">
+                    📌 Initializer list dieksekusi sebelum constructor body - cocok untuk validasi awal.
+                </div>
                 <div class="code-container">
-                    <div class="code-header">📁 user.dart</div>
+                    <div class="code-header">
+                        <span>📁 lingkaran.dart</span>
+                        <span class="code-badge">DART</span>
+                    </div>
                     <div class="code-content">
-                        <pre><span class="comment">// Nama   : USMAN YAKIN TRIO SINADA</span>
-<span class="comment">// Nim    : 251410006</span>
-
-<span class="keyword">class</span> <span class="type">User</span> {
-  <span class="type">String</span> <span class="keyword">_username</span>;
-  <span class="type">String</span> <span class="keyword">_password</span>;
-  <span class="type">String</span> <span class="keyword">_email</span>;
-
-  <span class="type">User</span>(<span class="keyword">this</span>._username, <span class="keyword">this</span>._password, <span class="keyword">this</span>._email);
-
-  <span class="comment">// Getter (password tidak disediakan)</span>
-  <span class="type">String</span> <span class="keyword">get</span> username => _username;
-  <span class="type">String</span> <span class="keyword">get</span> email => _email;
-
-  <span class="comment">// Method Login</span>
-  <span class="type">bool</span> login(<span class="type">String</span> username, <span class="type">String</span> password) {
-    <span class="keyword">return</span> username == _username && password == _password;
-  }
-
-  <span class="comment">// Method Ganti Password</span>
-  <span class="keyword">void</span> gantiPassword(<span class="type">String</span> passwordLama, <span class="type">String</span> passwordBaru) {
-    <span class="keyword">if</span> (passwordLama == _password && passwordBaru.length >= 6) {
-      _password = passwordBaru;
+                        <pre><span class="keyword">class</span> <span class="type">Lingkaran</span> {
+  <span class="keyword">final</span> <span class="type">double</span> jariJari;
+  <span class="keyword">final</span> <span class="type">double</span> diameter;
+  
+  <span class="comment">// Initializer list dengan validasi</span>
+  <span class="type">Lingkaran</span>(<span class="type">double</span> r)
+      : jariJari = r.<span class="type">abs</span>(),  <span class="comment">// Pastikan positif</span>
+        diameter = r.<span class="type">abs</span>() * 2 {
+    <span class="comment">// Validasi tambahan di body</span>
+    <span class="keyword">if</span> (jariJari == 0) {
+      print(<span class="string">'⚠️ Peringatan: Lingkaran dengan jari-jari 0'</span>);
     }
   }
+  
+  <span class="comment">// Named constructor dengan initializer list berbeda</span>
+  <span class="type">Lingkaran</span>.dariDiameter(<span class="type">double</span> d)
+      : jariJari = d / 2,
+        diameter = d.<span class="type">abs</span>() {
+    print(<span class="string">'Lingkaran dibuat dari diameter $d'</span>);
+  }
+  
+  <span class="type">double</span> get luas => 3.14159 * jariJari * jariJari;
+  <span class="type">double</span> get keliling => 2 * 3.14159 * jariJari;
+}
+
+<span class="keyword">class</span> <span class="type">Tabung</span> {
+  <span class="keyword">final</span> <span class="type">Lingkaran</span> alas;
+  <span class="keyword">final</span> <span class="type">double</span> tinggi;
+  
+  <span class="comment">// Initializer list dengan komputasi</span>
+  <span class="type">Tabung</span>(<span class="type">double</span> r, <span class="keyword">this</span>.tinggi)
+      : alas = <span class="type">Lingkaran</span>(r) {
+    print(<span class="string">'Tabung dibuat'</span>);
+  }
+  
+  <span class="type">double</span> get volume => alas.luas * tinggi;
+  <span class="type">double</span> get luasPermukaan => 2 * alas.luas + alas.keliling * tinggi;
+}
+
+<span class="keyword">void</span> main() {
+  <span class="keyword">var</span> lingkaran1 = <span class="type">Lingkaran</span>(7);
+  print(<span class="string">'Jari-jari: ${lingkaran1.jariJari}'</span>);
+  print(<span class="string">'Diameter: ${lingkaran1.diameter}'</span>);
+  print(<span class="string">'Luas: ${lingkaran1.luas.toStringAsFixed(2)}'</span>);
+  
+  <span class="keyword">var</span> lingkaran2 = <span class="type">Lingkaran</span>.dariDiameter(14);
+  print(<span class="string">'Jari-jari dari diameter: ${lingkaran2.jariJari}'</span>);
+  
+  <span class="keyword">var</span> tabung = <span class="type">Tabung</span>(7, 10);
+  print(<span class="string">'Volume tabung: ${tabung.volume.toStringAsFixed(2)}'</span>);
+  print(<span class="string">'Luas permukaan: ${tabung.luasPermukaan.toStringAsFixed(2)}'</span>);
 }</pre>
                     </div>
                 </div>
             </div>
 
-            <!-- 9. REKENING BANK -->
-            <div id="rekening" class="materi">
-                <h2>🏦 9. Kelas RekeningBank - Simulasi Transaksi</h2>
+            <!-- MATERI 5: Named Constructor Multi-purpose (Kelas Transaksi) -->
+            <div class="materi">
+                <h2>5️⃣ NAMED CONSTRUCTOR LANJUTAN - Kelas Transaksi</h2>
                 <div class="deskripsi">
-                    <p>Enkapsulasi dengan metode <strong>deposit</strong>, <strong>tarik tunai</strong>, dan <strong>transfer</strong>.</p>
+                    <p><strong>🔍 Konsep:</strong> Named constructor bisa digunakan untuk berbagai skenario pembuatan objek. Di sini untuk transaksi dengan berbagai sumber (tunai, transfer, kartu kredit).</p>
+                    <p><strong>💡 Perbedaan:</strong> Fokus pada konteks bisnis yang berbeda, bukan hanya data mahasiswa.</p>
                 </div>
-                
+                <div class="highlight">
+                    📌 Named constructor membuat kode lebih ekspresif dan mudah dipahami konteksnya.
+                </div>
                 <div class="code-container">
-                    <div class="code-header">📁 rekening_bank.dart</div>
+                    <div class="code-header">
+                        <span>📁 transaksi.dart</span>
+                        <span class="code-badge">DART</span>
+                    </div>
                     <div class="code-content">
-                        <pre><span class="comment">// Nama   : USMAN YAKIN TRIO SINADA</span>
-<span class="comment">// Nim    : 251410006</span>
+                        <pre><span class="keyword">class</span> <span class="type">Transaksi</span> {
+  <span class="keyword">final</span> <span class="type">String</span> id;
+  <span class="keyword">final</span> <span class="type">DateTime</span> waktu;
+  <span class="keyword">final</span> <span class="type">double</span> jumlah;
+  <span class="keyword">final</span> <span class="type">String</span> jenis;
+  <span class="keyword">final</span> <span class="type">Map</span>&lt;<span class="type">String</span>, <span class="type">dynamic</span>&gt; metadata;
+  
+  <span class="comment">// Private constructor utama</span>
+  <span class="type">Transaksi</span>._({
+    <span class="keyword">required</span> <span class="keyword">this</span>.id,
+    <span class="keyword">required</span> <span class="keyword">this</span>.waktu,
+    <span class="keyword">required</span> <span class="keyword">this</span>.jumlah,
+    <span class="keyword">required</span> <span class="keyword">this</span>.jenis,
+    <span class="keyword">required</span> <span class="keyword">this</span>.metadata,
+  });
+  
+  <span class="comment">// Transaksi tunai</span>
+  <span class="keyword">factory</span> <span class="type">Transaksi</span>.tunai(<span class="type">double</span> jumlah, <span class="type">String</span> kasir) {
+    <span class="keyword">return</span> <span class="type">Transaksi</span>._(
+      id: <span class="string">'CASH-${DateTime.now().millisecondsSinceEpoch}'</span>,
+      waktu: DateTime.now(),
+      jumlah: jumlah,
+      jenis: <span class="string">'TUNAI'</span>,
+      metadata: {<span class="string">'kasir'</span>: kasir},
+    );
+  }
+  
+  <span class="comment">// Transaksi transfer bank</span>
+  <span class="keyword">factory</span> <span class="type">Transaksi</span>.transfer({
+    <span class="keyword">required</span> <span class="type">double</span> jumlah,
+    <span class="keyword">required</span> <span class="type">String</span> dariRekening,
+    <span class="keyword">required</span> <span class="type">String</span> keRekening,
+  }) {
+    <span class="keyword">return</span> <span class="type">Transaksi</span>._(
+      id: <span class="string">'TRF-${DateTime.now().millisecondsSinceEpoch}'</span>,
+      waktu: DateTime.now(),
+      jumlah: jumlah,
+      jenis: <span class="string">'TRANSFER'</span>,
+      metadata: {
+        <span class="string">'dari'</span>: dariRekening,
+        <span class="string">'ke'</span>: keRekening,
+      },
+    );
+  }
+  
+  <span class="comment">// Transaksi kartu kredit</span>
+  <span class="keyword">factory</span> <span class="type">Transaksi</span>.kartuKredit({
+    <span class="keyword">required</span> <span class="type">double</span> jumlah,
+    <span class="keyword">required</span> <span class="type">String</span> nomorKartu,
+    <span class="keyword">required</span> <span class="type">int</span> cicilan,
+  }) {
+    <span class="keyword">return</span> <span class="type">Transaksi</span>._(
+      id: <span class="string">'CC-${DateTime.now().millisecondsSinceEpoch}'</span>,
+      waktu: DateTime.now(),
+      jumlah: jumlah,
+      jenis: <span class="string">'KARTU_KREDIT'</span>,
+      metadata: {
+        <span class="string">'nomorKartu'</span>: nomorKartu.substring(nomorKartu.length - 4),
+        <span class="string">'cicilan'</span>: cicilan,
+        <span class="string">'perBulan'</span>: jumlah / cicilan,
+      },
+    );
+  }
+  
+  <span class="keyword">void</span> info() {
+    print(<span class="string">'ID: $id'</span>);
+    print(<span class="string">'Jenis: $jenis'</span>);
+    print(<span class="string">'Jumlah: Rp${jumlah.toStringAsFixed(0)}'</span>);
+    print(<span class="string">'Waktu: $waktu'</span>);
+    print(<span class="string">'Metadata: $metadata'</span>);
+  }
+}
 
-<span class="keyword">class</span> <span class="type">RekeningBank</span> {
+<span class="keyword">void</span> main() {
+  <span class="keyword">var</span> t1 = <span class="type">Transaksi</span>.tunai(150000, <span class="string">'Budi'</span>);
+  <span class="keyword">var</span> t2 = <span class="type">Transaksi</span>.transfer(
+    jumlah: 500000,
+    dariRekening: <span class="string">'123-456'</span>,
+    keRekening: <span class="string">'789-012'</span>,
+  );
+  <span class="keyword">var</span> t3 = <span class="type">Transaksi</span>.kartuKredit(
+    jumlah: 3000000,
+    nomorKartu: <span class="string">'1234-5678-9012-3456'</span>,
+    cicilan: 3,
+  );
+  
+  t1.info();
+  print(<span class="string">'---'</span>);
+  t2.info();
+  print(<span class="string">'---'</span>);
+  t3.info();
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MATERI 6: Enkapsulasi dengan Getter/Setter (Kelas AkunBank) -->
+            <div class="materi">
+                <h2>6️⃣ ENKAPSULASI - Kelas AkunBank</h2>
+                <div class="deskripsi">
+                    <p><strong>🔍 Konsep:</strong> Enkapsulasi menyembunyikan data internal dan menyediakan akses melalui method. Berbeda dengan contoh Person, di sini kita buat untuk akun bank dengan fitur lebih lengkap.</p>
+                    <p><strong>💡 Perbedaan:</strong> Ada history transaksi, limit harian, dan validasi berlapis.</p>
+                </div>
+                <div class="highlight">
+                    📌 Enkapsulasi seperti teller bank - kamu bisa lihat saldo, tapi tidak bisa langsung mengubahnya.
+                </div>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>📁 akun_bank.dart</span>
+                        <span class="code-badge">DART</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><span class="keyword">class</span> <span class="type">AkunBank</span> {
   <span class="type">String</span> <span class="keyword">_nomorRekening</span>;
+  <span class="type">String</span> <span class="keyword">_namaPemilik</span>;
   <span class="type">double</span> <span class="keyword">_saldo</span>;
-
-  <span class="type">RekeningBank</span>(<span class="keyword">this</span>._nomorRekening, <span class="keyword">this</span>._saldo);
-
-  <span class="comment">// Getter</span>
+  <span class="type">double</span> <span class="keyword">_limitHarian</span> = 10000000;
+  <span class="type">List</span>&lt;<span class="type">Map</span>&lt;<span class="type">String</span>, <span class="type">dynamic</span>&gt;&gt; <span class="keyword">_history</span> = [];
+  
+  <span class="type">AkunBank</span>(<span class="keyword">this</span>._nomorRekening, <span class="keyword">this</span>._namaPemilik, <span class="keyword">this</span>._saldo);
+  
+  <span class="comment">// Getter dengan format</span>
   <span class="type">String</span> <span class="keyword">get</span> nomorRekening => _nomorRekening;
+  <span class="type">String</span> <span class="keyword">get</span> namaPemilik => _namaPemilik;
+  <span class="type">String</span> <span class="keyword">get</span> saldoTerformat => <span class="string">'Rp ${_saldo.toStringAsFixed(0)}'</span>;
   <span class="type">double</span> <span class="keyword">get</span> saldo => _saldo;
-
-  <span class="comment">// Method Deposit</span>
-  <span class="keyword">void</span> deposit(<span class="type">double</span> jumlah) {
-    <span class="keyword">if</span> (jumlah > 0) {
-      _saldo += jumlah;
+  
+  <span class="comment">// Getter untuk history (read-only)</span>
+  <span class="type">List</span>&lt;<span class="type">Map</span>&lt;<span class="type">String</span>, <span class="type">dynamic</span>&gt;&gt; <span class="keyword">get</span> history => 
+      <span class="type">List</span>.unmodifiable(_history);
+  
+  <span class="comment">// Setter dengan validasi</span>
+  <span class="keyword">set</span> limitHarian(<span class="type">double</span> limit) {
+    <span class="keyword">if</span> (limit > 0 && limit <= 50000000) {
+      _limitHarian = limit;
     }
   }
+  
+  <span class="comment">// Method bisnis</span>
+  <span class="type">bool</span> deposit(<span class="type">double</span> jumlah) {
+    <span class="keyword">if</span> (jumlah <= 0) <span class="keyword">return</span> <span class="keyword">false</span>;
+    
+    _saldo += jumlah;
+    _history.add({
+      <span class="string">'waktu'</span>:
 
-  <span class="comment">// Method Tarik Tunai</span>
-  <span class="keyword">void</span> tarik(<span class="type">double</span> jumlah) {
-    <span class="keyword">if</span> (jumlah > 0 && _saldo >= jumlah) {
-      _saldo -= jumlah;
+        <!-- MATERI 6: IMMUTABLE CLASS (LANJUTAN) -->
+            <div id="materi6" class="materi">
+                <h2>6️⃣ IMMUTABLE CLASS (CONST CONSTRUCTOR) <span class="lanjutan-badge">LANJUTAN</span></h2>
+                <div class="deskripsi">
+                    <p><strong>Pengertian:</strong> Kelas yang objeknya tidak bisa diubah setelah dibuat. Semua field harus <code>final</code> dan menggunakan <code>const</code> constructor.</p>
+                    <p><strong>Kegunaan:</strong> Value objects, data transfer objects, konfigurasi.</p>
+                </div>
+                <div class="highlight">
+                    💡 <strong>Keuntungan:</strong> Thread-safe, mudah di-test, predictable, dan bisa di-cache.
+                </div>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>📁 immutable_class.dart</span>
+                        <span class="code-badge">DART</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><span class="keyword">class</span> <span class="type">Point</span> {
+  <span class="keyword">final</span> <span class="type">int</span> x;
+  <span class="keyword">final</span> <span class="type">int</span> y;
+  
+  <span class="comment">// Const constructor</span>
+  <span class="keyword">const</span> <span class="type">Point</span>(<span class="keyword">this</span>.x, <span class="keyword">this</span>.y);
+  
+  <span class="comment">// Method mengembalikan objek baru, bukan mengubah yang lama</span>
+  <span class="type">Point</span> translate(<span class="type">int</span> dx, <span class="type">int</span> dy) {
+    <span class="keyword">return</span> <span class="type">Point</span>(x + dx, y + dy);
+  }
+  
+  <span class="meta">@override</span>
+  <span class="type">bool</span> operator ==(<span class="type">Object</span> other) {
+    <span class="keyword">return</span> other <span class="keyword">is</span> <span class="type">Point</span> && other.x == x && other.y == y;
+  }
+  
+  <span class="meta">@override</span>
+  <span class="type">int</span> <span class="keyword">get</span> hashCode => x.hashCode ^ y.hashCode;
+  
+  <span class="meta">@override</span>
+  <span class="type">String</span> toString() => <span class="string">'Point($x, $y)'</span>;
+}
+
+<span class="keyword">class</span> <span class="type">Alamat</span> {
+  <span class="keyword">final</span> <span class="type">String</span> jalan;
+  <span class="keyword">final</span> <span class="type">String</span> kota;
+  <span class="keyword">final</span> <span class="type">String</span> kodePos;
+  
+  <span class="keyword">const</span> <span class="type">Alamat</span>(<span class="keyword">this</span>.jalan, <span class="keyword">this</span>.kota, <span class="keyword">this</span>.kodePos);
+  
+  <span class="type">Alamat</span> copyWith({<span class="type">String</span>? jalan, <span class="type">String</span>? kota, <span class="type">String</span>? kodePos}) {
+    <span class="keyword">return</span> <span class="type">Alamat</span>(
+      jalan ?? <span class="keyword">this</span>.jalan,
+      kota ?? <span class="keyword">this</span>.kota,
+      kodePos ?? <span class="keyword">this</span>.kodePos,
+    );
+  }
+}
+
+<span class="keyword">class</span> <span class="type">PenggunaImmutable</span> {
+  <span class="keyword">final</span> <span class="type">String</span> id;
+  <span class="keyword">final</span> <span class="type">String</span> nama;
+  <span class="keyword">final</span> <span class="type">int</span> umur;
+  <span class="keyword">final</span> <span class="type">Alamat</span> alamat;
+  
+  <span class="keyword">const</span> <span class="type">PenggunaImmutable</span>({
+    <span class="keyword">required</span> <span class="keyword">this</span>.id,
+    <span class="keyword">required</span> <span class="keyword">this</span>.nama,
+    <span class="keyword">required</span> <span class="keyword">this</span>.umur,
+    <span class="keyword">required</span> <span class="keyword">this</span>.alamat,
+  });
+  
+  <span class="type">PenggunaImmutable</span> ubahNama(<span class="type">String</span> namaBaru) {
+    <span class="keyword">return</span> <span class="type">PenggunaImmutable</span>(
+      id: id,
+      nama: namaBaru,
+      umur: umur,
+      alamat: alamat,
+    );
+  }
+  
+  <span class="type">PenggunaImmutable</span> ubahUmur(<span class="type">int</span> umurBaru) {
+    <span class="keyword">return</span> <span class="type">PenggunaImmutable</span>(
+      id: id,
+      nama: nama,
+      umur: umurBaru,
+      alamat: alamat,
+    );
+  }
+}
+
+<span class="keyword">void</span> main() {
+  <span class="comment">// Const objects - bisa di-cache</span>
+  <span class="keyword">const</span> p1 = <span class="type">Point</span>(3, 4);
+  <span class="keyword">const</span> p2 = <span class="type">Point</span>(3, 4);
+  <span class="keyword">const</span> p3 = <span class="type">Point</span>(5, 6);
+  
+  print(<span class="string">'p1: $p1'</span>);
+  print(<span class="string">'p2: $p2'</span>);
+  print(<span class="string">'p1 == p2? ${p1 == p2}'</span>);  <span class="comment">// true (nilai sama)</span>
+  print(<span class="string">'identical(p1, p2)? ${identical(p1, p2)}'</span>);  <span class="comment">// true (object sama)</span>
+  
+  <span class="keyword">var</span> p4 = p1.translate(2, 3);  <span class="comment">// Membuat object baru</span>
+  print(<span class="string">'p1 setelah translate: $p1 (tetap)'</span>);  <span class="comment">// Tidak berubah</span>
+  print(<span class="string">'p4 (baru): $p4'</span>);
+  
+  <span class="keyword">var</span> alamat = <span class="type">Alamat</span>(<span class="string">'Jl. Sudirman'</span>, <span class="string">'Jakarta'</span>, <span class="string">'12345'</span>);
+  <span class="keyword">var</span> user1 = <span class="type">PenggunaImmutable</span>(
+    id: <span class="string">'001'</span>,
+    nama: <span class="string">'Budi'</span>,
+    umur: 25,
+    alamat: alamat,
+  );
+  
+  <span class="keyword">var</span> user2 = user1.ubahNama(<span class="string">'Budi Santoso'</span>);  <span class="comment">// Object baru</span>
+  print(<span class="string">'user1.nama: ${user1.nama}'</span>);  <span class="comment">// Tetap 'Budi'</span>
+  print(<span class="string">'user2.nama: ${user2.nama}'</span>);  <span class="comment">// 'Budi Santoso'</span>
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MATERI 7: CALLABLE CLASS -->
+            <div id="materi7" class="materi">
+                <h2>7️⃣ CALLABLE CLASS (METHOD CALL) <span class="lanjutan-badge">LANJUTAN</span></h2>
+                <div class="deskripsi">
+                    <p><strong>Pengertian:</strong> Kelas yang objeknya bisa dipanggil seperti fungsi dengan mengimplementasikan method <code>call()</code>.</p>
+                    <p><strong>Kegunaan:</strong> Membuat objek yang berperilaku seperti fungsi, closure, atau function pointer.</p>
+                </div>
+                <div class="highlight">
+                    💡 <strong>Unik di Dart:</strong> Fitur ini jarang ada di bahasa pemrograman lain! Objek bisa dipanggil langsung seperti fungsi.
+                </div>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>📁 callable_class.dart</span>
+                        <span class="code-badge">DART</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><span class="keyword">class</span> <span class="type">Greeter</span> {
+  <span class="keyword">final</span> <span class="type">String</span> salam;
+  
+  <span class="type">Greeter</span>(<span class="keyword">this</span>.salam);
+  
+  <span class="comment">// Method call - membuat objek bisa dipanggil</span>
+  <span class="type">String</span> <span class="function">call</span>(<span class="type">String</span> nama) {
+    <span class="keyword">return</span> <span class="string">'$salam, $nama!'</span>;
+  }
+}
+
+<span class="keyword">class</span> <span class="type">Validator</span> {
+  <span class="keyword">final</span> <span class="type">int</span> minPanjang;
+  
+  <span class="type">Validator</span>(<span class="keyword">this</span>.minPanjang);
+  
+  <span class="comment">// Call method dengan multiple parameters</span>
+  <span class="type">bool</span> <span class="function">call</span>(<span class="type">String</span> teks, {<span class="type">bool</span> harusHurufBesar = <span class="keyword">false</span>}) {
+    <span class="keyword">if</span> (teks.length < minPanjang) <span class="keyword">return</span> <span class="keyword">false</span>;
+    <span class="keyword">if</span> (harusHurufBesar && teks != teks.toUpperCase()) <span class="keyword">return</span> <span class="keyword">false</span>;
+    <span class="keyword">return</span> <span class="keyword">true</span>;
+  }
+}
+
+<span class="keyword">class</span> <span class="type">Calculator</span> {
+  <span class="comment">// Overloading call method (berbeda parameter)</span>
+  <span class="type">int</span> <span class="function">call</span>(<span class="type">int</span> a, <span class="type">int</span> b) => a + b;
+  
+  <span class="type">double</span> <span class="function">call</span>.withDouble(<span class="type">double</span> a, <span class="type">double</span> b) => a + b;
+  
+  <span class="type">int</span> <span class="function">call</span>.kali(<span class="type">int</span> a, <span class="type">int</span> b) => a * b;
+}
+
+<span class="keyword">class</span> <span class="type">Logger</span> {
+  <span class="keyword">final</span> <span class="type">String</span> prefix;
+  
+  <span class="type">Logger</span>(<span class="keyword">this</span>.prefix);
+  
+  <span class="keyword">void</span> <span class="function">call</span>(<span class="type">String</span> pesan, {<span class="type">String</span> level = <span class="string">'INFO'</span>}) {
+    print(<span class="string">'[$level] $prefix: $pesan'</span>);
+  }
+}
+
+<span class="keyword">void</span> main() {
+  print(<span class="string">'--- GREETER ---'</span>);
+  <span class="keyword">var</span> salamPagi = <span class="type">Greeter</span>(<span class="string">'Selamat pagi'</span>);
+  <span class="keyword">var</span> salamSore = <span class="type">Greeter</span>(<span class="string">'Selamat sore'</span>);
+  
+  <span class="comment">// Memanggil objek seperti fungsi</span>
+  print(salamPagi(<span class="string">'Budi'</span>));    <span class="comment">// Output: Selamat pagi, Budi!</span>
+  print(salamSore(<span class="string">'Ani'</span>));     <span class="comment">// Output: Selamat sore, Ani!</span>
+  
+  print(<span class="string">'\n--- VALIDATOR ---'</span>);
+  <span class="keyword">var</span> validator = <span class="type">Validator</span>(5);
+  print(<span class="string">'test: ${validator("test")}'</span>);  <span class="comment">// false (kurang dari 5)</span>
+  print(<span class="string">'testing: ${validator("testing")}'</span>);  <span class="comment">// true</span>
+  print(<span class="string">'TESTING: ${validator("TESTING", harusHurufBesar: true)}'</span>);  <span class="comment">// true</span>
+  
+  print(<span class="string">'\n--- CALCULATOR ---'</span>);
+  <span class="keyword">var</span> calc = <span class="type">Calculator</span>();
+  print(<span class="string">'5 + 3 = ${calc(5, 3)}'</span>);  <span class="comment">// Memanggil objek</span>
+  
+  print(<span class="string">'\n--- LOGGER ---'</span>);
+  <span class="keyword">var</span> log = <span class="type">Logger</span>(<span class="string">'App'</span>);
+  log(<span class="string">'Aplikasi dimulai'</span>);
+  log(<span class="string">'Database error'</span>, level: <span class="string">'ERROR'</span>);
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MATERI 8: GENERIC CLASS DENGAN ENKAPSULASI -->
+            <div id="materi8" class="materi">
+                <h2>8️⃣ GENERIC CLASS DENGAN ENKAPSULASI <span class="lanjutan-badge">LANJUTAN</span></h2>
+                <div class="deskripsi">
+                    <p><strong>Pengertian:</strong> Kelas yang bisa bekerja dengan berbagai tipe data (type-safe) dengan tetap menerapkan enkapsulasi.</p>
+                    <p><strong>Kegunaan:</strong> Membuat struktur data yang fleksibel namun tetap aman (type-safe).</p>
+                </div>
+                <div class="highlight">
+                    💡 <strong>Manfaat:</strong> Kode lebih reusable, type-safe, dan menghindari runtime error.
+                </div>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>📁 generic_class.dart</span>
+                        <span class="code-badge">DART</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><span class="comment">/// Repository generik dengan enkapsulasi</span>
+<span class="keyword">class</span> <span class="type">Repository</span>&lt;<span class="type">T</span>&gt; {
+  <span class="keyword">final</span> <span class="type">List</span>&lt;<span class="type">T</span>&gt; _items = [];
+  <span class="keyword">final</span> <span class="type">Map</span>&lt;<span class="type">String</span>, <span class="type">T</span>&gt; _cache = {};
+  
+  <span class="comment">// Getter untuk read-only view</span>
+  <span class="type">List</span>&lt;<span class="type">T</span>&gt; <span class="keyword">get</span> semua => <span class="type">List</span>.unmodifiable(_items);
+  
+  <span class="type">int</span> <span class="keyword">get</span> jumlah => _items.length;
+  
+  <span class="keyword">void</span> tambah(<span class="type">T</span> item) {
+    _items.add(item);
+    _validateItem(item);
+  }
+  
+  <span class="keyword">void</span> _validateItem(<span class="type">T</span> item) {
+    print(<span class="string">'✅ Item type ${T.toString()} ditambahkan'</span>);
+  }
+  
+  <span class="type">T</span>? cari(<span class="type">bool</span> <span class="function">Function</span>(<span class="type">T</span>) predicate) {
+    <span class="keyword">try</span> {
+      <span class="keyword">return</span> _items.firstWhere(predicate);
+    } <span class="keyword">catch</span> (e) {
+      <span class="keyword">return</span> <span class="keyword">null</span>;
     }
   }
-
-  <span class="comment">// Method Transfer</span>
-  <span class="keyword">void</span> transfer(<span class="type">RekeningBank</span> tujuan, <span class="type">double</span> jumlah) {
-    <span class="keyword">if</span> (jumlah > 0 && _saldo >= jumlah) {
-      _saldo -= jumlah;
-      tujuan._saldo += jumlah;
-    }
+  
+  <span class="keyword">void</span> cache(<span class="type">String</span> key, <span class="type">T</span> value) {
+    _cache[key] = value;
   }
+  
+  <span class="type">T</span>? getCache(<span class="type">String</span> key) => _cache[key];
+}
+
+<span class="comment">/// Pair class dengan dua tipe generik</span>
+<span class="keyword">class</span> <span class="type">Pair</span>&lt;<span class="type">A</span>, <span class="type">B</span>&gt; {
+  <span class="keyword">final</span> <span class="type">A</span> first;
+  <span class="keyword">final</span> <span class="type">B</span> second;
+  
+  <span class="keyword">const</span> <span class="type">Pair</span>(<span class="keyword">this</span>.first, <span class="keyword">this</span>.second);
+  
+  <span class="type">Pair</span>&lt;<span class="type">A</span>, <span class="type">B</span>&gt; copyWith({<span class="type">A</span>? first, <span class="type">B</span>? second}) {
+    <span class="keyword">return</span> <span class="type">Pair</span>&lt;<span class="type">A</span>, <span class="type">B</span>&gt;(
+      first ?? <span class="keyword">this</span>.first,
+      second ?? <span class="keyword">this</span>.second,
+    );
+  }
+  
+  <span class="meta">@override</span>
+  <span class="type">String</span> toString() => <span class="string">'($first, $second)'</span>;
+}
+
+<span class="comment">/// Result class untuk operation results</span>
+<span class="keyword">class</span> <span class="type">Result</span>&lt;<span class="type">T</span>&gt; {
+  <span class="keyword">final</span> <span class="type">bool</span> isSuccess;
+  <span class="keyword">final</span> <span class="type">T</span>? data;
+  <span class="keyword">final</span> <span class="type">String</span>? error;
+  
+  <span class="type">Result</span>._({<span class="keyword">required</span> <span class="keyword">this</span>.isSuccess, <span class="keyword">this</span>.data, <span class="keyword">this</span>.error});
+  
+  <span class="keyword">factory</span> <span class="type">Result</span>.success(<span class="type">T</span> data) {
+    <span class="keyword">return</span> <span class="type">Result</span>._(isSuccess: <span class="keyword">true</span>, data: data);
+  }
+  
+  <span class="keyword">factory</span> <span class="type">Result</span>.failure(<span class="type">String</span> error) {
+    <span class="keyword">return</span> <span class="type">Result</span>._(isSuccess: <span class="keyword">false</span>, error: error);
+  }
+}
+
+<span class="keyword">void</span> main() {
+  print(<span class="string">'--- REPOSITORY GENERIK ---'</span>);
+  <span class="keyword">var</span> repoString = <span class="type">Repository</span>&lt;<span class="type">String</span>&gt;();
+  repoString.tambah(<span class="string">'Data 1'</span>);
+  repoString.tambah(<span class="string">'Data 2'</span>);
+  
+  <span class="keyword">var</span> repoAngka = <span class="type">Repository</span>&lt;<span class="type">int</span>&gt;();
+  repoAngka.tambah(100);
+  repoAngka.tambah(200);
+  
+  print(<span class="string">'String items: ${repoString.semua}'</span>);
+  print(<span class="string">'Angka items: ${repoAngka.semua}'</span>);
+  
+  print(<span class="string">'\n--- PAIR GENERIK ---'</span>);
+  <span class="keyword">var</span> pair1 = <span class="type">Pair</span>&lt;<span class="type">String</span>, <span class="type">int</span>&gt;(<span class="string">'Usia'</span>, 25);
+  <span class="keyword">var</span> pair2 = <span class="type">Pair</span>&lt;<span class="type">int</span>, <span class="type">String</span>&gt;(1, <span class="string">'Satu'</span>);
+  
+  print(pair1);
+  print(pair2);
+  
+  print(<span class="string">'\n--- RESULT GENERIK ---'</span>);
+  <span class="type">Result</span>&lt;<span class="type">String</span>&gt; result1 = <span class="type">Result</span>.success(<span class="string">'Data berhasil'</span>);
+  <span class="type">Result</span>&lt;<span class="type">int</span>&gt; result2 = <span class="type">Result</span>.failure(<span class="string">'Gagal memuat data'</span>);
+  
+  <span class="keyword">if</span> (result1.isSuccess) {
+    print(<span class="string">'Sukses: ${result1.data}'</span>);
+  }
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MATERI 9: EXTENSION METHODS -->
+            <div id="materi9" class="materi">
+                <h2>9️⃣ EXTENSION METHODS PADA CLASS <span class="lanjutan-badge">LANJUTAN</span></h2>
+                <div class="deskripsi">
+                    <p><strong>Pengertian:</strong> Menambahkan fungsionalitas baru ke kelas yang sudah ada (termasuk kelas built-in) tanpa mengubah kode aslinya.</p>
+                    <p><strong>Kegunaan:</strong> Memperkaya kelas tanpa inheritance, menambah method utility.</p>
+                </div>
+                <div class="highlight">
+                    💡 <strong>Kelebihan:</strong> Bisa menambah method ke <code>String</code>, <code>int</code>, <code>List</code>, atau kelas apapun tanpa mengubah kode asli!
+                </div>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>📁 extension_methods.dart</span>
+                        <span class="code-badge">DART</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><span class="comment">// Extension pada String</span>
+<span class="keyword">extension</span> <span class="type">StringExtension</span> <span class="keyword">on</span> <span class="type">String</span> {
+  <span class="type">String</span> <span class="keyword">get</span> kapitalisasi {
+    <span class="keyword">if</span> (isEmpty) <span class="keyword">return</span> <span class="keyword">this</span>;
+    <span class="keyword">return</span> <span class="keyword">this</span>[0].toUpperCase() + substring(1).toLowerCase();
+  }
+  
+  <span class="type">String</span> <span class="keyword">get</span> balik => split('').reversed.join('');
+  
+  <span class="type">int</span> <span class="keyword">get</span> jumlahVokal {
+    <span class="keyword">final</span> vokal = <span class="string">'aiueoAIUEO'</span>;
+    <span class="keyword">return</span> split('').where((c) => vokal.contains(c)).length;
+  }
+  
+  <span class="type">bool</span> <span class="keyword">get</span> isPalindrom => <span class="keyword">this</span> == balik;
+  
+  <span class="type">String</span> censored({<span class="type">int</span> start = 3, <span class="type">int</span> end = 3}) {
+    <span class="keyword">if</span> (length <= start + end) <span class="keyword">return</span> <span class="string">'*'</span> * length;
+    <span class="keyword">return</span> substring(0, start) + 
+           <span class="string">'*'</span> * (length - start - end) + 
+           substring(length - end);
+  }
+}
+
+<span class="comment">// Extension pada int</span>
+<span class="keyword">extension</span> <span class="type">IntExtension</span> <span class="keyword">on</span> <span class="type">int</span> {
+  <span class="type">bool</span> <span class="keyword">get</span> isGenap => <span class="keyword">this</span> % 2 == 0;
+  <span class="type">bool</span> <span class="keyword">get</span> isGanjil => !isGenap;
+  
+  <span class="type">bool</span> <span class="keyword">get</span> isPrima {
+    <span class="keyword">if</span> (<span class="keyword">this</span> < 2) <span class="keyword">return</span> <span class="keyword">false</span>;
+    <span class="keyword">for</span> (<span class="type">int</span> i = 2; i <= <span class="keyword">this</span> / 2; i++) {
+      <span class="keyword">if</span> (<span class="keyword">this</span> % i == 0) <span class="keyword">return</span> <span class="keyword">false</span>;
+    }
+    <span class="keyword">return</span> <span class="keyword">true</span>;
+  }
+  
+  <span class="type">List</span>&lt;<span class="type">int</span>&gt; <span class="keyword">get</span> faktor {
+    <span class="keyword">return</span> [<span class="keyword">for</span> (<span class="type">int</span> i = 1; i <= <span class="keyword">this</span>; i++) <span class="keyword">if</span> (<span class="keyword">this</span> % i == 0) i];
+  }
+  
+  <span class="type">String</span> toRupiah() => <span class="string">'Rp ${toString().replaceAllMapped(</span>
+    <span class="type">RegExp</span>(<span class="string">r'(\d{1,3})(?=(\d{3})+(?!\d))'</span>), (m) => <span class="string">'${m[1]}.'</span>
+  )}';
+}
+
+<span class="comment">// Extension pada List</span>
+<span class="keyword">extension</span> <span class="type">ListExtension</span>&lt;<span class="type">T</span>&gt; <span class="keyword">on</span> <span class="type">List</span>&lt;<span class="type">T</span>&gt; {
+  <span class="type">T</span>? <span class="keyword">get</span> firstOrNull => isEmpty ? <span class="keyword">null</span> : first;
+  <span class="type">T</span>? <span class="keyword">get</span> lastOrNull => isEmpty ? <span class="keyword">null</span> : last;
+  
+  <span class="type">List</span>&lt;<span class="type">T</span>&gt; shuffleList() {
+    <span class="keyword">var</span> list = [...<span class="keyword">this</span>];
+    list.shuffle();
+    <span class="keyword">return</span> list;
+  }
+  
+  <span class="type">List</span>&lt;<span class="type">T</span>&gt; ambilAcak(<span class="type">int</span> jumlah) {
+    <span class="keyword">if</span> (jumlah >= length) <span class="keyword">return</span> [...<span class="keyword">this</span>];
+    <span class="keyword">var</span> result = <span class="type">List</span>&lt;<span class="type">T</span>&gt;.empty(growable: <span class="keyword">true</span>);
+    <span class="keyword">var</span> temp = [...<span class="keyword">this</span>];
+    temp.shuffle();
+    <span class="keyword">for</span> (<span class="type">int</span> i = 0; i < jumlah; i++) {
+      result.add(temp[i]);
+    }
+    <span class="keyword">return</span> result;
+  }
+}
+
+<span class="keyword">void</span> main() {
+  print(<span class="string">'--- EXTENSION STRING ---'</span>);
+  <span class="type">String</span> teks = <span class="string">'dart programming'</span>;
+  print(<span class="string">'Kapitalisasi: ${teks.kapitalisasi}'</span>);
+  print(<span class="string">'Balik: ${teks.balik}'</span>);
+  print(<span class="string">'Jumlah vokal: ${teks.jumlahVokal}'</span>);
+  
+  <span class="type">String</span> email = <span class="string">'user@email.com'</span>;
+  print(<span class="string">'Email di-censor: ${email.censored(start: 2, end: 8)}'</span>);
+  
+  print(<span class="string">'\n--- EXTENSION INT ---'</span>);
+  <span class="type">int</span> angka = 17;
+  print(<span class="string">'17 genap? ${angka.isGenap}'</span>);
+  print(<span class="string">'17 prima? ${angka.isPrima}'</span>);
+  print(<span class="string">'Faktor 12: ${12.faktor}'</span>);
+  print(<span class="string">'1000000: ${1000000.toRupiah()}'</span>);
+  
+  print(<span class="string">'\n--- EXTENSION LIST ---'</span>);
+  <span class="type">List</span>&lt;<span class="type">String</span>&gt; buah = [<span class="string">'Apel'</span>, <span class="string">'Mangga'</span>, <span class="string">'Jeruk'</span>, <span class="string">'Pisang'</span>, <span class="string">'Anggur'</span>];
+  print(<span class="string">'First: ${buah.firstOrNull}'</span>);
+  print(<span class="string">'Shuffled: ${buah.shuffleList()}'</span>);
+  print(<span class="string">'Ambil 2 acak: ${buah.ambilAcak(2)}'</span>);
 }</pre>
                     </div>
                 </div>
             </div>
 
             <!-- KESIMPULAN -->
-            <div style="margin-top: 40px; padding: 20px; background: #e8f4fd; border-radius: 8px;">
-                <h3 style="color: #2c3e50; margin-bottom: 15px;">📌 KESIMPULAN</h3>
-                <ul style="margin-left: 20px; color: #555;">
-                    <li style="margin-bottom: 8px;"><strong>Constructor</strong> memungkinkan pembuatan objek dengan nilai awal spesifik (parameterized, default, named, constant).</li>
-                    <li style="margin-bottom: 8px;"><strong>Enkapsulasi</strong> dengan getter & setter menjaga keamanan data, mencegah akses langsung ke atribut private.</li>
-                    <li style="margin-bottom: 8px;">Pemakaian constructor dan enkapsulasi membuat kode lebih <strong>terstruktur, modular, dan mudah dipelihara</strong>.</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- FOOTER -->
-        <div class="footer">
-            <p>© 2024 - USMAN YAKIN TRIO SINADA | NIM: 251410006 | Kelas: SI2A</p>
-            <p style="margin-top: 5px; font-size: 0.8em;">Implementasi Constructor dan Enkapsulasi pada Pemrograman Dart</p>
-        </div>
-    </div>
-</body>
-</html>
+            <div style="background: #e3f2fd; padding: 25px; border-radius: 10px; margin-top: 40px;">
+                <h3 style="color: #1976d2; margin-bottom: 20px;">📌 KESIMPULAN MATERI LANJUTAN</h3>
+                <ul style="list-style: none; padding-left: 0;">
+                    <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                        <span style="position: absolute; left: 0; color: #1976d2;">→</span>
+                        <strong>Constructor Chaining:</strong> Constructor memanggil constructor lain dengan <code>this()</code>
+                    </li>
+                    <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                        <span style="position: absolute; left: 0; color: #1976d2;">→</span>
+                        <strong>Factory Constructor:</strong> Constructor yang tidak selalu membuat instance baru (singleton, caching)
+                    </li>
+                    <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                        <span style="position: absolute; left: 0; color: #197
