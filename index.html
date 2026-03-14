@@ -3,103 +3,496 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IMPLEMENTASI CONSTRUCTOR DAN ENKAPSULASI - USMAN YAKIN</title>
+    <title>CYBER SECURITY - IMPLEMENTASI CONSTRUCTOR & ENKAPSULASI DART</title>
     <style>
-        /* ========== CSS ANDA (Sesuaikan dengan gaya Anda) ========== */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        /* ========== VARIABEL TEMA CYBER SECURITY ========== */
+        :root {
+            --primary-color: #00ff9d;      /* Neon hijau */
+            --secondary-color: #00ccff;     /* Neon biru */
+            --danger-color: #ff0055;         /* Neon merah */
+            --warning-color: #ffaa00;         /* Neon kuning */
+            --bg-dark: #0a0e1a;               /* Hitam kebiruan gelap */
+            --bg-card: #141b2b;                /* Biru dongker */
+            --bg-code: #0b0f1c;                 /* Hitam untuk kode */
+            --text-primary: #e0e0e0;             /* Abu terang */
+            --text-secondary: #8892b0;            /* Abu kebiruan */
+            --border-color: #1e2a3a;               /* Border gelap */
+            --glow-color: rgba(0, 255, 157, 0.3);    /* Efek glow hijau */
+        }
+
+        * {
             margin: 0;
-            padding: 20px;
-            min-height: 100vh;
+            padding: 0;
+            box-sizing: border-box;
         }
+
+        body {
+            font-family: 'Segoe UI', 'Courier New', monospace;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Efek matrix background */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(0deg, 
+                rgba(0, 255, 157, 0.03) 0%, 
+                transparent 100%);
+            pointer-events: none;
+            z-index: -1;
+            animation: matrix 20s linear infinite;
+        }
+
+        @keyframes matrix {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 0% 100%; }
+        }
+
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 1300px;
+            margin: 20px auto;
+            background: rgba(20, 27, 43, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            box-shadow: 0 0 30px var(--glow-color);
             overflow: hidden;
+            position: relative;
         }
+
+        /* Efek garis berjalan (scan line) */
+        .container::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(0deg, 
+                transparent 0%, 
+                rgba(0, 255, 157, 0.02) 50%, 
+                transparent 100%);
+            pointer-events: none;
+            animation: scan 8s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        /* ========== HEADER CYBER ========== */
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: linear-gradient(135deg, #0b1a2e, #0d1f2f);
+            border-bottom: 2px solid var(--primary-color);
             padding: 30px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
-        .header h1 { margin: 0 0 10px; font-size: 2.5em; }
+
+        .header::before {
+            content: "🛡️ SECURE 🛡️";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: var(--primary-color);
+            font-size: 14px;
+            opacity: 0.5;
+            font-family: monospace;
+            transform: rotate(-5deg);
+        }
+
+        .header h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px var(--glow-color);
+            letter-spacing: 3px;
+        }
+
+        .header h3 {
+            color: var(--text-secondary);
+            font-weight: 300;
+            margin-bottom: 15px;
+            font-family: 'Courier New', monospace;
+        }
+
         .header .info {
-            background: rgba(255,255,255,0.2);
-            padding: 10px;
-            border-radius: 10px;
+            background: rgba(0, 255, 157, 0.1);
+            border: 1px solid var(--primary-color);
+            padding: 15px 25px;
+            border-radius: 30px;
             display: inline-block;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            box-shadow: 0 0 15px var(--glow-color);
         }
-        /* ========== CSS UNTUK TAB NAVIGASI ========== */
+
+        .header .info strong {
+            color: var(--primary-color);
+        }
+
+        /* ========== TERMINAL BAR ========== */
+        .terminal-bar {
+            background: #0b0f1c;
+            padding: 10px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot.red { background: #ff5f56; box-shadow: 0 0 8px #ff5f56; }
+        .dot.yellow { background: #ffbd2e; box-shadow: 0 0 8px #ffbd2e; }
+        .dot.green { background: #27c93f; box-shadow: 0 0 8px #27c93f; }
+
+        .terminal-path {
+            color: var(--primary-color);
+            flex-grow: 1;
+        }
+
+        .terminal-path span {
+            color: var(--text-secondary);
+        }
+
+        .terminal-status {
+            color: var(--secondary-color);
+            border-left: 1px solid var(--border-color);
+            padding-left: 15px;
+        }
+
+        /* ========== NAVIGASI TABS CYBER ========== */
         .nav-tabs {
             display: flex;
-            background: #f8f9fa;
-            border-bottom: 2px solid #dee2e6;
+            background: #0b0f1c;
+            border-bottom: 2px solid var(--primary-color);
             flex-wrap: wrap;
+            gap: 2px;
+            padding: 10px 10px 0;
         }
+
         .nav-tab {
-            padding: 15px 25px;
+            padding: 12px 20px;
             cursor: pointer;
             border: none;
-            background: none;
-            font-size: 1em;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.95em;
             font-weight: 600;
-            color: #495057;
+            font-family: 'Courier New', monospace;
             transition: all 0.3s ease;
+            border: 1px solid transparent;
             border-bottom: 3px solid transparent;
+            border-radius: 8px 8px 0 0;
+            position: relative;
+            overflow: hidden;
         }
+
+        .nav-tab::before {
+            content: ">";
+            color: var(--primary-color);
+            opacity: 0;
+            margin-right: 5px;
+            transition: opacity 0.3s;
+        }
+
         .nav-tab:hover {
-            background: #e9ecef;
-            color: #667eea;
+            background: rgba(0, 255, 157, 0.1);
+            color: var(--primary-color);
+            border-color: var(--border-color);
         }
+
+        .nav-tab:hover::before {
+            opacity: 1;
+        }
+
         .nav-tab.active {
-            color: #667eea;
-            border-bottom-color: #667eea;
-            background: white;
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+            background: linear-gradient(0deg, 
+                rgba(0, 255, 157, 0.1) 0%, 
+                transparent 100%);
+            text-shadow: 0 0 10px var(--primary-color);
         }
-        /* ========== CSS UNTUK KONTEN TAB ========== */
-        .content { padding: 30px; }
-        .tab-pane { display: none; }
-        .tab-pane.active { display: block; }
-        /* ========== CSS UNTUK KODE (Sesuaikan) ========== */
-        .code-container {
-            background: #1e1e1e;
-            border-radius: 10px;
-            overflow-x: auto;
-            margin: 20px 0;
+
+        .nav-tab.active::before {
+            opacity: 1;
+            animation: blink 1s infinite;
         }
-        .code-header {
-            background: #2d2d2d;
-            color: #fff;
-            padding: 10px 20px;
-            border-bottom: 1px solid #3d3d3d;
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
-        .code-content { padding: 20px; }
-        .code-content pre { margin: 0; color: #d4d4d4; }
+
+        /* ========== KONTEN UTAMA ========== */
+        .content {
+            padding: 30px;
+        }
+
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========== CARD DESKRIPSI ========== */
         .description {
-            background: #f8f9fa;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--primary-color);
             padding: 20px;
-            border-radius: 10px;
-            border-left: 5px solid #667eea;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .description h2 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .description h2::before {
+            content: "root@cyber:~$";
+            color: var(--secondary-color);
+            font-size: 0.5em;
+            opacity: 0.7;
+        }
+
+        .description p {
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+
+        /* ========== CODE CONTAINER ========== */
+        .code-container {
+            background: var(--bg-code);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
             margin-bottom: 20px;
+            box-shadow: 0 0 20px rgba(0, 255, 157, 0.1);
+        }
+
+        .code-header {
+            background: #0a0e1a;
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Courier New', monospace;
+        }
+
+        .code-header h3 {
+            color: var(--secondary-color);
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .code-header h3::before {
+            content: "📁";
+            color: var(--primary-color);
+        }
+
+        .language-badge {
+            background: rgba(0, 255, 157, 0.2);
+            color: var(--primary-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            border: 1px solid var(--primary-color);
+        }
+
+        .code-content {
+            padding: 20px;
+            overflow-x: auto;
+            background: #0b0f1c;
+            position: relative;
+        }
+
+        .code-content pre {
+            margin: 0;
+            color: #abb2bf;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Syntax Highlighting Cyber Theme */
+        .keyword { color: #ff79c6; }
+        .string { color: #f1fa8c; }
+        .comment { color: #6272a4; }
+        .type { color: #8be9fd; }
+        .function { color: #50fa7b; }
+        .number { color: #bd93f9; }
+
+        /* ========== SECURITY BADGES ========== */
+        .security-badge {
+            display: inline-block;
+            background: rgba(0, 255, 157, 0.1);
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            margin-right: 8px;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* ========== KESIMPULAN ========== */
+        .kesimpulan {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-top: 3px solid var(--primary-color);
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+
+        .kesimpulan h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .kesimpulan h3::before {
+            content: "🔒";
+            font-size: 1.2em;
+        }
+
+        .kesimpulan ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .kesimpulan li {
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            background: rgba(0, 255, 157, 0.05);
+            border-left: 3px solid var(--secondary-color);
+            border-radius: 5px;
+            color: var(--text-primary);
+        }
+
+        .kesimpulan li strong {
+            color: var(--primary-color);
+        }
+
+        /* ========== THREAT LEVEL TAGS ========== */
+        .threat-level {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-left: 8px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .threat-critical { background: rgba(255, 0, 85, 0.2); color: #ff0055; border: 1px solid #ff0055; }
+        .threat-high { background: rgba(255, 170, 0, 0.2); color: #ffaa00; border: 1px solid #ffaa00; }
+        .threat-medium { background: rgba(255, 255, 0, 0.2); color: #ffff00; border: 1px solid #ffff00; }
+        .threat-low { background: rgba(0, 255, 157, 0.2); color: #00ff9d; border: 1px solid #00ff9d; }
+        .threat-info { background: rgba(0, 204, 255, 0.2); color: #00ccff; border: 1px solid #00ccff; }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: #0b0f1c;
+            border-top: 1px solid var(--border-color);
+            padding: 20px;
+            text-align: center;
+            color: var(--text-secondary);
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            border-bottom: 1px dashed var(--primary-color);
+        }
+
+        .footer a:hover {
+            text-shadow: 0 0 8px var(--primary-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2em; }
+            .nav-tab { padding: 10px 12px; font-size: 0.85em; }
+            .terminal-bar { flex-wrap: wrap; }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- HEADER CYBER SECURITY -->
         <div class="header">
-            <h1>IMPLEMENTASI CONSTRUCTOR DAN ENKAPSULASI</h1>
-            <h3>PEMROGRAMAN DART - OBJECT ORIENTED PROGRAMMING</h3>
+            <h1>⚡ CYBER SECURITY ⚡</h1>
+            <h3>IMPLEMENTASI CONSTRUCTOR & ENKAPSULASI DART</h3>
             <div class="info">
-                <strong>USMAN YAKIN TRIO SINADA</strong> | NIM: 251410006 | Kelas: SI2A
+                <strong>USMAN YAKIN TRIO SINADA</strong> | <span style="color: #00ccff;">NIM: 251410006</span> | Kelas: SI2A
             </div>
         </div>
 
-        <!-- ========== TAB NAVIGASI ========== -->
+        <!-- TERMINAL STYLE BAR -->
+        <div class="terminal-bar">
+            <div class="terminal-dots">
+                <div class="dot red"></div>
+                <div class="dot yellow"></div>
+                <div class="dot green"></div>
+            </div>
+            <div class="terminal-path">
+                <span>root@cyber-server:~$</span> /dart/constructor-enkapsulasi
+            </div>
+            <div class="terminal-status">
+                <span style="color: #00ff9d;">●</span> SECURE CONNECTION
+            </div>
+        </div>
+
+        <!-- NAVIGASI TABS -->
         <div class="nav-tabs">
             <button class="nav-tab active" onclick="showTab(0)">📚 Buku</button>
             <button class="nav-tab" onclick="showTab(1)">🚗 Mobil</button>
@@ -112,98 +505,296 @@
             <button class="nav-tab" onclick="showTab(8)">🏦 RekeningBank</button>
         </div>
 
-        <!-- ========== KONTEN HALAMAN ========== -->
+        <!-- KONTEN UTAMA -->
         <div class="content">
-            <!-- ===== TAB 1: BUKU ===== -->
+            <!-- TAB 1: BUKU -->
             <div class="tab-pane active" id="tab0">
-                <!-- SALIN KONTEN MATERI BUKU ANDA DI SINI -->
                 <div class="description">
-                    <h2>📚 Kelas Buku - Constructor Dasar</h2>
-                    <p>Merepresentasikan buku dengan atribut judul menggunakan parameterized constructor untuk inisialisasi objek.</p>
+                    <h2>Kelas Buku - Constructor Dasar</h2>
+                    <p>Merepresentasikan buku dengan atribut judul menggunakan parameterized constructor. 
+                    <span class="security-badge">SECURE CODING</span>
+                    <span class="threat-level threat-low">LEVEL: AMAN</span></p>
                 </div>
+                
                 <div class="code-container">
-                    <div class="code-header"><h3>buku.dart</h3></div>
+                    <div class="code-header">
+                        <h3>buku.dart</h3>
+                        <span class="language-badge">DART SECURE</span>
+                    </div>
                     <div class="code-content">
-                        <pre><code>// Nama   : USMAN YAKIN TRIO SINADA
-// Nim    : 251410006
-// Kelas  : SI2A
+                        <pre><code><span class="comment">// Nama   : USMAN YAKIN TRIO SINADA</span>
+<span class="comment">// Nim    : 251410006</span>
+<span class="comment">// Kelas  : SI2A</span>
 
-class Buku {
-  String judul;
-  Buku(this.judul);
+<span class="keyword">class</span> <span class="type">Buku</span> {
+  <span class="type">String</span> judul;
+
+  <span class="comment">// Parameterized Constructor</span>
+  <span class="function">Buku</span>(<span class="keyword">this</span>.judul);
 }
 
-void main() {
-  print('PROGRAM 1: DEMO KELAS BUKU');
-  Buku buku1 = Buku("Pemrograman Dart");
-  print('Judul Buku: ${buku1.judul}');
+<span class="keyword">void</span> <span class="function">main</span>() {
+  <span class="keyword">print</span>(<span class="string">'PROGRAM 1: DEMO KELAS BUKU'</span>);
+  
+  <span class="comment">// Membuat objek Buku</span>
+  <span class="type">Buku</span> buku1 = <span class="function">Buku</span>(<span class="string">"Pemrograman Dart untuk Pemula"</span>);
+  <span class="type">Buku</span> buku2 = <span class="function">Buku</span>(<span class="string">"Clean Code - Robert C. Martin"</span>);
+  
+  <span class="keyword">print</span>(<span class="string">'📚 Judul Buku 1: ${buku1.judul}'</span>);
+  <span class="keyword">print</span>(<span class="string">'📚 Judul Buku 2: ${buku2.judul}'</span>);
 }</code></pre>
                     </div>
                 </div>
-                <!-- TAMBAHKAN KESIMPULAN DLL DI SINI -->
             </div>
 
-            <!-- ===== TAB 2: MOBIL ===== -->
+            <!-- TAB 2: MOBIL -->
             <div class="tab-pane" id="tab1">
-                <!-- SALIN KONTEN MATERI MOBIL ANDA DI SINI -->
                 <div class="description">
-                    <h2>🚗 Kelas Mobil - Named Constructor</h2>
-                    <p>Merepresentasikan mobil dengan parameterized constructor dan named constructor.</p>
+                    <h2>Kelas Mobil - Named Constructor</h2>
+                    <p>Memiliki parameterized constructor, named constructor baru() dan dariJson().
+                    <span class="security-badge">FLEXIBLE</span>
+                    <span class="threat-level threat-low">LEVEL: AMAN</span></p>
                 </div>
+                
                 <div class="code-container">
-                    <div class="code-header"><h3>mobil.dart</h3></div>
+                    <div class="code-header">
+                        <h3>mobil.dart</h3>
+                        <span class="language-badge">DART SECURE</span>
+                    </div>
                     <div class="code-content">
-                        <pre><code>// Nama   : USMAN YAKIN TRIO SINADA
-// Nim    : 251410006
-// Kelas  : SI2A
+                        <pre><code><span class="comment">// Nama   : USMAN YAKIN TRIO SINADA</span>
+<span class="comment">// Nim    : 251410006</span>
 
-class Mobil {
-  String? merk;
-  int? tahun;
-  
-  Mobil(this.merk, this.tahun);
-  Mobil.baru() { merk = 'Nissan Skyline'; tahun = 2002; }
-  
-  void infoMobil() => print('Merk: $merk, Tahun: $tahun');
-}
+<span class="keyword">class</span> <span class="type">Mobil</span> {
+  <span class="type">String</span>? merk;
+  <span class="type">int</span>? tahun;
 
-void main() {
-  Mobil mobil1 = Mobil('Toyota', 2018);
-  mobil1.infoMobil();
-  
-  Mobil mobil2 = Mobil.baru();
-  mobil2.infoMobil();
+  <span class="comment">// Parameterized Constructor</span>
+  <span class="function">Mobil</span>(<span class="keyword">this</span>.merk, <span class="keyword">this</span>.tahun);
+
+  <span class="comment">// Named Constructor: Mobil Baru</span>
+  <span class="function">Mobil.baru</span>() {
+    merk = <span class="string">'Cyber Truck'</span>;
+    tahun = 2025;
+  }
+
+  <span class="comment">// Named Constructor: dari JSON</span>
+  <span class="function">Mobil.dariJson</span>(<span class="type">Map</span>&lt;<span class="type">String</span>, <span class="type">dynamic</span>&gt; json) {
+    merk = json[<span class="string">'merk'</span>];
+    tahun = json[<span class="string">'tahun'</span>];
+  }
 }</code></pre>
                     </div>
                 </div>
             </div>
 
-            <!-- ===== ULANGI UNTUK TAB 3 SAMPAI 9 ===== -->
-            <!-- Tab 3: Warna, Tab 4: Titik, ... Tab 9: RekeningBank -->
-            <!-- ... (Anda bisa salin dari kode HTML yang saya buat sebelumnya) ... -->
+            <!-- TAB 3: WARNA - CYBER SECURITY THEME KHUSUS -->
+            <div class="tab-pane" id="tab2">
+                <div class="description">
+                    <h2>Kelas Warna - Threat Level System</h2>
+                    <p>Constant constructor untuk standardisasi tingkat ancaman keamanan siber.
+                    <span class="security-badge">CRITICAL SYSTEM</span>
+                    <span class="threat-level threat-critical">LEVEL: KRITIS</span></p>
+                </div>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <h3>warna_cyber.dart</h3>
+                        <span class="language-badge">SECURITY CORE</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><code><span class="comment">// TEMA: CYBER SECURITY THREAT LEVEL</span>
+<span class="keyword">class</span> <span class="type">Warna</span> {
+  <span class="keyword">final</span> <span class="type">int</span> r, g, b;
 
-        </div> <!-- /.content -->
-    </div> <!-- /.container -->
+  <span class="comment">// Constant Constructor</span>
+  <span class="keyword">const</span> <span class="function">Warna</span>(<span class="keyword">this</span>.r, <span class="keyword">this</span>.g, <span class="keyword">this</span>.b);
+}
 
-    <!-- ========== JAVASCRIPT UNTUK TAB ========== -->
-    <script>
-        function showTab(index) {
-            // Sembunyikan semua tab
-            var tabs = document.getElementsByClassName('tab-pane');
-            for (var i = 0; i < tabs.length; i++) {
-                tabs[i].classList.remove('active');
-            }
-            
-            // Non-aktifkan semua tombol tab
-            var buttons = document.getElementsByClassName('nav-tab');
-            for (var i = 0; i < buttons.length; i++) {
-                buttons[i].classList.remove('active');
-            }
-            
-            // Aktifkan tab dan tombol yang dipilih
-            document.getElementById('tab' + index).classList.add('active');
-            buttons[index].classList.add('active');
-        }
-    </script>
-</body>
-</html>
+<span class="comment">// Enum untuk kategori keamanan siber</span>
+<span class="keyword">enum</span> <span class="type">TingkatKeamanan</span> {
+  kritis(<span class="string">'🔴 KRITIS'</span>, <span class="string">'Ancaman sangat berbahaya - Tindakan segera!'</span>),
+  tinggi(<span class="string">'🟠 TINGGI'</span>, <span class="string">'Resiko tinggi - Perlu penanganan cepat'</span>),
+  sedang(<span class="string">'🟡 SEDANG'</span>, <span class="string">'Potensi ancaman - Monitor terus'</span>),
+  rendah(<span class="string">'🟢 RENDAH'</span>, <span class="string">'Aman - Tidak ada ancaman signifikan'</span>),
+  info(<span class="string">'🔵 INFORMASI'</span>, <span class="string">'Informasi umum - Tidak berbahaya'</span>);
+
+  <span class="keyword">final</span> <span class="type">String</span> label;
+  <span class="keyword">final</span> <span class="type">String</span> deskripsi;
+  <span class="keyword">const</span> <span class="function">TingkatKeamanan</span>(<span class="keyword">this</span>.label, <span class="keyword">this</span>.deskripsi);
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: TITIK -->
+            <div class="tab-pane" id="tab3">
+                <div class="description">
+                    <h2>Kelas Titik - Initializer List</h2>
+                    <p>Menggunakan initializer list untuk memproses nilai sebelum objek dibuat.
+                    <span class="security-badge">DATA VALIDATION</span>
+                    <span class="threat-level threat-low">LEVEL: AMAN</span></p>
+                </div>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <h3>titik.dart</h3>
+                        <span class="language-badge">DART SECURE</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><code><span class="keyword">class</span> <span class="type">Titik</span> {
+  <span class="keyword">final</span> <span class="type">double</span> x, y;
+
+  <span class="comment">// Initializer list untuk validasi</span>
+  <span class="function">Titik</span>(<span class="type">double</span> x, <span class="type">double</span> y)
+      : x = x.<span class="function">abs</span>(),
+        y = y.<span class="function">abs</span>() {
+    <span class="keyword">print</span>(<span class="string">'✅ Titik (${this.x}, ${this.y}) dibuat.'</span>);
+  }
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 5: MAHASISWA -->
+            <div class="tab-pane" id="tab4">
+                <div class="description">
+                    <h2>Kelas Mahasiswa - Named Constructor</h2>
+                    <p>Memiliki default constructor, dariMap(), dan tanpaNama().
+                    <span class="security-badge">FLEXIBLE</span>
+                    <span class="threat-level threat-low">LEVEL: AMAN</span></p>
+                </div>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <h3>mahasiswa.dart</h3>
+                        <span class="language-badge">DART SECURE</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><code><span class="keyword">class</span> <span class="type">Mahasiswa</span> {
+  <span class="type">String</span> nama;
+  <span class="type">String</span> nim;
+  <span class="type">String</span> jurusan;
+  <span class="type">String</span> kelas;
+
+  <span class="comment">// Default Constructor</span>
+  <span class="function">Mahasiswa</span>(<span class="keyword">this</span>.nama, <span class="keyword">this</span>.nim, <span class="keyword">this</span>.jurusan, <span class="keyword">this</span>.kelas);
+
+  <span class="comment">// Named Constructor: dari Map</span>
+  <span class="function">Mahasiswa.dariMap</span>(<span class="type">Map</span>&lt;<span class="type">String</span>, <span class="type">String</span>&gt; data)
+      : nama = data[<span class="string">'nama'</span>]!,
+        nim = data[<span class="string">'nim'</span>]!,
+        jurusan = data[<span class="string">'jurusan'</span>]!,
+        kelas = data[<span class="string">'kelas'</span>]!;
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 6: PERSON -->
+            <div class="tab-pane" id="tab5">
+                <div class="description">
+                    <h2>Kelas Person - Enkapsulasi</h2>
+                    <p>Getter dan setter dengan validasi untuk atribut private.
+                    <span class="security-badge">DATA PROTECTION</span>
+                    <span class="threat-level threat-medium">LEVEL: SEDANG</span></p>
+                </div>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <h3>person.dart</h3>
+                        <span class="language-badge">SECURE</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><code><span class="keyword">class</span> <span class="type">Person</span> {
+  <span class="type">String</span> <span class="keyword">_nama</span>;
+  <span class="type">int</span> <span class="keyword">_umur</span>;
+
+  <span class="function">Person</span>(<span class="keyword">this</span>._nama, <span class="keyword">this</span>._umur);
+
+  <span class="comment">// Getter</span>
+  <span class="type">String</span> <span class="keyword">get</span> nama => _nama;
+  <span class="type">int</span> <span class="keyword">get</span> umur => _umur;
+
+  <span class="comment">// Setter dengan validasi</span>
+  <span class="keyword">set</span> <span class="function">nama</span>(<span class="type">String</span> namaBaru) {
+    <span class="keyword">if</span> (namaBaru.<span class="function">isNotEmpty</span>) _nama = namaBaru;
+  }
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 7: PRODUK -->
+            <div class="tab-pane" id="tab6">
+                <div class="description">
+                    <h2>Kelas Produk - Validasi Setter</h2>
+                    <p>Validasi nama (min 3 karakter) dan harga (>0).
+                    <span class="security-badge">INPUT VALIDATION</span>
+                    <span class="threat-level threat-medium">LEVEL: SEDANG</span></p>
+                </div>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <h3>produk.dart</h3>
+                        <span class="language-badge">SECURE</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><code><span class="keyword">class</span> <span class="type">Produk</span> {
+  <span class="type">String</span> <span class="keyword">_nama</span>;
+  <span class="type">double</span> <span class="keyword">_harga</span>;
+
+  <span class="function">Produk</span>(<span class="keyword">this</span>._nama, <span class="keyword">this</span>._harga);
+
+  <span class="keyword">set</span> <span class="function">nama</span>(<span class="type">String</span> value) {
+    <span class="keyword">if</span> (value.<span class="function">length</span> >= 3) _nama = value;
+  }
+
+  <span class="keyword">set</span> <span class="function">harga</span>(<span class="type">double</span> value) {
+    <span class="keyword">if</span> (value > 0) _harga = value;
+  }
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 8: USER -->
+            <div class="tab-pane" id="tab7">
+                <div class="description">
+                    <h2>Kelas User - Login System</h2>
+                    <p>Enkapsulasi dengan metode login dan ganti password.
+                    <span class="security-badge">AUTHENTICATION</span>
+                    <span class="threat-level threat-critical">LEVEL: KRITIS</span></p>
+                </div>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <h3>user.dart</h3>
+                        <span class="language-badge">SECURE AUTH</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><code><span class="keyword">class</span> <span class="type">User</span> {
+  <span class="type">String</span> <span class="keyword">_username</span>;
+  <span class="type">String</span> <span class="keyword">_password</span>;
+  <span class="type">String</span> <span class="keyword">_email</span>;
+
+  <span class="function">User</span>(<span class="keyword">this</span>._username, <span class="keyword">this</span>._password, <span class="keyword">this</span>._email);
+
+  <span class="type">bool</span> <span class="function">login</span>(<span class="type">String</span> username, <span class="type">String</span> password) {
+    <span class="keyword">return</span> username == _username && password == _password;
+  }
+
+  <span class="keyword">void</span> <span class="function">gantiPassword</span>(<span class="type">String</span> lama, <span class="type">String</span> baru) {
+    <span class="keyword">if</span> (lama == _password && baru.<span class="function">length</span> >= 6) {
+      _password = baru;
+    }
+  }
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 9: REKENING BANK -->
+            <div class="tab-pane" id="tab8">
+                <div class="description">
+                    <h2>Kelas RekeningBank - Transaksi</h2>
