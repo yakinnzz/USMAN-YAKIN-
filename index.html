@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IMPLEMENTASI CONSTRUCTOR & ENKAPSULASI - USMAN YAKIN</title>
+    <title>IMPLEMENTASI CONSTRUCTOR DAN ENKAPSULASI - USMAN YAKIN</title>
     <style>
         * {
             margin: 0;
@@ -13,361 +13,226 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            min-height: 100vh;
-            background: linear-gradient(145deg, #0a0f1e 0%, #1a1f35 50%, #0f172a 100%);
+            background: #0b0f1e;
             color: #e2e8f0;
             line-height: 1.6;
-            padding: 20px;
-            position: relative;
-            overflow-x: hidden;
         }
 
         /* ===== LANGIT MALAM DENGAN BINTANG ===== */
-        .stars, .twinkling, .clouds {
+        .stars {
             position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
             width: 100%;
             height: 100%;
-            display: block;
-            pointer-events: none;
+            background: #0b0f1e;
             z-index: -1;
         }
 
-        /* Bintang-bintang kecil */
-        .stars {
-            background: #000 url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48Y2lyY2xlIGN4PSI2IiBjeT0iMTQiIHI9IjEiIGZpbGw9IndoaXRlIiAvPjxjaXJjbGUgY3g9IjE2MCIgY3k9IjYwIiByPSIxIiBmaWxsPSJ3aGl0ZSIgLz48Y2lyY2xlIGN4PSI0MCIgY3k9IjIwMCIgcj0iMSIgZmlsbD0id2hpdGUiIC8+PGNpcmNsZSBjeD0iMjUwIiBjeT0iMTIwIiByPSIxIiBmaWxsPSJ3aGl0ZSIgLz48Y2lyY2xlIGN4PSI5MCIgY3k9IjE4MCIgcj0iMSIgZmlsbD0id2hpdGUiIC8+PC9zdmc+');
-            background-size: 200px 200px;
-            animation: stars 200s linear infinite;
-            opacity: 0.8;
-        }
-
-        /* Bintang berkelap-kelip */
-        .twinkling {
-            background: transparent url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48Y2lyY2xlIGN4PSIxMDAiIGN5PSI1MCIgcj0iMiIgZmlsbD0id2hpdGUiIG9wYWNpdHk9IjAuNSIgLz48Y2lyY2xlIGN4PSIyMDAiIGN5PSIxNTAiIHI9IjIiIGZpbGw9IndoaXRlIiBvcGFjaXR5PSIwLjMiIC8+PC9zdmc+');
-            background-size: 300px 300px;
+        .stars::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            background-image: 
+                radial-gradient(2px 2px at 15px 60px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 72px 436px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 155px 128px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 280px 345px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 450px 175px, #fff, rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 580px 400px, #ffd700, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 720px 220px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 860px 550px, #fff, rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 950px 120px, #87ceeb, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 1100px 380px, #fff, rgba(0,0,0,0));
+            background-repeat: repeat;
             animation: twinkling 4s ease-in-out infinite;
-            opacity: 0.5;
-        }
-
-        /* Kabut tipis */
-        .clouds {
-            background: linear-gradient(145deg, 
-                rgba(25, 35, 75, 0.2) 0%, 
-                rgba(45, 55, 95, 0.1) 50%, 
-                rgba(15, 25, 55, 0.2) 100%);
-            animation: clouds 20s linear infinite;
-        }
-
-        @keyframes stars {
-            0% { background-position: 0 0; }
-            100% { background-position: 0 400px; }
         }
 
         @keyframes twinkling {
-            0% { opacity: 0.2; transform: scale(1); }
-            50% { opacity: 0.8; transform: scale(1.1); }
-            100% { opacity: 0.2; transform: scale(1); }
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
         }
 
-        @keyframes clouds {
-            0% { opacity: 0.2; }
-            50% { opacity: 0.5; }
-            100% { opacity: 0.2; }
-        }
-
-        /* ===== BULAN SABIT ===== */
         .moon {
             position: fixed;
-            top: 40px;
-            right: 60px;
+            top: 30px;
+            right: 50px;
             width: 80px;
             height: 80px;
             border-radius: 50%;
             background: radial-gradient(circle at 30% 30%, #f9f3d9, #d4c4a8);
-            box-shadow: 0 0 50px rgba(255, 255, 200, 0.3);
+            box-shadow: 0 0 50px rgba(255, 255, 200, 0.5);
             z-index: -1;
-            animation: moonGlow 5s ease-in-out infinite;
         }
 
         .moon::before {
-            content: '';
+            content: "";
             position: absolute;
             top: -5px;
             left: -5px;
-            width: 100%;
-            height: 100%;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 200, 0.3), transparent 70%);
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,200,0.3), transparent 70%);
             filter: blur(10px);
         }
 
         .moon::after {
-            content: '';
+            content: "";
             position: absolute;
             top: 10px;
             left: 10px;
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            background: radial-gradient(circle at 20% 20%, #0a0f1e, #1a1f35);
+            background: #0b0f1e;
             box-shadow: inset -5px -5px 15px rgba(0,0,0,0.5);
-        }
-
-        @keyframes moonGlow {
-            0% { box-shadow: 0 0 40px rgba(255, 255, 200, 0.2); }
-            50% { box-shadow: 0 0 70px rgba(255, 255, 200, 0.4); }
-            100% { box-shadow: 0 0 40px rgba(255, 255, 200, 0.2); }
         }
 
         .container {
             max-width: 1100px;
-            margin: 0 auto;
-            background: rgba(15, 23, 42, 0.8);
+            margin: 30px auto;
+            background: rgba(15, 23, 42, 0.9);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
             overflow: hidden;
-            position: relative;
-        }
-
-        /* Efek embun */
-        .container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, 
-                transparent 0%, 
-                rgba(255, 255, 255, 0.3) 50%, 
-                transparent 100%);
         }
 
         .header {
-            background: linear-gradient(145deg, 
-                rgba(30, 41, 59, 0.9) 0%, 
-                rgba(15, 23, 42, 0.95) 100%);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            border-bottom: 1px solid rgba(125, 211, 252, 0.3);
             padding: 40px 20px;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, 
-                rgba(255, 255, 255, 0.1) 0%, 
-                transparent 70%);
-            animation: rotate 20s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
         }
 
         .header h1 {
             font-size: 2.5em;
             margin-bottom: 10px;
-            background: linear-gradient(135deg, #f0f9ff, #bae6fd, #7dd3fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(125, 211, 252, 0.3);
-            position: relative;
+            color: #7dd3fc;
+            text-shadow: 0 0 20px #7dd3fc;
         }
 
         .header h3 {
-            font-weight: 300;
-            margin-bottom: 15px;
             color: #94a3b8;
-            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-weight: 300;
         }
 
         .header .info {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #7dd3fc;
             padding: 10px 30px;
             border-radius: 50px;
             display: inline-block;
-            font-size: 1.1em;
-            backdrop-filter: blur(5px);
-            color: #e2e8f0;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            color: #fff;
         }
 
         .header .info strong {
             color: #7dd3fc;
-            text-shadow: 0 0 10px rgba(125, 211, 252, 0.5);
         }
 
         .content {
             padding: 30px;
         }
 
-        /* Daftar isi dengan bintang */
+        /* Daftar isi */
         .daftar-isi {
             background: rgba(30, 41, 59, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid #334155;
             padding: 20px;
-            border-radius: 15px;
+            border-radius: 10px;
             margin-bottom: 30px;
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
             justify-content: center;
-            backdrop-filter: blur(5px);
         }
 
         .daftar-isi a {
             color: #94a3b8;
             text-decoration: none;
             padding: 8px 18px;
-            border: 1px solid rgba(125, 211, 252, 0.3);
+            border: 1px solid #475569;
             border-radius: 30px;
             font-size: 0.9em;
             transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
         }
 
         .daftar-isi a:hover {
-            background: rgba(125, 211, 252, 0.1);
-            color: #7dd3fc;
+            background: #7dd3fc;
+            color: #0f172a;
             border-color: #7dd3fc;
-            box-shadow: 0 0 20px rgba(125, 211, 252, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .daftar-isi a::before {
-            content: '⭐';
-            margin-right: 5px;
-            font-size: 0.8em;
-            opacity: 0.7;
         }
 
         /* Setiap materi */
         .materi {
             margin-bottom: 50px;
-            padding: 30px;
+            padding: 25px;
             background: rgba(30, 41, 59, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            backdrop-filter: blur(5px);
-            transition: all 0.3s;
-        }
-
-        .materi:hover {
-            border-color: rgba(125, 211, 252, 0.2);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-            transform: translateY(-2px);
+            border: 1px solid #334155;
+            border-radius: 10px;
         }
 
         .materi h2 {
-            color: #f0f9ff;
-            margin-bottom: 20px;
+            color: #7dd3fc;
+            margin-bottom: 15px;
             padding-bottom: 10px;
-            border-bottom: 2px solid rgba(125, 211, 252, 0.3);
-            display: inline-block;
-            font-size: 1.8em;
-            text-shadow: 0 0 10px rgba(125, 211, 252, 0.3);
+            border-bottom: 2px solid #334155;
         }
 
         .materi .deskripsi {
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(125, 211, 252, 0.2);
-            padding: 20px;
-            border-radius: 12px;
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 8px;
             margin: 15px 0;
             border-left: 4px solid #7dd3fc;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .materi .deskripsi p {
-            margin: 8px 0;
-            color: #cbd5e1;
         }
 
         .materi .highlight {
-            background: rgba(125, 211, 252, 0.1);
-            border: 1px solid rgba(125, 211, 252, 0.3);
-            color: #bae6fd;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 15px 0;
-            font-style: italic;
-            position: relative;
-            overflow: hidden;
+            background: #2d3b4f;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 10px 0;
+            color: #fcd34d;
+            border: 1px dashed #7dd3fc;
         }
 
-        .materi .highlight::before {
-            content: '✨';
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.5em;
-            opacity: 0.3;
-        }
-
-        /* Code container dengan tema malam */
+        /* Code container */
         .code-container {
-            background: #0b1120;
-            border: 1px solid rgba(125, 211, 252, 0.2);
-            border-radius: 15px;
+            background: #0b0f1c;
+            border: 1px solid #334155;
+            border-radius: 8px;
             overflow: hidden;
-            margin: 20px 0;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            margin: 15px 0;
         }
 
         .code-header {
             background: #1e293b;
-            padding: 15px 20px;
-            color: #f0f9ff;
+            padding: 12px 18px;
+            color: #fff;
             font-weight: bold;
-            border-bottom: 1px solid rgba(125, 211, 252, 0.2);
+            border-bottom: 1px solid #334155;
             display: flex;
             justify-content: space-between;
-            align-items: center;
         }
 
         .code-badge {
-            background: rgba(125, 211, 252, 0.2);
-            color: #7dd3fc;
-            padding: 4px 15px;
-            border-radius: 30px;
+            background: #7dd3fc;
+            color: #0f172a;
+            padding: 3px 10px;
+            border-radius: 15px;
             font-size: 0.8em;
-            border: 1px solid rgba(125, 211, 252, 0.3);
         }
 
         .code-content {
             padding: 20px;
             overflow-x: auto;
-            background: #0f172a;
-            position: relative;
-        }
-
-        .code-content::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, 
-                transparent 0%, 
-                rgba(125, 211, 252, 0.3) 50%, 
-                transparent 100%);
         }
 
         .code-content pre {
@@ -379,129 +244,52 @@
             word-wrap: break-word;
         }
 
-        /* Syntax highlighting untuk tema malam */
+        /* Warna syntax */
         .comment { color: #6b7280; }
         .keyword { color: #7dd3fc; }
         .string { color: #fcd34d; }
         .type { color: #6ee7b7; }
-        .function { color: #f0f9ff; }
-        .number { color: #fca5a5; }
 
-        /* Footer dengan bintang */
         .footer {
-            background: rgba(15, 23, 42, 0.9);
-            border-top: 1px solid rgba(125, 211, 252, 0.2);
-            padding: 25px;
+            background: #0f172a;
+            border-top: 1px solid #334155;
+            padding: 20px;
             text-align: center;
             color: #94a3b8;
-            position: relative;
-        }
-
-        .footer p {
-            position: relative;
-            z-index: 1;
-        }
-
-        .footer a {
-            color: #7dd3fc;
-            text-decoration: none;
-            border-bottom: 1px dashed #7dd3fc;
-        }
-
-        .footer a:hover {
-            color: #bae6fd;
-            text-shadow: 0 0 10px #7dd3fc;
-        }
-
-        .footer::before {
-            content: '⭐⭐⭐';
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(255, 255, 255, 0.1);
-            font-size: 0.8em;
-            letter-spacing: 5px;
-        }
-
-        .footer::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, 
-                transparent 0%, 
-                rgba(125, 211, 252, 0.3) 20%, 
-                rgba(125, 211, 252, 0.3) 80%, 
-                transparent 100%);
-        }
-
-        /* Scrollbar dengan tema malam */
-        ::-webkit-scrollbar {
-            width: 10px;
-            height: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #1e293b;
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #475569;
-            border-radius: 10px;
-            border: 2px solid #1e293b;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #7dd3fc;
-        }
-
-        html {
-            scroll-behavior: smooth;
         }
     </style>
 </head>
 <body>
-    <!-- Langit malam dengan bintang -->
     <div class="stars"></div>
-    <div class="twinkling"></div>
-    <div class="clouds"></div>
     <div class="moon"></div>
 
     <div class="container">
         <div class="header">
-            <h1>✨ IMPLEMENTASI CONSTRUCTOR & ENKAPSULASI ✨</h1>
-            <h3>PEMROGRAMAN DART - NIGHT THEME</h3>
+            <h1>IMPLEMENTASI CONSTRUCTOR & ENKAPSULASI</h1>
+            <h3>PEMROGRAMAN DART - OBJECT ORIENTED PROGRAMMING</h3>
             <div class="info">
                 <strong>USMAN YAKIN TRIO SINADA</strong> | NIM: 251410006 | Kelas: SI2A
             </div>
         </div>
 
         <div class="content">
-            <!-- Daftar isi dengan bintang -->
             <div class="daftar-isi">
-                <a href="#materi1">Buku</a>
-                <a href="#materi2">Mobil</a>
-                <a href="#materi3">Warna</a>
-                <a href="#materi4">Titik</a>
-                <a href="#materi5">Mahasiswa</a>
-                <a href="#materi6">Person</a>
-                <a href="#materi7">Produk</a>
-                <a href="#materi8">User</a>
-                <a href="#materi9">Rekening</a>
+                <a href="#buku">📚 Buku</a>
+                <a href="#mobil">🚗 Mobil</a>
+                <a href="#warna">🎨 Warna</a>
+                <a href="#titik">📐 Titik</a>
+                <a href="#mahasiswa">👨‍🎓 Mahasiswa</a>
+                <a href="#person">👤 Person</a>
+                <a href="#produk">📦 Produk</a>
+                <a href="#user">🔐 User</a>
+                <a href="#rekening">🏦 Rekening</a>
             </div>
 
-            <!-- Materi 1: Buku -->
-            <div id="materi1" class="materi">
+            <!-- 1. BUKU -->
+            <div id="buku" class="materi">
                 <h2>📚 1. Kelas Buku - Constructor Dasar</h2>
                 <div class="deskripsi">
-                    <p><strong>🔍 Konsep:</strong> Constructor digunakan untuk menginisialisasi objek dengan nilai awal. Parameterized constructor menerima parameter langsung.</p>
-                </div>
-                <div class="highlight">
-                    💡 Constructor adalah "cetak biru" untuk menciptakan objek dengan keadaan awal yang diinginkan.
+                    <p>Merepresentasikan buku dengan atribut judul menggunakan parameterized constructor untuk inisialisasi objek.</p>
                 </div>
                 <div class="code-container">
                     <div class="code-header">
@@ -510,7 +298,7 @@
                     </div>
                     <div class="code-content">
                         <pre><span class="comment">// Nama   : USMAN YAKIN TRIO SINADA</span>
-<span class="comment">// Nim    : 251410006</span>
+<span class="comment">// NIM    : 251410006</span>
 <span class="comment">// Kelas  : SI2A</span>
 
 <span class="keyword">class</span> <span class="type">Buku</span> {
@@ -521,9 +309,8 @@
 }
 
 <span class="keyword">void</span> main() {
-  <span class="comment">// Membuat objek Buku</span>
+  <span class="comment">// Membuat objek dari kelas Buku</span>
   <span class="type">Buku</span> buku1 = <span class="type">Buku</span>(<span class="string">"Pemrograman Dart untuk Pemula"</span>);
-  
   <span class="comment">// Menampilkan judul buku</span>
   print(<span class="string">"Judul Buku: ${buku1.judul}"</span>);
 }</pre>
@@ -531,14 +318,11 @@
                 </div>
             </div>
 
-            <!-- Materi 2: Mobil -->
-            <div id="materi2" class="materi">
+            <!-- 2. MOBIL -->
+            <div id="mobil" class="materi">
                 <h2>🚗 2. Kelas Mobil - Named Constructor</h2>
                 <div class="deskripsi">
-                    <p><strong>🔍 Konsep:</strong> Named constructor memberikan nama berbeda untuk cara pembuatan objek yang berbeda, membuat kode lebih ekspresif.</p>
-                </div>
-                <div class="highlight">
-                    💡 Named constructor seperti "jalur khusus" pembuatan objek - memudahkan pembacaan kode.
+                    <p>Memiliki parameterized constructor, named constructor baru() dan dariJson().</p>
                 </div>
                 <div class="code-container">
                     <div class="code-header">
@@ -558,19 +342,22 @@
     merk = <span class="string">'Nissan Skyline GT-R R34'</span>;
     tahun = 2002;
   }
+
+  <span class="comment">// Named Constructor: dari JSON</span>
+  <span class="type">Mobil</span>.dariJson(<span class="type">Map</span>&lt;<span class="type">String</span>, <span class="type">dynamic</span>&gt; json) {
+    merk = json[<span class="string">'merk'</span>];
+    tahun = json[<span class="string">'tahun'</span>];
+  }
 }</pre>
                     </div>
                 </div>
             </div>
 
-            <!-- Materi 3: Warna -->
-            <div id="materi3" class="materi">
+            <!-- 3. WARNA -->
+            <div id="warna" class="materi">
                 <h2>🎨 3. Kelas Warna - Constant Constructor</h2>
                 <div class="deskripsi">
-                    <p><strong>🔍 Konsep:</strong> Constant constructor membuat objek yang tidak berubah (immutable) dan dioptimasi memory dengan canonicalization.</p>
-                </div>
-                <div class="highlight">
-                    💡 Objek const akan menggunakan memory yang sama jika nilainya identik.
+                    <p>Constant constructor untuk membuat objek immutable (tidak bisa diubah).</p>
                 </div>
                 <div class="code-container">
                     <div class="code-header">
@@ -585,27 +372,25 @@
   <span class="keyword">const</span> <span class="type">Warna</span>(<span class="keyword">this</span>.r, <span class="keyword">this</span>.g, <span class="keyword">this</span>.b);
 
   <span class="meta">@override</span>
-  <span class="type">String</span> toString() => <span class="string">'Warna(r: $r, g: $g, b: $b)'</span>;
+  <span class="type">String</span> toString() {
+    <span class="keyword">return</span> <span class="string">'Warna(r: $r, g: $g, b: $b)'</span>;
+  }
 }
 
 <span class="keyword">void</span> main() {
   <span class="keyword">const</span> warnaMerah = <span class="type">Warna</span>(255, 0, 0);
   <span class="keyword">const</span> warnaHijau = <span class="type">Warna</span>(0, 255, 0);
-  
   print(warnaMerah);
 }</pre>
                     </div>
                 </div>
             </div>
 
-            <!-- Materi 4: Titik -->
-            <div id="materi4" class="materi">
+            <!-- 4. TITIK -->
+            <div id="titik" class="materi">
                 <h2>📐 4. Kelas Titik - Initializer List</h2>
                 <div class="deskripsi">
-                    <p><strong>🔍 Konsep:</strong> Initializer list memungkinkan manipulasi nilai sebelum constructor body dieksekusi.</p>
-                </div>
-                <div class="highlight">
-                    💡 Initializer list dieksekusi sebelum constructor body - cocok untuk validasi awal.
+                    <p>Initializer list untuk memproses nilai sebelum objek dibuat.</p>
                 </div>
                 <div class="code-container">
                     <div class="code-header">
@@ -620,18 +405,18 @@
   <span class="type">Titik</span>(<span class="type">double</span> x, <span class="type">double</span> y)
       : x = x.<span class="type">abs</span>(),
         y = y.<span class="type">abs</span>() {
-    print(<span class="string">'Titik (${this.x}, ${this.y}) dibuat.'</span>);
+    print(<span class="string">'Titik (${this.x}, ${this.y}) berhasil dibuat.'</span>);
   }
 }</pre>
                     </div>
                 </div>
             </div>
 
-            <!-- Materi 5: Mahasiswa -->
-            <div id="materi5" class="materi">
+            <!-- 5. MAHASISWA -->
+            <div id="mahasiswa" class="materi">
                 <h2>👨‍🎓 5. Kelas Mahasiswa - Named Constructor</h2>
                 <div class="deskripsi">
-                    <p><strong>🔍 Konsep:</strong> Named constructor dengan berbagai cara inisialisasi: default, dari Map, dan anonim.</p>
+                    <p>Memiliki default constructor dan named constructor dariMap() serta tanpaNama().</p>
                 </div>
                 <div class="code-container">
                     <div class="code-header">
@@ -654,16 +439,19 @@
         nim = data[<span class="string">'nim'</span>]!,
         jurusan = data[<span class="string">'jurusan'</span>]!,
         kelas = data[<span class="string">'kelas'</span>]!;
+
+  <span class="comment">// Named Constructor: Tanpa Nama</span>
+  <span class="type">Mahasiswa</span>.tanpaNama(<span class="keyword">this</span>.nim, <span class="keyword">this</span>.jurusan, <span class="keyword">this</span>.kelas) : nama = <span class="string">'*** ANONIM ***'</span>;
 }</pre>
                     </div>
                 </div>
             </div>
 
-            <!-- Materi 6: Person -->
-            <div id="materi6" class="materi">
+            <!-- 6. PERSON -->
+            <div id="person" class="materi">
                 <h2>👤 6. Kelas Person - Enkapsulasi Dasar</h2>
                 <div class="deskripsi">
-                    <p><strong>🔍 Konsep:</strong> Enkapsulasi menyembunyikan data internal dan menyediakan akses melalui getter/setter dengan validasi.</p>
+                    <p>Enkapsulasi dengan getter dan setter untuk atribut private.</p>
                 </div>
                 <div class="code-container">
                     <div class="code-header">
@@ -685,16 +473,20 @@
   <span class="keyword">set</span> nama(<span class="type">String</span> namaBaru) {
     <span class="keyword">if</span> (namaBaru.isNotEmpty) _nama = namaBaru;
   }
+
+  <span class="keyword">set</span> umur(<span class="type">int</span> umurBaru) {
+    <span class="keyword">if</span> (umurBaru > 0 && umurBaru < 150) _umur = umurBaru;
+  }
 }</pre>
                     </div>
                 </div>
             </div>
 
-            <!-- Materi 7: Produk -->
-            <div id="materi7" class="materi">
+            <!-- 7. PRODUK -->
+            <div id="produk" class="materi">
                 <h2>📦 7. Kelas Produk - Validasi pada Setter</h2>
                 <div class="deskripsi">
-                    <p><strong>🔍 Konsep:</strong> Validasi pada setter untuk memastikan data yang masuk sesuai aturan (nama minimal 3 karakter, harga > 0).</p>
+                    <p>Validasi nama minimal 3 karakter dan harga > 0.</p>
                 </div>
                 <div class="code-container">
                     <div class="code-header">
@@ -720,11 +512,11 @@
                 </div>
             </div>
 
-            <!-- Materi 8: User -->
-            <div id="materi8" class="materi">
+            <!-- 8. USER -->
+            <div id="user" class="materi">
                 <h2>🔐 8. Kelas User - Sistem Login</h2>
                 <div class="deskripsi">
-                    <p><strong>🔍 Konsep:</strong> Enkapsulasi dengan metode login dan ganti password yang memiliki validasi berlapis.</p>
+                    <p>Enkapsulasi dengan metode login dan ganti password.</p>
                 </div>
                 <div class="code-container">
                     <div class="code-header">
@@ -753,11 +545,11 @@
                 </div>
             </div>
 
-            <!-- Materi 9: RekeningBank -->
-            <div id="materi9" class="materi">
+            <!-- 9. REKENING BANK -->
+            <div id="rekening" class="materi">
                 <h2>🏦 9. Kelas RekeningBank - Simulasi Transaksi</h2>
                 <div class="deskripsi">
-                    <p><strong>🔍 Konsep:</strong> Enkapsulasi dengan metode deposit, tarik tunai, dan transfer dengan validasi saldo.</p>
+                    <p>Enkapsulasi dengan metode deposit, tarik tunai, dan transfer.</p>
                 </div>
                 <div class="code-container">
                     <div class="code-header">
@@ -765,4 +557,44 @@
                         <span class="code-badge">DART</span>
                     </div>
                     <div class="code-content">
-                        <pre><span class="keyword">class
+                        <pre><span class="keyword">class</span> <span class="type">RekeningBank</span> {
+  <span class="type">String</span> <span class="keyword">_nomorRekening</span>;
+  <span class="type">double</span> <span class="keyword">_saldo</span>;
+
+  <span class="type">RekeningBank</span>(<span class="keyword">this</span>._nomorRekening, <span class="keyword">this</span>._saldo);
+
+  <span class="keyword">void</span> deposit(<span class="type">double</span> jumlah) {
+    <span class="keyword">if</span> (jumlah > 0) _saldo += jumlah;
+  }
+
+  <span class="keyword">void</span> tarik(<span class="type">double</span> jumlah) {
+    <span class="keyword">if</span> (jumlah > 0 && _saldo >= jumlah) _saldo -= jumlah;
+  }
+
+  <span class="keyword">void</span> transfer(<span class="type">RekeningBank</span> tujuan, <span class="type">double</span> jumlah) {
+    <span class="keyword">if</span> (jumlah > 0 && _saldo >= jumlah) {
+      _saldo -= jumlah;
+      tujuan._saldo += jumlah;
+    }
+  }
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px; padding: 20px; background: #1e293b; border-radius: 10px;">
+                <h3 style="color: #7dd3fc; margin-bottom: 15px;">📌 KESIMPULAN</h3>
+                <ul style="list-style: none; padding-left: 0;">
+                    <li style="margin-bottom: 10px;">✅ Constructor memungkinkan pembuatan objek dengan nilai awal spesifik</li>
+                    <li style="margin-bottom: 10px;">✅ Enkapsulasi dengan getter & setter menjaga keamanan data</li>
+                    <li style="margin-bottom: 10px;">✅ Kode lebih terstruktur, modular, dan mudah dipelihara</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2024 - USMAN YAKIN TRIO SINADA | NIM: 251410006 | Kelas: SI2A</p>
+        </div>
+    </div>
+</body>
+</html>
