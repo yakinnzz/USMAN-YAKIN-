@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CYBER SECURITY - IMPLEMENTASI CONSTRUCTOR & ENKAPSULASI DART</title>
+    <title>IMPLEMENTASI CONSTRUCTOR & ENKAPSULASI - USMAN YAKIN</title>
     <style>
-        /* ========== TEMA CYBER SECURITY ========== */
         * {
             margin: 0;
             padding: 0;
@@ -13,330 +12,171 @@
         }
 
         body {
-            font-family: 'Courier New', 'Segoe UI', monospace;
-            background: #0a0e1a;
-            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            color: #333;
             line-height: 1.6;
-            min-height: 100vh;
-            padding: 20px;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        /* Efek matrix background */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: repeating-linear-gradient(0deg, 
-                rgba(0, 255, 157, 0.03) 0px, 
-                rgba(0, 0, 0, 0.9) 2px,
-                transparent 3px);
-            pointer-events: none;
-            z-index: -1;
         }
 
         .container {
-            max-width: 1300px;
-            margin: 0 auto;
-            background: rgba(10, 14, 26, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid #00ff9d;
-            border-radius: 15px;
-            box-shadow: 0 0 30px rgba(0, 255, 157, 0.2);
+            max-width: 1000px;
+            margin: 20px auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 10px;
             overflow: hidden;
         }
 
-        /* ========== HEADER CYBER ========== */
+        /* Header */
         .header {
-            background: linear-gradient(135deg, #0b1a2e, #0d1f2f);
-            border-bottom: 2px solid #00ff9d;
-            padding: 30px;
+            background: #2c3e50;
+            color: white;
+            padding: 30px 20px;
             text-align: center;
-            position: relative;
-        }
-
-        .header::after {
-            content: "🛡️ SECURE ENCRYPTED 🛡️";
-            position: absolute;
-            bottom: 10px;
-            right: 20px;
-            color: #00ff9d;
-            font-size: 12px;
-            opacity: 0.5;
-            letter-spacing: 2px;
         }
 
         .header h1 {
-            font-size: 2.8em;
+            font-size: 2.2em;
             margin-bottom: 10px;
-            background: linear-gradient(135deg, #00ff9d, #00ccff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(0, 255, 157, 0.5);
-            letter-spacing: 3px;
         }
 
         .header h3 {
-            color: #8892b0;
             font-weight: 300;
             margin-bottom: 15px;
+            color: #ecf0f1;
         }
 
         .header .info {
-            background: rgba(0, 255, 157, 0.1);
-            border: 1px solid #00ff9d;
-            padding: 15px 30px;
+            background: #34495e;
+            padding: 10px 20px;
             border-radius: 30px;
             display: inline-block;
             font-size: 1.1em;
-            box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
         }
 
         .header .info strong {
-            color: #00ff9d;
+            color: #3498db;
         }
 
-        /* ========== TERMINAL BAR ========== */
-        .terminal-bar {
-            background: #05080f;
-            padding: 10px 20px;
-            border-bottom: 1px solid #1e2a3a;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-family: 'Courier New', monospace;
-        }
-
-        .terminal-dots {
-            display: flex;
-            gap: 8px;
-        }
-
-        .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-
-        .dot.red { background: #ff5f56; }
-        .dot.yellow { background: #ffbd2e; }
-        .dot.green { background: #27c93f; }
-
-        .terminal-path {
-            color: #00ff9d;
-            flex-grow: 1;
-        }
-
-        .terminal-status {
-            color: #00ccff;
-            border-left: 1px solid #1e2a3a;
-            padding-left: 15px;
-        }
-
-        /* ========== NAVIGASI TABS (YANG DIPERBAIKI) ========== */
-        .nav-tabs {
-            display: flex;
-            background: #05080f;
-            border-bottom: 2px solid #00ff9d;
-            flex-wrap: wrap;
-            padding: 0;
-            margin: 0;
-        }
-
-        .nav-tab {
-            padding: 15px 20px;
-            cursor: pointer;
-            border: none;
-            background: transparent;
-            color: #8892b0;
-            font-size: 0.95em;
-            font-weight: 600;
-            font-family: 'Courier New', monospace;
-            transition: all 0.3s ease;
-            border-bottom: 3px solid transparent;
-            position: relative;
-        }
-
-        .nav-tab:hover {
-            background: rgba(0, 255, 157, 0.1);
-            color: #00ff9d;
-        }
-
-        .nav-tab.active {
-            color: #00ff9d;
-            border-bottom-color: #00ff9d;
-            background: linear-gradient(0deg, rgba(0, 255, 157, 0.1), transparent);
-            text-shadow: 0 0 10px #00ff9d;
-        }
-
-        .nav-tab.active::before {
-            content: ">";
-            margin-right: 5px;
-            color: #00ff9d;
-            animation: blink 1s infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        /* ========== KONTEN UTAMA ========== */
+        /* Konten Utama */
         .content {
             padding: 30px;
-            min-height: 500px;
         }
 
-        /* PENTING: Ini yang bikin tab bisa ganti-ganti */
-        .tab-pane {
-            display: none;
-            animation: fadeIn 0.5s ease;
+        /* Setiap materi */
+        .materi {
+            margin-bottom: 40px;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 30px;
         }
 
-        .tab-pane.active {
-            display: block;
+        .materi:last-child {
+            border-bottom: none;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ========== CARD DESKRIPSI ========== */
-        .description {
-            background: #141b2b;
-            border: 1px solid #1e2a3a;
-            border-left: 4px solid #00ff9d;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-        }
-
-        .description h2 {
-            color: #00ff9d;
+        .materi h2 {
+            color: #2c3e50;
             margin-bottom: 10px;
-            font-size: 1.8em;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            padding-bottom: 5px;
+            border-bottom: 3px solid #3498db;
+            display: inline-block;
         }
 
-        .description h2::before {
-            content: ">";
-            color: #00ccff;
+        .materi .deskripsi {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #3498db;
         }
 
-        /* ========== CODE CONTAINER ========== */
+        .materi .deskripsi p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        /* Code container */
         .code-container {
-            background: #0b0f1c;
-            border: 1px solid #1e2a3a;
+            background: #1e1e1e;
             border-radius: 8px;
             overflow: hidden;
-            margin-bottom: 30px;
+            margin: 15px 0;
         }
 
         .code-header {
-            background: #05080f;
-            padding: 12px 20px;
-            border-bottom: 1px solid #1e2a3a;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .code-header h3 {
-            color: #00ccff;
-            font-size: 1.1em;
-        }
-
-        .language-badge {
-            background: rgba(0, 255, 157, 0.2);
-            color: #00ff9d;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            border: 1px solid #00ff9d;
+            background: #2d2d2d;
+            padding: 10px 15px;
+            color: #fff;
+            font-weight: bold;
+            border-bottom: 1px solid #404040;
         }
 
         .code-content {
-            padding: 20px;
+            padding: 15px;
             overflow-x: auto;
         }
 
         .code-content pre {
             margin: 0;
-            color: #abb2bf;
+            color: #d4d4d4;
             font-family: 'Courier New', monospace;
             font-size: 14px;
-            line-height: 1.5;
+            white-space: pre-wrap;
+            word-wrap: break-word;
         }
 
-        /* ========== THREAT LEVEL BADGES ========== */
-        .threat-badge {
-            display: inline-block;
-            padding: 3px 10px;
-            border-radius: 3px;
-            font-size: 0.75em;
-            font-weight: bold;
-            margin-left: 10px;
-            font-family: 'Courier New', monospace;
-        }
+        /* Warna syntax sederhana */
+        .comment { color: #6a9955; }
+        .keyword { color: #569cd6; }
+        .string { color: #ce9178; }
+        .type { color: #4ec9b0; }
 
-        .critical { background: rgba(255, 0, 85, 0.2); color: #ff0055; border: 1px solid #ff0055; }
-        .high { background: rgba(255, 170, 0, 0.2); color: #ffaa00; border: 1px solid #ffaa00; }
-        .medium { background: rgba(255, 255, 0, 0.2); color: #ffff00; border: 1px solid #ffff00; }
-        .low { background: rgba(0, 255, 157, 0.2); color: #00ff9d; border: 1px solid #00ff9d; }
-
-        /* ========== KESIMPULAN ========== */
-        .kesimpulan {
-            background: #141b2b;
-            border: 1px solid #1e2a3a;
-            border-top: 3px solid #00ff9d;
-            padding: 25px;
-            border-radius: 8px;
-            margin-top: 30px;
-        }
-
-        .kesimpulan h3 {
-            color: #00ff9d;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-        }
-
-        .kesimpulan li {
-            margin-bottom: 10px;
-            padding-left: 25px;
-            position: relative;
-            list-style: none;
-        }
-
-        .kesimpulan li::before {
-            content: "🔒";
-            position: absolute;
-            left: 0;
-        }
-
-        /* ========== FOOTER ========== */
+        /* Footer */
         .footer {
-            background: #05080f;
-            border-top: 1px solid #1e2a3a;
-            padding: 20px;
+            background: #2c3e50;
+            color: white;
             text-align: center;
-            color: #8892b0;
-            font-family: 'Courier New', monospace;
+            padding: 20px;
+            font-size: 0.9em;
         }
 
         .footer a {
-            color: #00ff9d;
+            color: #3498db;
             text-decoration: none;
         }
 
         .footer a:hover {
             text-decoration: underline;
+        }
+
+        /* Scroll halus */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Daftar isi ringan */
+        .daftar-isi {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .daftar-isi a {
+            color: #3498db;
+            text-decoration: none;
+            padding: 5px 12px;
+            border: 1px solid #3498db;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+
+        .daftar-isi a:hover {
+            background: #3498db;
+            color: white;
         }
     </style>
 </head>
@@ -344,311 +184,234 @@
     <div class="container">
         <!-- HEADER -->
         <div class="header">
-            <h1>⚡ CYBER SECURITY LAB ⚡</h1>
-            <h3>IMPLEMENTASI CONSTRUCTOR & ENKAPSULASI DART</h3>
+            <h1>IMPLEMENTASI CONSTRUCTOR DAN ENKAPSULASI</h1>
+            <h3>PEMROGRAMAN DART - OBJECT ORIENTED PROGRAMMING</h3>
             <div class="info">
                 <strong>USMAN YAKIN TRIO SINADA</strong> | NIM: 251410006 | Kelas: SI2A
             </div>
         </div>
 
-        <!-- TERMINAL BAR -->
-        <div class="terminal-bar">
-            <div class="terminal-dots">
-                <div class="dot red"></div>
-                <div class="dot yellow"></div>
-                <div class="dot green"></div>
-            </div>
-            <div class="terminal-path">root@cyberlab:~$ /dart/constructor-enkapsulasi</div>
-            <div class="terminal-status">🔒 ENCRYPTED CONNECTION</div>
-        </div>
-
-        <!-- NAVIGASI TABS (SEMUA 9 MATERI) -->
-        <div class="nav-tabs">
-            <button class="nav-tab active" onclick="showTab(0)">📚 01. BUKU</button>
-            <button class="nav-tab" onclick="showTab(1)">🚗 02. MOBIL</button>
-            <button class="nav-tab" onclick="showTab(2)">🎨 03. WARNA</button>
-            <button class="nav-tab" onclick="showTab(3)">📐 04. TITIK</button>
-            <button class="nav-tab" onclick="showTab(4)">👨‍🎓 05. MAHASISWA</button>
-            <button class="nav-tab" onclick="showTab(5)">👤 06. PERSON</button>
-            <button class="nav-tab" onclick="showTab(6)">📦 07. PRODUK</button>
-            <button class="nav-tab" onclick="showTab(7)">🔐 08. USER</button>
-            <button class="nav-tab" onclick="showTab(8)">🏦 09. REKENING</button>
-        </div>
-
-        <!-- KONTEN 9 MATERI -->
+        <!-- CONTENT -->
         <div class="content">
-            <!-- MATERI 1: BUKU -->
-            <div class="tab-pane active" id="tab0">
-                <div class="description">
-                    <h2>Kelas Buku - Constructor Dasar</h2>
-                    <p>Merepresentasikan buku dengan atribut judul menggunakan parameterized constructor untuk inisialisasi objek.
-                    <span class="threat-badge low">LEVEL: AMAN</span></p>
+            <!-- DAFTAR ISI SEDERHANA -->
+            <div class="daftar-isi">
+                <a href="#buku">📚 Buku</a>
+                <a href="#mobil">🚗 Mobil</a>
+                <a href="#warna">🎨 Warna</a>
+                <a href="#titik">📐 Titik</a>
+                <a href="#mahasiswa">👨‍🎓 Mahasiswa</a>
+                <a href="#person">👤 Person</a>
+                <a href="#produk">📦 Produk</a>
+                <a href="#user">🔐 User</a>
+                <a href="#rekening">🏦 Rekening</a>
+            </div>
+
+            <!-- 1. BUKU -->
+            <div id="buku" class="materi">
+                <h2>📚 1. Kelas Buku - Constructor Dasar</h2>
+                <div class="deskripsi">
+                    <p>Merepresentasikan buku dengan atribut judul menggunakan <strong>parameterized constructor</strong> untuk inisialisasi objek.</p>
                 </div>
                 
                 <div class="code-container">
-                    <div class="code-header">
-                        <h3>buku.dart</h3>
-                        <span class="language-badge">DART SECURE</span>
-                    </div>
+                    <div class="code-header">📁 buku.dart</div>
                     <div class="code-content">
-                        <pre><span style="color:#6a9955;">// Nama   : USMAN YAKIN TRIO SINADA</span>
-<span style="color:#6a9955;">// Nim    : 251410006</span>
-<span style="color:#6a9955;">// Kelas  : SI2A</span>
+                        <pre><span class="comment">// Nama   : USMAN YAKIN TRIO SINADA</span>
+<span class="comment">// Nim    : 251410006</span>
+<span class="comment">// Kelas  : SI2A</span>
 
-<span style="color:#569cd6;">class</span> <span style="color:#4ec9b0;">Buku</span> {
-  <span style="color:#4ec9b0;">String</span> judul;
+<span class="keyword">class</span> <span class="type">Buku</span> {
+  <span class="type">String</span> judul;
 
-  <span style="color:#6a9955;">// Parameterized Constructor</span>
-  <span style="color:#dcdcaa;">Buku</span>(<span style="color:#569cd6;">this</span>.judul);
+  <span class="comment">// Parameterized Constructor</span>
+  <span class="type">Buku</span>(<span class="keyword">this</span>.judul);
 }
 
-<span style="color:#569cd6;">void</span> <span style="color:#dcdcaa;">main</span>() {
-  <span style="color:#dcdcaa;">print</span>(<span style="color:#ce9178;">'PROGRAM 1: DEMO KELAS BUKU'</span>);
+<span class="keyword">void</span> main() {
+  <span class="comment">// Membuat objek Buku</span>
+  <span class="type">Buku</span> buku1 = <span class="type">Buku</span>(<span class="string">"Pemrograman Dart untuk Pemula"</span>);
+  <span class="type">Buku</span> buku2 = <span class="type">Buku</span>(<span class="string">"Clean Code - Robert C. Martin"</span>);
   
-  <span style="color:#6a9955;">// Membuat objek Buku</span>
-  <span style="color:#4ec9b0;">Buku</span> buku1 = <span style="color:#dcdcaa;">Buku</span>(<span style="color:#ce9178;">"Pemrograman Dart untuk Pemula"</span>);
-  <span style="color:#4ec9b0;">Buku</span> buku2 = <span style="color:#dcdcaa;">Buku</span>(<span style="color:#ce9178;">"Clean Code - Robert C. Martin"</span>);
-  
-  <span style="color:#dcdcaa;">print</span>(<span style="color:#ce9178;">'📚 Judul Buku 1: ${buku1.judul}'</span>);
-  <span style="color:#dcdcaa;">print</span>(<span style="color:#ce9178;">'📚 Judul Buku 2: ${buku2.judul}'</span>);
+  print(<span class="string">"Judul Buku 1: ${buku1.judul}"</span>);
+  print(<span class="string">"Judul Buku 2: ${buku2.judul}"</span>);
 }</pre>
                     </div>
                 </div>
             </div>
 
-            <!-- MATERI 2: MOBIL -->
-            <div class="tab-pane" id="tab1">
-                <div class="description">
-                    <h2>Kelas Mobil - Named Constructor</h2>
-                    <p>Memiliki parameterized constructor, named constructor baru() dan dariJson().
-                    <span class="threat-badge low">LEVEL: AMAN</span></p>
+            <!-- 2. MOBIL -->
+            <div id="mobil" class="materi">
+                <h2>🚗 2. Kelas Mobil - Named Constructor</h2>
+                <div class="deskripsi">
+                    <p>Memiliki <strong>parameterized constructor</strong>, <strong>named constructor</strong> baru() dan dariJson().</p>
                 </div>
                 
                 <div class="code-container">
-                    <div class="code-header">
-                        <h3>mobil.dart</h3>
-                        <span class="language-badge">DART SECURE</span>
-                    </div>
+                    <div class="code-header">📁 mobil.dart</div>
                     <div class="code-content">
-                        <pre><span style="color:#6a9955;">// Nama   : USMAN YAKIN TRIO SINADA</span>
-<span style="color:#6a9955;">// Nim    : 251410006</span>
+                        <pre><span class="comment">// Nama   : USMAN YAKIN TRIO SINADA</span>
+<span class="comment">// Nim    : 251410006</span>
 
-<span style="color:#569cd6;">class</span> <span style="color:#4ec9b0;">Mobil</span> {
-  <span style="color:#4ec9b0;">String</span>? merk;
-  <span style="color:#4ec9b0;">int</span>? tahun;
+<span class="keyword">class</span> <span class="type">Mobil</span> {
+  <span class="type">String</span>? merk;
+  <span class="type">int</span>? tahun;
 
-  <span style="color:#6a9955;">// Parameterized Constructor</span>
-  <span style="color:#dcdcaa;">Mobil</span>(<span style="color:#569cd6;">this</span>.merk, <span style="color:#569cd6;">this</span>.tahun);
+  <span class="comment">// Parameterized Constructor</span>
+  <span class="type">Mobil</span>(<span class="keyword">this</span>.merk, <span class="keyword">this</span>.tahun);
 
-  <span style="color:#6a9955;">// Named Constructor: Mobil Baru</span>
-  <span style="color:#dcdcaa;">Mobil.baru</span>() {
-    merk = <span style="color:#ce9178;">'Cyber Truck'</span>;
-    tahun = 2025;
+  <span class="comment">// Named Constructor: Mobil Baru</span>
+  <span class="type">Mobil</span>.baru() {
+    merk = <span class="string">'Nissan Skyline GT-R R34'</span>;
+    tahun = 2002;
   }
 
-  <span style="color:#6a9955;">// Named Constructor: dari JSON</span>
-  <span style="color:#dcdcaa;">Mobil.dariJson</span>(<span style="color:#4ec9b0;">Map</span>&lt;<span style="color:#4ec9b0;">String</span>, <span style="color:#4ec9b0;">dynamic</span>&gt; json) {
-    merk = json[<span style="color:#ce9178;">'merk'</span>];
-    tahun = json[<span style="color:#ce9178;">'tahun'</span>];
+  <span class="comment">// Named Constructor: dari JSON</span>
+  <span class="type">Mobil</span>.dariJson(<span class="type">Map</span>&lt;<span class="type">String</span>, <span class="type">dynamic</span>&gt; json) {
+    merk = json[<span class="string">'merk'</span>];
+    tahun = json[<span class="string">'tahun'</span>];
   }
 }</pre>
                     </div>
                 </div>
             </div>
 
-            <!-- MATERI 3: WARNA (CYBER SECURITY THEME) -->
-            <div class="tab-pane" id="tab2">
-                <div class="description">
-                    <h2>Kelas Warna - Threat Level System</h2>
-                    <p>Constant constructor untuk standardisasi tingkat ancaman keamanan siber.
-                    <span class="threat-badge critical">LEVEL: KRITIS</span></p>
+            <!-- 3. WARNA -->
+            <div id="warna" class="materi">
+                <h2>🎨 3. Kelas Warna - Constant Constructor</h2>
+                <div class="deskripsi">
+                    <p>Menggunakan <strong>constant constructor</strong> untuk membuat objek immutable (tidak bisa diubah).</p>
                 </div>
                 
                 <div class="code-container">
-                    <div class="code-header">
-                        <h3>warna_cyber.dart</h3>
-                        <span class="language-badge">SECURITY CORE</span>
-                    </div>
+                    <div class="code-header">📁 warna.dart</div>
                     <div class="code-content">
-                        <pre><span style="color:#6a9955;">// TEMA: CYBER SECURITY THREAT LEVEL</span>
-<span style="color:#569cd6;">class</span> <span style="color:#4ec9b0;">Warna</span> {
-  <span style="color:#569cd6;">final</span> <span style="color:#4ec9b0;">int</span> r, g, b;
+                        <pre><span class="comment">// Nama   : USMAN YAKIN TRIO SINADA</span>
+<span class="comment">// Nim    : 251410006</span>
 
-  <span style="color:#6a9955;">// Constant Constructor</span>
-  <span style="color:#569cd6;">const</span> <span style="color:#dcdcaa;">Warna</span>(<span style="color:#569cd6;">this</span>.r, <span style="color:#569cd6;">this</span>.g, <span style="color:#569cd6;">this</span>.b);
+<span class="keyword">class</span> <span class="type">Warna</span> {
+  <span class="keyword">final</span> <span class="type">int</span> r, g, b;
+
+  <span class="comment">// Constant Constructor</span>
+  <span class="keyword">const</span> <span class="type">Warna</span>(<span class="keyword">this</span>.r, <span class="keyword">this</span>.g, <span class="keyword">this</span>.b);
+
+  <span class="meta">@override</span>
+  <span class="type">String</span> toString() {
+    <span class="keyword">return</span> <span class="string">'Warna(r: $r, g: $g, b: $b)'</span>;
+  }
 }
 
-<span style="color:#6a9955;">// Enum untuk kategori keamanan siber</span>
-<span style="color:#569cd6;">enum</span> <span style="color:#4ec9b0;">TingkatKeamanan</span> {
-  kritis(<span style="color:#ce9178;">'🔴 KRITIS'</span>, <span style="color:#ce9178;">'Ancaman sangat berbahaya'</span>),
-  tinggi(<span style="color:#ce9178;">'🟠 TINGGI'</span>, <span style="color:#ce9178;">'Resiko tinggi'</span>),
-  sedang(<span style="color:#ce9178;">'🟡 SEDANG'</span>, <span style="color:#ce9178;">'Potensi ancaman'</span>),
-  rendah(<span style="color:#ce9178;">'🟢 RENDAH'</span>, <span style="color:#ce9178;">'Aman'</span>),
-  info(<span style="color:#ce9178;">'🔵 INFO'</span>, <span style="color:#ce9178;">'Informasi umum'</span>);
-
-  <span style="color:#569cd6;">final</span> <span style="color:#4ec9b0;">String</span> label;
-  <span style="color:#569cd6;">final</span> <span style="color:#4ec9b0;">String</span> deskripsi;
-  <span style="color:#569cd6;">const</span> <span style="color:#dcdcaa;">TingkatKeamanan</span>(<span style="color:#569cd6;">this</span>.label, <span style="color:#569cd6;">this</span>.deskripsi);
+<span class="keyword">void</span> main() {
+  <span class="keyword">const</span> warnaMerah = <span class="type">Warna</span>(255, 0, 0);
+  <span class="keyword">const</span> warnaHijau = <span class="type">Warna</span>(0, 255, 0);
+  
+  print(warnaMerah);  <span class="comment">// Output: Warna(r: 255, g: 0, b: 0)</span>
+  print(warnaHijau);   <span class="comment">// Output: Warna(r: 0, g: 255, b: 0)</span>
 }</pre>
                     </div>
                 </div>
             </div>
 
-            <!-- MATERI 4: TITIK -->
-            <div class="tab-pane" id="tab3">
-                <div class="description">
-                    <h2>Kelas Titik - Initializer List</h2>
-                    <p>Menggunakan initializer list untuk memproses nilai sebelum objek dibuat.
-                    <span class="threat-badge low">LEVEL: AMAN</span></p>
+            <!-- 4. TITIK -->
+            <div id="titik" class="materi">
+                <h2>📐 4. Kelas Titik - Initializer List</h2>
+                <div class="deskripsi">
+                    <p>Menggunakan <strong>initializer list</strong> untuk memproses nilai sebelum objek dibuat.</p>
                 </div>
                 
                 <div class="code-container">
-                    <div class="code-header">
-                        <h3>titik.dart</h3>
-                        <span class="language-badge">DART SECURE</span>
-                    </div>
+                    <div class="code-header">📁 titik.dart</div>
                     <div class="code-content">
-                        <pre><span style="color:#569cd6;">class</span> <span style="color:#4ec9b0;">Titik</span> {
-  <span style="color:#569cd6;">final</span> <span style="color:#4ec9b0;">double</span> x, y;
+                        <pre><span class="comment">// Nama   : USMAN YAKIN TRIO SINADA</span>
+<span class="comment">// Nim    : 251410006</span>
 
-  <span style="color:#6a9955;">// Initializer list untuk validasi</span>
-  <span style="color:#dcdcaa;">Titik</span>(<span style="color:#4ec9b0;">double</span> x, <span style="color:#4ec9b0;">double</span> y)
-      : x = x.<span style="color:#dcdcaa;">abs</span>(),
-        y = y.<span style="color:#dcdcaa;">abs</span>() {
-    <span style="color:#dcdcaa;">print</span>(<span style="color:#ce9178;">'✅ Titik (${this.x}, ${this.y}) dibuat.'</span>);
+<span class="keyword">class</span> <span class="type">Titik</span> {
+  <span class="keyword">final</span> <span class="type">double</span> x, y;
+
+  <span class="comment">// Initializer list untuk memastikan koordinat bernilai absolut</span>
+  <span class="type">Titik</span>(<span class="type">double</span> x, <span class="type">double</span> y)
+      : x = x.<span class="type">abs</span>(),
+        y = y.<span class="type">abs</span>() {
+    print(<span class="string">'Titik (${this.x}, ${this.y}) berhasil dibuat.'</span>);
   }
+}
+
+<span class="keyword">void</span> main() {
+  <span class="type">Titik</span> titik1 = <span class="type">Titik</span>(5.0, 7.0);   <span class="comment">// Positif</span>
+  <span class="type">Titik</span> titik2 = <span class="type">Titik</span>(-3.5, -8.0); <span class="comment">// Negatif akan jadi positif</span>
 }</pre>
                     </div>
                 </div>
             </div>
 
-            <!-- MATERI 5: MAHASISWA -->
-            <div class="tab-pane" id="tab4">
-                <div class="description">
-                    <h2>Kelas Mahasiswa - Named Constructor</h2>
-                    <p>Memiliki default constructor, dariMap(), dan tanpaNama().
-                    <span class="threat-badge low">LEVEL: AMAN</span></p>
+            <!-- 5. MAHASISWA -->
+            <div id="mahasiswa" class="materi">
+                <h2>👨‍🎓 5. Kelas Mahasiswa - Named Constructor</h2>
+                <div class="deskripsi">
+                    <p>Memiliki <strong>default constructor</strong> dan <strong>named constructor</strong> dariMap() serta tanpaNama().</p>
                 </div>
                 
                 <div class="code-container">
-                    <div class="code-header">
-                        <h3>mahasiswa.dart</h3>
-                        <span class="language-badge">DART SECURE</span>
-                    </div>
+                    <div class="code-header">📁 mahasiswa.dart</div>
                     <div class="code-content">
-                        <pre><span style="color:#569cd6;">class</span> <span style="color:#4ec9b0;">Mahasiswa</span> {
-  <span style="color:#4ec9b0;">String</span> nama;
-  <span style="color:#4ec9b0;">String</span> nim;
-  <span style="color:#4ec9b0;">String</span> jurusan;
-  <span style="color:#4ec9b0;">String</span> kelas;
+                        <pre><span class="comment">// Nama   : USMAN YAKIN TRIO SINADA</span>
+<span class="comment">// Nim    : 251410006</span>
 
-  <span style="color:#6a9955;">// Default Constructor</span>
-  <span style="color:#dcdcaa;">Mahasiswa</span>(<span style="color:#569cd6;">this</span>.nama, <span style="color:#569cd6;">this</span>.nim, <span style="color:#569cd6;">this</span>.jurusan, <span style="color:#569cd6;">this</span>.kelas);
+<span class="keyword">class</span> <span class="type">Mahasiswa</span> {
+  <span class="type">String</span> nama;
+  <span class="type">String</span> nim;
+  <span class="type">String</span> jurusan;
+  <span class="type">String</span> kelas;
 
-  <span style="color:#6a9955;">// Named Constructor: dari Map</span>
-  <span style="color:#dcdcaa;">Mahasiswa.dariMap</span>(<span style="color:#4ec9b0;">Map</span>&lt;<span style="color:#4ec9b0;">String</span>, <span style="color:#4ec9b0;">String</span>&gt; data)
-      : nama = data[<span style="color:#ce9178;">'nama'</span>]!,
-        nim = data[<span style="color:#ce9178;">'nim'</span>]!,
-        jurusan = data[<span style="color:#ce9178;">'jurusan'</span>]!,
-        kelas = data[<span style="color:#ce9178;">'kelas'</span>]!;
+  <span class="comment">// Default Constructor</span>
+  <span class="type">Mahasiswa</span>(<span class="keyword">this</span>.nama, <span class="keyword">this</span>.nim, <span class="keyword">this</span>.jurusan, <span class="keyword">this</span>.kelas);
+
+  <span class="comment">// Named Constructor: dari Map</span>
+  <span class="type">Mahasiswa</span>.dariMap(<span class="type">Map</span>&lt;<span class="type">String</span>, <span class="type">String</span>&gt; data)
+      : nama = data[<span class="string">'nama'</span>]!,
+        nim = data[<span class="string">'nim'</span>]!,
+        jurusan = data[<span class="string">'jurusan'</span>]!,
+        kelas = data[<span class="string">'kelas'</span>]!;
+
+  <span class="comment">// Named Constructor: Tanpa Nama (Anonim)</span>
+  <span class="type">Mahasiswa</span>.tanpaNama(<span class="keyword">this</span>.nim, <span class="keyword">this</span>.jurusan, <span class="keyword">this</span>.kelas) : nama = <span class="string">'*** ANONIM ***'</span>;
 }</pre>
                     </div>
                 </div>
             </div>
 
-            <!-- MATERI 6: PERSON -->
-            <div class="tab-pane" id="tab5">
-                <div class="description">
-                    <h2>Kelas Person - Enkapsulasi</h2>
-                    <p>Getter dan setter dengan validasi untuk atribut private.
-                    <span class="threat-badge medium">LEVEL: SEDANG</span></p>
+            <!-- 6. PERSON -->
+            <div id="person" class="materi">
+                <h2>👤 6. Kelas Person - Enkapsulasi Dasar</h2>
+                <div class="deskripsi">
+                    <p>Menerapkan <strong>enkapsulasi</strong> dengan getter dan setter untuk atribut private.</p>
                 </div>
                 
                 <div class="code-container">
-                    <div class="code-header">
-                        <h3>person.dart</h3>
-                        <span class="language-badge">SECURE</span>
-                    </div>
+                    <div class="code-header">📁 person.dart</div>
                     <div class="code-content">
-                        <pre><span style="color:#569cd6;">class</span> <span style="color:#4ec9b0;">Person</span> {
-  <span style="color:#4ec9b0;">String</span> <span style="color:#569cd6;">_nama</span>;
-  <span style="color:#4ec9b0;">int</span> <span style="color:#569cd6;">_umur</span>;
+                        <pre><span class="comment">// Nama   : USMAN YAKIN TRIO SINADA</span>
+<span class="comment">// Nim    : 251410006</span>
 
-  <span style="color:#dcdcaa;">Person</span>(<span style="color:#569cd6;">this</span>._nama, <span style="color:#569cd6;">this</span>._umur);
+<span class="keyword">class</span> <span class="type">Person</span> {
+  <span class="type">String</span> <span class="keyword">_nama</span>; <span class="comment">// Private field</span>
+  <span class="type">int</span> <span class="keyword">_umur</span>;    <span class="comment">// Private field</span>
 
-  <span style="color:#6a9955;">// Getter</span>
-  <span style="color:#4ec9b0;">String</span> <span style="color:#569cd6;">get</span> nama => _nama;
-  <span style="color:#4ec9b0;">int</span> <span style="color:#569cd6;">get</span> umur => _umur;
+  <span class="type">Person</span>(<span class="keyword">this</span>._nama, <span class="keyword">this</span>._umur);
 
-  <span style="color:#6a9955;">// Setter dengan validasi</span>
-  <span style="color:#569cd6;">set</span> <span style="color:#dcdcaa;">nama</span>(<span style="color:#4ec9b0;">String</span> namaBaru) {
-    <span style="color:#569cd6;">if</span> (namaBaru.<span style="color:#dcdcaa;">isNotEmpty</span>) _nama = namaBaru;
-  }
-}</pre>
-                    </div>
-                </div>
-            </div>
+  <span class="comment">// Getter</span>
+  <span class="type">String</span> <span class="keyword">get</span> nama => _nama;
+  <span class="type">int</span> <span class="keyword">get</span> umur => _umur;
 
-            <!-- MATERI 7: PRODUK -->
-            <div class="tab-pane" id="tab6">
-                <div class="description">
-                    <h2>Kelas Produk - Validasi Setter</h2>
-                    <p>Validasi nama (min 3 karakter) dan harga (>0).
-                    <span class="threat-badge medium">LEVEL: SEDANG</span></p>
-                </div>
-                
-                <div class="code-container">
-                    <div class="code-header">
-                        <h3>produk.dart</h3>
-                        <span class="language-badge">SECURE</span>
-                    </div>
-                    <div class="code-content">
-                        <pre><span style="color:#569cd6;">class</span> <span style="color:#4ec9b0;">Produk</span> {
-  <span style="color:#4ec9b0;">String</span> <span style="color:#569cd6;">_nama</span>;
-  <span style="color:#4ec9b0;">double</span> <span style="color:#569cd6;">_harga</span>;
-
-  <span style="color:#dcdcaa;">Produk</span>(<span style="color:#569cd6;">this</span>._nama, <span style="color:#569cd6;">this</span>._harga);
-
-  <span style="color:#569cd6;">set</span> <span style="color:#dcdcaa;">nama</span>(<span style="color:#4ec9b0;">String</span> value) {
-    <span style="color:#569cd6;">if</span> (value.<span style="color:#dcdcaa;">length</span> >= 3) _nama = value;
+  <span class="comment">// Setter dengan validasi</span>
+  <span class="keyword">set</span> nama(<span class="type">String</span> namaBaru) {
+    <span class="keyword">if</span> (namaBaru.isNotEmpty) {
+      _nama = namaBaru;
+    }
   }
 
-  <span style="color:#569cd6;">set</span> <span style="color:#dcdcaa;">harga</span>(<span style="color:#4ec9b0;">double</span> value) {
-    <span style="color:#569cd6;">if</span> (value > 0) _harga = value;
-  }
-}</pre>
-                    </div>
-                </div>
-            </div>
-
-            <!-- MATERI 8: USER -->
-            <div class="tab-pane" id="tab7">
-                <div class="description">
-                    <h2>Kelas User - Login System</h2>
-                    <p>Enkapsulasi dengan metode login dan ganti password.
-                    <span class="threat-badge critical">LEVEL: KRITIS</span></p>
-                </div>
-                
-                <div class="code-container">
-                    <div class="code-header">
-                        <h3>user.dart</h3>
-                        <span class="language-badge">SECURE AUTH</span>
-                    </div>
-                    <div class="code-content">
-                        <pre><span style="color:#569cd6;">class</span> <span style="color:#4ec9b0;">User</span> {
-  <span style="color:#4ec9b0;">String</span> <span style="color:#569cd6;">_username</span>;
-  <span style="color:#4ec9b0;">String</span> <span style="color:#569cd6;">_password</span>;
-  <span style="color:#4ec9b0;">String</span> <span style="color:#569cd6;">_email</span>;
-
-  <span style="color:#dcdcaa;">User</span>(<span style="color:#569cd6;">this</span>._username, <span style="color:#569cd6;">this</span>._password, <span style="color:#569cd6;">this</span>._email);
-
-  <span style="color:#4ec9b0;">bool</span> <span style="color:#dcdcaa;">login</span>(<span style="color:#4ec9b0;">String</span> username, <span style="color:#4ec9b0;">String</span> password) {
-    <span style="color:#569cd6;">return</span> username == _username && password == _password;
-  }
-
-  <span style="color:#569cd6;">void</span> <span style="color:#dcdcaa;">gantiPassword</span>(<span style="color:#4ec9b0;">String</span> lama, <span style="color:#4ec9b0;">String</span> baru) {
-    <span style="color:#569cd6;">if</span> (lama == _password && baru.<span style="color:#dcdcaa;">length</span> >= 6) {
-      _password = baru;
+  <span class="keyword">set</span> umur(<span class="type">int</span> umurBaru) {
+    <span class="keyword">if</span> (umurBaru > 0 && umurBaru < 150) {
+      _umur = umurBaru;
     }
   }
 }</pre>
@@ -656,28 +419,151 @@
                 </div>
             </div>
 
-            <!-- MATERI 9: REKENING BANK -->
-            <div class="tab-pane" id="tab8">
-                <div class="description">
-                    <h2>Kelas RekeningBank - Transaksi</h2>
-                    <p>Enkapsulasi dengan metode deposit, tarik tunai, dan transfer.
-                    <span class="threat-badge high">LEVEL: TINGGI</span></p>
+            <!-- 7. PRODUK -->
+            <div id="produk" class="materi">
+                <h2>📦 7. Kelas Produk - Validasi pada Setter</h2>
+                <div class="deskripsi">
+                    <p>Menerapkan <strong>validasi</strong> pada setter (nama minimal 3 karakter, harga > 0).</p>
                 </div>
                 
                 <div class="code-container">
-                    <div class="code-header">
-                        <h3>rekening_bank.dart</h3>
-                        <span class="language-badge">FINANCIAL SECURE</span>
-                    </div>
+                    <div class="code-header">📁 produk.dart</div>
                     <div class="code-content">
-                        <pre><span style="color:#569cd6;">class</span> <span style="color:#4ec9b0;">RekeningBank</span> {
-  <span style="color:#4ec9b0;">String</span> <span style="color:#569cd6;">_nomorRekening</span>;
-  <span style="color:#4ec9b0;">double</span> <span style="color:#569cd6;">_saldo</span>;
+                        <pre><span class="comment">// Nama   : USMAN YAKIN TRIO SINADA</span>
+<span class="comment">// Nim    : 251410006</span>
 
-  <span style="color:#dcdcaa;">RekeningBank</span>(<span style="color:#569cd6;">this</span>._nomorRekening, <span style="color:#569cd6;">this</span>._saldo);
+<span class="keyword">class</span> <span class="type">Produk</span> {
+  <span class="type">String</span> <span class="keyword">_nama</span>;
+  <span class="type">double</span> <span class="keyword">_harga</span>;
 
-  <span style="color:#569cd6;">void</span> <span style="color:#dcdcaa;">deposit</span>(<span style="color:#4ec9b0;">double</span> jumlah) {
-    <span style="color:#569cd6;">if</span> (jumlah > 0) _saldo += jumlah;
+  <span class="type">Produk</span>(<span class="keyword">this</span>._nama, <span class="keyword">this</span>._harga);
+
+  <span class="comment">// Getter</span>
+  <span class="type">String</span> <span class="keyword">get</span> nama => _nama;
+  <span class="type">double</span> <span class="keyword">get</span> harga => _harga;
+
+  <span class="comment">// Setter dengan validasi</span>
+  <span class="keyword">set</span> nama(<span class="type">String</span> value) {
+    <span class="keyword">if</span> (value.length >= 3) {
+      _nama = value;
+    }
   }
 
-  <span style="color:#569cd6;">void</span> <span style="color:#dcdcaa;">tarik</span>(<span style="color:#4ec9b0;">double</span>
+  <span class="keyword">set</span> harga(<span class="type">double</span> value) {
+    <span class="keyword">if</span> (value > 0) {
+      _harga = value;
+    }
+  }
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8. USER -->
+            <div id="user" class="materi">
+                <h2>🔐 8. Kelas User - Sistem Login</h2>
+                <div class="deskripsi">
+                    <p>Enkapsulasi dengan metode <strong>login</strong> dan <strong>ganti password</strong>.</p>
+                </div>
+                
+                <div class="code-container">
+                    <div class="code-header">📁 user.dart</div>
+                    <div class="code-content">
+                        <pre><span class="comment">// Nama   : USMAN YAKIN TRIO SINADA</span>
+<span class="comment">// Nim    : 251410006</span>
+
+<span class="keyword">class</span> <span class="type">User</span> {
+  <span class="type">String</span> <span class="keyword">_username</span>;
+  <span class="type">String</span> <span class="keyword">_password</span>;
+  <span class="type">String</span> <span class="keyword">_email</span>;
+
+  <span class="type">User</span>(<span class="keyword">this</span>._username, <span class="keyword">this</span>._password, <span class="keyword">this</span>._email);
+
+  <span class="comment">// Getter (password tidak disediakan)</span>
+  <span class="type">String</span> <span class="keyword">get</span> username => _username;
+  <span class="type">String</span> <span class="keyword">get</span> email => _email;
+
+  <span class="comment">// Method Login</span>
+  <span class="type">bool</span> login(<span class="type">String</span> username, <span class="type">String</span> password) {
+    <span class="keyword">return</span> username == _username && password == _password;
+  }
+
+  <span class="comment">// Method Ganti Password</span>
+  <span class="keyword">void</span> gantiPassword(<span class="type">String</span> passwordLama, <span class="type">String</span> passwordBaru) {
+    <span class="keyword">if</span> (passwordLama == _password && passwordBaru.length >= 6) {
+      _password = passwordBaru;
+    }
+  }
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 9. REKENING BANK -->
+            <div id="rekening" class="materi">
+                <h2>🏦 9. Kelas RekeningBank - Simulasi Transaksi</h2>
+                <div class="deskripsi">
+                    <p>Enkapsulasi dengan metode <strong>deposit</strong>, <strong>tarik tunai</strong>, dan <strong>transfer</strong>.</p>
+                </div>
+                
+                <div class="code-container">
+                    <div class="code-header">📁 rekening_bank.dart</div>
+                    <div class="code-content">
+                        <pre><span class="comment">// Nama   : USMAN YAKIN TRIO SINADA</span>
+<span class="comment">// Nim    : 251410006</span>
+
+<span class="keyword">class</span> <span class="type">RekeningBank</span> {
+  <span class="type">String</span> <span class="keyword">_nomorRekening</span>;
+  <span class="type">double</span> <span class="keyword">_saldo</span>;
+
+  <span class="type">RekeningBank</span>(<span class="keyword">this</span>._nomorRekening, <span class="keyword">this</span>._saldo);
+
+  <span class="comment">// Getter</span>
+  <span class="type">String</span> <span class="keyword">get</span> nomorRekening => _nomorRekening;
+  <span class="type">double</span> <span class="keyword">get</span> saldo => _saldo;
+
+  <span class="comment">// Method Deposit</span>
+  <span class="keyword">void</span> deposit(<span class="type">double</span> jumlah) {
+    <span class="keyword">if</span> (jumlah > 0) {
+      _saldo += jumlah;
+    }
+  }
+
+  <span class="comment">// Method Tarik Tunai</span>
+  <span class="keyword">void</span> tarik(<span class="type">double</span> jumlah) {
+    <span class="keyword">if</span> (jumlah > 0 && _saldo >= jumlah) {
+      _saldo -= jumlah;
+    }
+  }
+
+  <span class="comment">// Method Transfer</span>
+  <span class="keyword">void</span> transfer(<span class="type">RekeningBank</span> tujuan, <span class="type">double</span> jumlah) {
+    <span class="keyword">if</span> (jumlah > 0 && _saldo >= jumlah) {
+      _saldo -= jumlah;
+      tujuan._saldo += jumlah;
+    }
+  }
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KESIMPULAN -->
+            <div style="margin-top: 40px; padding: 20px; background: #e8f4fd; border-radius: 8px;">
+                <h3 style="color: #2c3e50; margin-bottom: 15px;">📌 KESIMPULAN</h3>
+                <ul style="margin-left: 20px; color: #555;">
+                    <li style="margin-bottom: 8px;"><strong>Constructor</strong> memungkinkan pembuatan objek dengan nilai awal spesifik (parameterized, default, named, constant).</li>
+                    <li style="margin-bottom: 8px;"><strong>Enkapsulasi</strong> dengan getter & setter menjaga keamanan data, mencegah akses langsung ke atribut private.</li>
+                    <li style="margin-bottom: 8px;">Pemakaian constructor dan enkapsulasi membuat kode lebih <strong>terstruktur, modular, dan mudah dipelihara</strong>.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <p>© 2024 - USMAN YAKIN TRIO SINADA | NIM: 251410006 | Kelas: SI2A</p>
+            <p style="margin-top: 5px; font-size: 0.8em;">Implementasi Constructor dan Enkapsulasi pada Pemrograman Dart</p>
+        </div>
+    </div>
+</body>
+</html>
