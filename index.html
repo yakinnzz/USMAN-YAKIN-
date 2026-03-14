@@ -1,574 +1,768 @@
-// ====================================================
-// IMPLEMENTASI CONSTRUCTOR DAN ENKAPSULASI
-// NAMA : USMAN YAKIN TRIO SINADA
-// NIM  : 251410006
-// KELAS: SI2A
-// ====================================================
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMPLEMENTASI CONSTRUCTOR & ENKAPSULASI - USMAN YAKIN</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-import 'dart:convert';
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(145deg, #0a0f1e 0%, #1a1f35 50%, #0f172a 100%);
+            color: #e2e8f0;
+            line-height: 1.6;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
 
-// ==================== 1. KELAS BUKU ====================
-class Buku {
-  String judul;
+        /* ===== LANGIT MALAM DENGAN BINTANG ===== */
+        .stars, .twinkling, .clouds {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            pointer-events: none;
+            z-index: -1;
+        }
 
-  // Parameterized Constructor
-  Buku(this.judul);
+        /* Bintang-bintang kecil */
+        .stars {
+            background: #000 url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48Y2lyY2xlIGN4PSI2IiBjeT0iMTQiIHI9IjEiIGZpbGw9IndoaXRlIiAvPjxjaXJjbGUgY3g9IjE2MCIgY3k9IjYwIiByPSIxIiBmaWxsPSJ3aGl0ZSIgLz48Y2lyY2xlIGN4PSI0MCIgY3k9IjIwMCIgcj0iMSIgZmlsbD0id2hpdGUiIC8+PGNpcmNsZSBjeD0iMjUwIiBjeT0iMTIwIiByPSIxIiBmaWxsPSJ3aGl0ZSIgLz48Y2lyY2xlIGN4PSI5MCIgY3k9IjE4MCIgcj0iMSIgZmlsbD0id2hpdGUiIC8+PC9zdmc+');
+            background-size: 200px 200px;
+            animation: stars 200s linear infinite;
+            opacity: 0.8;
+        }
+
+        /* Bintang berkelap-kelip */
+        .twinkling {
+            background: transparent url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48Y2lyY2xlIGN4PSIxMDAiIGN5PSI1MCIgcj0iMiIgZmlsbD0id2hpdGUiIG9wYWNpdHk9IjAuNSIgLz48Y2lyY2xlIGN4PSIyMDAiIGN5PSIxNTAiIHI9IjIiIGZpbGw9IndoaXRlIiBvcGFjaXR5PSIwLjMiIC8+PC9zdmc+');
+            background-size: 300px 300px;
+            animation: twinkling 4s ease-in-out infinite;
+            opacity: 0.5;
+        }
+
+        /* Kabut tipis */
+        .clouds {
+            background: linear-gradient(145deg, 
+                rgba(25, 35, 75, 0.2) 0%, 
+                rgba(45, 55, 95, 0.1) 50%, 
+                rgba(15, 25, 55, 0.2) 100%);
+            animation: clouds 20s linear infinite;
+        }
+
+        @keyframes stars {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 400px; }
+        }
+
+        @keyframes twinkling {
+            0% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+            100% { opacity: 0.2; transform: scale(1); }
+        }
+
+        @keyframes clouds {
+            0% { opacity: 0.2; }
+            50% { opacity: 0.5; }
+            100% { opacity: 0.2; }
+        }
+
+        /* ===== BULAN SABIT ===== */
+        .moon {
+            position: fixed;
+            top: 40px;
+            right: 60px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #f9f3d9, #d4c4a8);
+            box-shadow: 0 0 50px rgba(255, 255, 200, 0.3);
+            z-index: -1;
+            animation: moonGlow 5s ease-in-out infinite;
+        }
+
+        .moon::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 200, 0.3), transparent 70%);
+            filter: blur(10px);
+        }
+
+        .moon::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 20% 20%, #0a0f1e, #1a1f35);
+            box-shadow: inset -5px -5px 15px rgba(0,0,0,0.5);
+        }
+
+        @keyframes moonGlow {
+            0% { box-shadow: 0 0 40px rgba(255, 255, 200, 0.2); }
+            50% { box-shadow: 0 0 70px rgba(255, 255, 200, 0.4); }
+            100% { box-shadow: 0 0 40px rgba(255, 255, 200, 0.2); }
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Efek embun */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.3) 50%, 
+                transparent 100%);
+        }
+
+        .header {
+            background: linear-gradient(145deg, 
+                rgba(30, 41, 59, 0.9) 0%, 
+                rgba(15, 23, 42, 0.95) 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, 
+                rgba(255, 255, 255, 0.1) 0%, 
+                transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #f0f9ff, #bae6fd, #7dd3fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(125, 211, 252, 0.3);
+            position: relative;
+        }
+
+        .header h3 {
+            font-weight: 300;
+            margin-bottom: 15px;
+            color: #94a3b8;
+            letter-spacing: 2px;
+        }
+
+        .header .info {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px 30px;
+            border-radius: 50px;
+            display: inline-block;
+            font-size: 1.1em;
+            backdrop-filter: blur(5px);
+            color: #e2e8f0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .header .info strong {
+            color: #7dd3fc;
+            text-shadow: 0 0 10px rgba(125, 211, 252, 0.5);
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        /* Daftar isi dengan bintang */
+        .daftar-isi {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .daftar-isi a {
+            color: #94a3b8;
+            text-decoration: none;
+            padding: 8px 18px;
+            border: 1px solid rgba(125, 211, 252, 0.3);
+            border-radius: 30px;
+            font-size: 0.9em;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .daftar-isi a:hover {
+            background: rgba(125, 211, 252, 0.1);
+            color: #7dd3fc;
+            border-color: #7dd3fc;
+            box-shadow: 0 0 20px rgba(125, 211, 252, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .daftar-isi a::before {
+            content: '⭐';
+            margin-right: 5px;
+            font-size: 0.8em;
+            opacity: 0.7;
+        }
+
+        /* Setiap materi */
+        .materi {
+            margin-bottom: 50px;
+            padding: 30px;
+            background: rgba(30, 41, 59, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s;
+        }
+
+        .materi:hover {
+            border-color: rgba(125, 211, 252, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .materi h2 {
+            color: #f0f9ff;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(125, 211, 252, 0.3);
+            display: inline-block;
+            font-size: 1.8em;
+            text-shadow: 0 0 10px rgba(125, 211, 252, 0.3);
+        }
+
+        .materi .deskripsi {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(125, 211, 252, 0.2);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 15px 0;
+            border-left: 4px solid #7dd3fc;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .materi .deskripsi p {
+            margin: 8px 0;
+            color: #cbd5e1;
+        }
+
+        .materi .highlight {
+            background: rgba(125, 211, 252, 0.1);
+            border: 1px solid rgba(125, 211, 252, 0.3);
+            color: #bae6fd;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-style: italic;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .materi .highlight::before {
+            content: '✨';
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5em;
+            opacity: 0.3;
+        }
+
+        /* Code container dengan tema malam */
+        .code-container {
+            background: #0b1120;
+            border: 1px solid rgba(125, 211, 252, 0.2);
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .code-header {
+            background: #1e293b;
+            padding: 15px 20px;
+            color: #f0f9ff;
+            font-weight: bold;
+            border-bottom: 1px solid rgba(125, 211, 252, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .code-badge {
+            background: rgba(125, 211, 252, 0.2);
+            color: #7dd3fc;
+            padding: 4px 15px;
+            border-radius: 30px;
+            font-size: 0.8em;
+            border: 1px solid rgba(125, 211, 252, 0.3);
+        }
+
+        .code-content {
+            padding: 20px;
+            overflow-x: auto;
+            background: #0f172a;
+            position: relative;
+        }
+
+        .code-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(125, 211, 252, 0.3) 50%, 
+                transparent 100%);
+        }
+
+        .code-content pre {
+            margin: 0;
+            color: #a5b4fc;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        /* Syntax highlighting untuk tema malam */
+        .comment { color: #6b7280; }
+        .keyword { color: #7dd3fc; }
+        .string { color: #fcd34d; }
+        .type { color: #6ee7b7; }
+        .function { color: #f0f9ff; }
+        .number { color: #fca5a5; }
+
+        /* Footer dengan bintang */
+        .footer {
+            background: rgba(15, 23, 42, 0.9);
+            border-top: 1px solid rgba(125, 211, 252, 0.2);
+            padding: 25px;
+            text-align: center;
+            color: #94a3b8;
+            position: relative;
+        }
+
+        .footer p {
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer a {
+            color: #7dd3fc;
+            text-decoration: none;
+            border-bottom: 1px dashed #7dd3fc;
+        }
+
+        .footer a:hover {
+            color: #bae6fd;
+            text-shadow: 0 0 10px #7dd3fc;
+        }
+
+        .footer::before {
+            content: '⭐⭐⭐';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.1);
+            font-size: 0.8em;
+            letter-spacing: 5px;
+        }
+
+        .footer::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(125, 211, 252, 0.3) 20%, 
+                rgba(125, 211, 252, 0.3) 80%, 
+                transparent 100%);
+        }
+
+        /* Scrollbar dengan tema malam */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1e293b;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 10px;
+            border: 2px solid #1e293b;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #7dd3fc;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Langit malam dengan bintang -->
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    <div class="clouds"></div>
+    <div class="moon"></div>
+
+    <div class="container">
+        <div class="header">
+            <h1>✨ IMPLEMENTASI CONSTRUCTOR & ENKAPSULASI ✨</h1>
+            <h3>PEMROGRAMAN DART - NIGHT THEME</h3>
+            <div class="info">
+                <strong>USMAN YAKIN TRIO SINADA</strong> | NIM: 251410006 | Kelas: SI2A
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- Daftar isi dengan bintang -->
+            <div class="daftar-isi">
+                <a href="#materi1">Buku</a>
+                <a href="#materi2">Mobil</a>
+                <a href="#materi3">Warna</a>
+                <a href="#materi4">Titik</a>
+                <a href="#materi5">Mahasiswa</a>
+                <a href="#materi6">Person</a>
+                <a href="#materi7">Produk</a>
+                <a href="#materi8">User</a>
+                <a href="#materi9">Rekening</a>
+            </div>
+
+            <!-- Materi 1: Buku -->
+            <div id="materi1" class="materi">
+                <h2>📚 1. Kelas Buku - Constructor Dasar</h2>
+                <div class="deskripsi">
+                    <p><strong>🔍 Konsep:</strong> Constructor digunakan untuk menginisialisasi objek dengan nilai awal. Parameterized constructor menerima parameter langsung.</p>
+                </div>
+                <div class="highlight">
+                    💡 Constructor adalah "cetak biru" untuk menciptakan objek dengan keadaan awal yang diinginkan.
+                </div>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>📁 buku.dart</span>
+                        <span class="code-badge">DART</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><span class="comment">// Nama   : USMAN YAKIN TRIO SINADA</span>
+<span class="comment">// Nim    : 251410006</span>
+<span class="comment">// Kelas  : SI2A</span>
+
+<span class="keyword">class</span> <span class="type">Buku</span> {
+  <span class="type">String</span> judul;
+
+  <span class="comment">// Parameterized Constructor</span>
+  <span class="type">Buku</span>(<span class="keyword">this</span>.judul);
 }
 
-void demoBuku() {
-  print('\n==================================================');
-  print('PROGRAM 1: DEMO KELAS BUKU');
-  print('==================================================');
+<span class="keyword">void</span> main() {
+  <span class="comment">// Membuat objek Buku</span>
+  <span class="type">Buku</span> buku1 = <span class="type">Buku</span>(<span class="string">"Pemrograman Dart untuk Pemula"</span>);
+  
+  <span class="comment">// Menampilkan judul buku</span>
+  print(<span class="string">"Judul Buku: ${buku1.judul}"</span>);
+}</pre>
+                    </div>
+                </div>
+            </div>
 
-  // Membuat objek dari kelas Buku
-  Buku buku1 = Buku("Pemrograman Dart untuk Pemula");
-  Buku buku2 = Buku("Clean Code - Robert C. Martin");
+            <!-- Materi 2: Mobil -->
+            <div id="materi2" class="materi">
+                <h2>🚗 2. Kelas Mobil - Named Constructor</h2>
+                <div class="deskripsi">
+                    <p><strong>🔍 Konsep:</strong> Named constructor memberikan nama berbeda untuk cara pembuatan objek yang berbeda, membuat kode lebih ekspresif.</p>
+                </div>
+                <div class="highlight">
+                    💡 Named constructor seperti "jalur khusus" pembuatan objek - memudahkan pembacaan kode.
+                </div>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>📁 mobil.dart</span>
+                        <span class="code-badge">DART</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><span class="keyword">class</span> <span class="type">Mobil</span> {
+  <span class="type">String</span>? merk;
+  <span class="type">int</span>? tahun;
 
-  // Menampilkan judul buku
-  print("Judul Buku 1: ${buku1.judul}");
-  print("Judul Buku 2: ${buku2.judul}");
-  print('==================================================');
-}
+  <span class="comment">// Parameterized Constructor</span>
+  <span class="type">Mobil</span>(<span class="keyword">this</span>.merk, <span class="keyword">this</span>.tahun);
 
-// ==================== 2. KELAS MOBIL ====================
-class Mobil {
-  String? merk;
-  int? tahun;
-
-  // Parameterized Constructor
-  Mobil(this.merk, this.tahun);
-
-  // Named Constructor
-  Mobil.baru() {
-    merk = 'Nissan Skyline GT-R R34';
+  <span class="comment">// Named Constructor: Mobil Baru</span>
+  <span class="type">Mobil</span>.baru() {
+    merk = <span class="string">'Nissan Skyline GT-R R34'</span>;
     tahun = 2002;
   }
+}</pre>
+                    </div>
+                </div>
+            </div>
 
-  // Named Constructor dariJson
-  Mobil.dariJson(Map<String, dynamic> json) {
-    merk = json['merk'];
-    tahun = json['tahun'];
+            <!-- Materi 3: Warna -->
+            <div id="materi3" class="materi">
+                <h2>🎨 3. Kelas Warna - Constant Constructor</h2>
+                <div class="deskripsi">
+                    <p><strong>🔍 Konsep:</strong> Constant constructor membuat objek yang tidak berubah (immutable) dan dioptimasi memory dengan canonicalization.</p>
+                </div>
+                <div class="highlight">
+                    💡 Objek const akan menggunakan memory yang sama jika nilainya identik.
+                </div>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>📁 warna.dart</span>
+                        <span class="code-badge">DART</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><span class="keyword">class</span> <span class="type">Warna</span> {
+  <span class="keyword">final</span> <span class="type">int</span> r, g, b;
+
+  <span class="comment">// Constant Constructor</span>
+  <span class="keyword">const</span> <span class="type">Warna</span>(<span class="keyword">this</span>.r, <span class="keyword">this</span>.g, <span class="keyword">this</span>.b);
+
+  <span class="meta">@override</span>
+  <span class="type">String</span> toString() => <span class="string">'Warna(r: $r, g: $g, b: $b)'</span>;
+}
+
+<span class="keyword">void</span> main() {
+  <span class="keyword">const</span> warnaMerah = <span class="type">Warna</span>(255, 0, 0);
+  <span class="keyword">const</span> warnaHijau = <span class="type">Warna</span>(0, 255, 0);
+  
+  print(warnaMerah);
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Materi 4: Titik -->
+            <div id="materi4" class="materi">
+                <h2>📐 4. Kelas Titik - Initializer List</h2>
+                <div class="deskripsi">
+                    <p><strong>🔍 Konsep:</strong> Initializer list memungkinkan manipulasi nilai sebelum constructor body dieksekusi.</p>
+                </div>
+                <div class="highlight">
+                    💡 Initializer list dieksekusi sebelum constructor body - cocok untuk validasi awal.
+                </div>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>📁 titik.dart</span>
+                        <span class="code-badge">DART</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><span class="keyword">class</span> <span class="type">Titik</span> {
+  <span class="keyword">final</span> <span class="type">double</span> x, y;
+
+  <span class="comment">// Initializer list untuk memastikan koordinat bernilai absolut</span>
+  <span class="type">Titik</span>(<span class="type">double</span> x, <span class="type">double</span> y)
+      : x = x.<span class="type">abs</span>(),
+        y = y.<span class="type">abs</span>() {
+    print(<span class="string">'Titik (${this.x}, ${this.y}) dibuat.'</span>);
+  }
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Materi 5: Mahasiswa -->
+            <div id="materi5" class="materi">
+                <h2>👨‍🎓 5. Kelas Mahasiswa - Named Constructor</h2>
+                <div class="deskripsi">
+                    <p><strong>🔍 Konsep:</strong> Named constructor dengan berbagai cara inisialisasi: default, dari Map, dan anonim.</p>
+                </div>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>📁 mahasiswa.dart</span>
+                        <span class="code-badge">DART</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><span class="keyword">class</span> <span class="type">Mahasiswa</span> {
+  <span class="type">String</span> nama;
+  <span class="type">String</span> nim;
+  <span class="type">String</span> jurusan;
+  <span class="type">String</span> kelas;
+
+  <span class="comment">// Default Constructor</span>
+  <span class="type">Mahasiswa</span>(<span class="keyword">this</span>.nama, <span class="keyword">this</span>.nim, <span class="keyword">this</span>.jurusan, <span class="keyword">this</span>.kelas);
+
+  <span class="comment">// Named Constructor: dari Map</span>
+  <span class="type">Mahasiswa</span>.dariMap(<span class="type">Map</span>&lt;<span class="type">String</span>, <span class="type">String</span>&gt; data)
+      : nama = data[<span class="string">'nama'</span>]!,
+        nim = data[<span class="string">'nim'</span>]!,
+        jurusan = data[<span class="string">'jurusan'</span>]!,
+        kelas = data[<span class="string">'kelas'</span>]!;
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Materi 6: Person -->
+            <div id="materi6" class="materi">
+                <h2>👤 6. Kelas Person - Enkapsulasi Dasar</h2>
+                <div class="deskripsi">
+                    <p><strong>🔍 Konsep:</strong> Enkapsulasi menyembunyikan data internal dan menyediakan akses melalui getter/setter dengan validasi.</p>
+                </div>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>📁 person.dart</span>
+                        <span class="code-badge">DART</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><span class="keyword">class</span> <span class="type">Person</span> {
+  <span class="type">String</span> <span class="keyword">_nama</span>; <span class="comment">// Private field</span>
+  <span class="type">int</span> <span class="keyword">_umur</span>;    <span class="comment">// Private field</span>
+
+  <span class="type">Person</span>(<span class="keyword">this</span>._nama, <span class="keyword">this</span>._umur);
+
+  <span class="comment">// Getter</span>
+  <span class="type">String</span> <span class="keyword">get</span> nama => _nama;
+  <span class="type">int</span> <span class="keyword">get</span> umur => _umur;
+
+  <span class="comment">// Setter dengan validasi</span>
+  <span class="keyword">set</span> nama(<span class="type">String</span> namaBaru) {
+    <span class="keyword">if</span> (namaBaru.isNotEmpty) _nama = namaBaru;
+  }
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Materi 7: Produk -->
+            <div id="materi7" class="materi">
+                <h2>📦 7. Kelas Produk - Validasi pada Setter</h2>
+                <div class="deskripsi">
+                    <p><strong>🔍 Konsep:</strong> Validasi pada setter untuk memastikan data yang masuk sesuai aturan (nama minimal 3 karakter, harga > 0).</p>
+                </div>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>📁 produk.dart</span>
+                        <span class="code-badge">DART</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><span class="keyword">class</span> <span class="type">Produk</span> {
+  <span class="type">String</span> <span class="keyword">_nama</span>;
+  <span class="type">double</span> <span class="keyword">_harga</span>;
+
+  <span class="type">Produk</span>(<span class="keyword">this</span>._nama, <span class="keyword">this</span>._harga);
+
+  <span class="keyword">set</span> nama(<span class="type">String</span> value) {
+    <span class="keyword">if</span> (value.length >= 3) _nama = value;
   }
 
-  @override
-  String toString() {
-    return 'Mobil{merk: $merk, tahun: $tahun}';
+  <span class="keyword">set</span> harga(<span class="type">double</span> value) {
+    <span class="keyword">if</span> (value > 0) _harga = value;
   }
-}
+}</pre>
+                    </div>
+                </div>
+            </div>
 
-void demoMobil() {
-  print('\n==================================================');
-  print('PROGRAM 2: DEMO KELAS MOBIL');
-  print('==================================================');
+            <!-- Materi 8: User -->
+            <div id="materi8" class="materi">
+                <h2>🔐 8. Kelas User - Sistem Login</h2>
+                <div class="deskripsi">
+                    <p><strong>🔍 Konsep:</strong> Enkapsulasi dengan metode login dan ganti password yang memiliki validasi berlapis.</p>
+                </div>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>📁 user.dart</span>
+                        <span class="code-badge">DART</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><span class="keyword">class</span> <span class="type">User</span> {
+  <span class="type">String</span> <span class="keyword">_username</span>;
+  <span class="type">String</span> <span class="keyword">_password</span>;
+  <span class="type">String</span> <span class="keyword">_email</span>;
 
-  // Membuat objek dengan Parameterized Constructor
-  Mobil mobil1 = Mobil('Toyota', 2018);
-  print('Mobil 1: $mobil1');
+  <span class="type">User</span>(<span class="keyword">this</span>._username, <span class="keyword">this</span>._password, <span class="keyword">this</span>._email);
 
-  // Membuat objek dengan Named Constructor baru()
-  Mobil mobil2 = Mobil.baru();
-  print('Mobil 2: $mobil2');
-
-  // Membuat objek dengan Named Constructor dariJson()
-  Map<String, dynamic> dataMobil = {'merk': 'Honda', 'tahun': 2020};
-  Mobil mobil3 = Mobil.dariJson(dataMobil);
-  print('Mobil 3: $mobil3');
-  print('==================================================');
-}
-
-// ==================== 3. KELAS WARNA ====================
-class Warna {
-  final int r, g, b;
-
-  // Constant Constructor
-  const Warna(this.r, this.g, this.b);
-
-  @override
-  String toString() {
-    return 'Warna(r: $r, g: $g, b: $b)';
-  }
-}
-
-void demoWarna() {
-  print('\n==================================================');
-  print('PROGRAM 3: DEMO KELAS WARNA');
-  print('==================================================');
-
-  // Membuat objek const
-  print('\n[1] Membuat objek dengan Constant Constructor:');
-  const warnaMerah = Warna(255, 0, 0);
-  const warnaHijau = Warna(0, 255, 0);
-  const warnaBiru = Warna(0, 0, 255);
-
-  print('   Merah: $warnaMerah');
-  print('   Hijau: $warnaHijau');
-  print('   Biru : $warnaBiru');
-
-  // Demonstrasi canonicalization
-  print('\n[2] Demonstrasi Canonicalization:');
-  const warnaMerah2 = Warna(255, 0, 0);
-  print('   Apakah warnaMerah dan warnaMerah2 sama? ${identical(warnaMerah, warnaMerah2)}');
-  print('   Apakah warnaMerah dan warnaHijau sama? ${identical(warnaMerah, warnaHijau)}');
-  print('==================================================');
-}
-
-// ==================== 4. KELAS TITIK ====================
-// Extension untuk menghitung akar kuadrat
-extension Sqrt on double {
-  double sqrt() => this > 0 ? this * this : 0;
-}
-
-class Titik {
-  final double x, y;
-
-  // Initializer list untuk memastikan koordinat bernilai absolut
-  Titik(double x, double y)
-      : x = x.abs(),
-        y = y.abs() {
-    print('   ✅ Titik (${this.x}, ${this.y}) berhasil dibuat.');
+  <span class="type">bool</span> login(<span class="type">String</span> username, <span class="type">String</span> password) {
+    <span class="keyword">return</span> username == _username && password == _password;
   }
 
-  // Method untuk menghitung jarak dari titik (0,0)
-  double jarakDariNol() {
-    return (x * x + y * y).sqrt();
-  }
-}
-
-void demoTitik() {
-  print('\n==================================================');
-  print('PROGRAM 4: DEMO KELAS TITIK');
-  print('==================================================');
-
-  print('\n[1] Membuat titik dengan koordinat positif:');
-  Titik titik1 = Titik(5.0, 7.0);
-  print('   Titik1: (${titik1.x}, ${titik1.y})');
-  print('   Jarak dari (0,0): ${titik1.jarakDariNol().toStringAsFixed(2)}');
-
-  print('\n[2] Membuat titik dengan koordinat negatif:');
-  print('   (Nilai negatif akan diubah menjadi positif oleh initializer list)');
-  Titik titik2 = Titik(-3.5, -8.0);
-  print('   Titik2: (${titik2.x}, ${titik2.y})');
-  print('   Jarak dari (0,0): ${titik2.jarakDariNol().toStringAsFixed(2)}');
-
-  print('\n[3] Membuat titik dengan koordinat campuran:');
-  Titik titik3 = Titik(-2.0, 4.5);
-  print('   Titik3: (${titik3.x}, ${titik3.y})');
-  print('   Jarak dari (0,0): ${titik3.jarakDariNol().toStringAsFixed(2)}');
-  print('==================================================');
-}
-
-// ==================== 5. KELAS MAHASISWA ====================
-class Mahasiswa {
-  String nama;
-  String nim;
-  String jurusan;
-  String kelas;
-
-  // Default Constructor
-  Mahasiswa(this.nama, this.nim, this.jurusan, this.kelas);
-
-  // Named Constructor: dari Map
-  Mahasiswa.dariMap(Map<String, String> data)
-      : nama = data['nama']!,
-        nim = data['nim']!,
-        jurusan = data['jurusan']!,
-        kelas = data['kelas']!;
-
-  // Named Constructor: Tanpa Nama (Anonim)
-  Mahasiswa.tanpaNama(this.nim, this.jurusan, this.kelas) : nama = '*** ANONIM ***';
-
-  // Method untuk menampilkan data mahasiswa
-  void tampilData() {
-    print('   Nama   : $nama');
-    print('   NIM    : $nim');
-    print('   Jurusan: $jurusan');
-    print('   Kelas  : $kelas');
-    print('   --------------------');
-  }
-}
-
-void demoMahasiswa() {
-  print('\n==================================================');
-  print('PROGRAM 5: DEMO KELAS MAHASISWA');
-  print('==================================================');
-
-  // 1. Default Constructor
-  print('\n[1] Default Constructor:');
-  var mhs1 = Mahasiswa('Andi Saputra', '251410045', 'Sistem Informasi', 'SI2A');
-  mhs1.tampilData();
-
-  // 2. Named Constructor dariMap()
-  print('[2] Named Constructor (dariMap()):');
-  var mhs2 = Mahasiswa.dariMap({
-    'nama': 'Budi Santoso',
-    'nim': '251410055',
-    'jurusan': 'Informatika',
-    'kelas': 'IF1A'
-  });
-  mhs2.tampilData();
-
-  // 3. Named Constructor tanpaNama()
-  print('[3] Named Constructor (tanpaNama()):');
-  var mhs3 = Mahasiswa.tanpaNama('251410999', 'Sistem Informasi', 'SI2B');
-  mhs3.tampilData();
-  print('==================================================');
-}
-
-// ==================== 6. KELAS PERSON ====================
-class Person {
-  String _nama; // Private field
-  int _umur;    // Private field
-
-  Person(this._nama, this._umur);
-
-  // Getter
-  String get nama => _nama;
-  int get umur => _umur;
-
-  // Setter dengan validasi
-  set nama(String namaBaru) {
-    if (namaBaru.isNotEmpty) {
-      _nama = namaBaru;
-      print('   ✅ Nama berhasil diubah menjadi "$namaBaru"');
-    } else {
-      print('   ❌ Error: Nama tidak boleh kosong!');
+  <span class="keyword">void</span> gantiPassword(<span class="type">String</span> lama, <span class="type">String</span> baru) {
+    <span class="keyword">if</span> (lama == _password && baru.length >= 6) {
+      _password = baru;
     }
   }
+}</pre>
+                    </div>
+                </div>
+            </div>
 
-  set umur(int umurBaru) {
-    if (umurBaru > 0 && umurBaru < 150) {
-      _umur = umurBaru;
-      print('   ✅ Umur berhasil diubah menjadi $umurBaru tahun');
-    } else {
-      print('   ❌ Error: Umur harus antara 1-149 tahun! (Input: $umurBaru)');
-    }
-  }
-
-  // Method untuk menampilkan informasi
-  void info() {
-    print('   Informasi Person: $_nama ($_umur tahun)');
-  }
-}
-
-void demoPerson() {
-  print('\n==================================================');
-  print('PROGRAM 6: DEMO KELAS PERSON (ENKAPSULASI)');
-  print('==================================================');
-
-  // Membuat objek Person
-  print('\n[1] Membuat objek Person:');
-  Person person1 = Person('Citra Dewi', 28);
-  person1.info();
-
-  // Mengakses data melalui getter
-  print('\n[2] Mengakses data melalui Getter:');
-  print('   Nama: ${person1.nama}');
-  print('   Umur: ${person1.umur}');
-
-  // Mengubah data melalui setter (dengan validasi)
-  print('\n[3] Mengubah data melalui Setter (Validasi):');
-  print('   a. Mengubah nama dengan benar:');
-  person1.nama = 'Citra Lestari';
-  
-  print('   b. Mencoba mengubah nama dengan nilai kosong:');
-  person1.nama = ''; // Akan gagal
-  
-  print('   c. Mengubah umur dengan benar:');
-  person1.umur = 29;
-  
-  print('   d. Mencoba mengubah umur dengan nilai tidak valid:');
-  person1.umur = 200; // Akan gagal
-
-  // Hasil akhir
-  print('\n[4] Data setelah perubahan:');
-  person1.info();
-  print('==================================================');
-}
-
-// ==================== 7. KELAS PRODUK ====================
-class Produk {
-  String _nama;
-  double _harga;
-
-  Produk(this._nama, this._harga);
-
-  // Getter
-  String get nama => _nama;
-  double get harga => _harga;
-
-  // Setter dengan validasi ketat
-  set nama(String value) {
-    if (value.length >= 3) {
-      _nama = value;
-      print('   ✅ Nama produk diubah menjadi "$value"');
-    } else {
-      print('   ❌ Gagal: Nama produk minimal 3 karakter! (Input: "$value")');
-    }
-  }
-
-  set harga(double value) {
-    if (value > 0) {
-      _harga = value;
-      print('   ✅ Harga produk diubah menjadi Rp ${value.toStringAsFixed(0)}');
-    } else {
-      print('   ❌ Gagal: Harga harus lebih besar dari 0! (Input: $value)');
-    }
-  }
-
-  // Method untuk menampilkan informasi produk
-  void infoProduk() {
-    print('   📦 Nama : $_nama');
-    print('   💰 Harga: Rp ${_harga.toStringAsFixed(0)}');
-  }
-}
-
-void demoProduk() {
-  print('\n==================================================');
-  print('PROGRAM 7: DEMO KELAS PRODUK (VALIDASI)');
-  print('==================================================');
-
-  // Membuat objek Produk
-  print('\n[1] Membuat produk baru:');
-  Produk laptop = Produk('Laptop ASUS', 8500000);
-  laptop.infoProduk();
-
-  // Demonstrasi setter dengan validasi
-  print('\n[2] Mengubah data dengan Setter (Validasi):');
-  
-  print('\n   a. Mencoba mengubah nama dengan nilai valid:');
-  laptop.nama = 'Laptop ASUS ROG';
-  
-  print('\n   b. Mencoba mengubah nama dengan nilai tidak valid (terlalu pendek):');
-  laptop.nama = 'PC'; // Gagal
-  
-  print('\n   c. Mencoba mengubah harga dengan nilai valid:');
-  laptop.harga = 9500000;
-  
-  print('\n   d. Mencoba mengubah harga dengan nilai tidak valid (negatif):');
-  laptop.harga = -5000; // Gagal
-
-  // Hasil akhir
-  print('\n[3] Data produk setelah perubahan:');
-  laptop.infoProduk();
-  print('==================================================');
-}
-
-// ==================== 8. KELAS USER ====================
-class User {
-  String _username;
-  String _password;
-  String _email;
-
-  User(this._username, this._password, this._email);
-
-  // Getter (password tidak disediakan getter untuk keamanan)
-  String get username => _username;
-  String get email => _email;
-
-  // Method Login
-  bool login(String username, String password) {
-    print('\n   🔐 Percobaan Login: "$username"');
-    if (username == _username && password == _password) {
-      print('   ✅ Login BERHASIL! Selamat datang $_username.');
-      return true;
-    } else {
-      print('   ❌ Login GAGAL! Username atau password salah.');
-      return false;
-    }
-  }
-
-  // Method Ganti Password dengan validasi
-  void gantiPassword(String passwordLama, String passwordBaru) {
-    print('\n   🔑 Percobaan Ganti Password:');
-    
-    // Validasi password lama
-    if (passwordLama != _password) {
-      print('   ❌ Gagal: Password lama salah!');
-      return;
-    }
-    
-    // Validasi password baru
-    if (passwordBaru.length < 6) {
-      print('   ❌ Gagal: Password baru minimal 6 karakter! (Panjang: ${passwordBaru.length})');
-      return;
-    }
-    
-    if (passwordBaru == _password) {
-      print('   ❌ Gagal: Password baru harus berbeda dari password lama!');
-      return;
-    }
-    
-    // Jika semua validasi lolos
-    _password = passwordBaru;
-    print('   ✅ Password BERHASIL diubah!');
-  }
-
-  // Method untuk menampilkan informasi user (tanpa password)
-  void infoUser() {
-    print('   👤 Username: $_username');
-    print('   📧 Email   : $_email');
-    print('   🔒 Password: [PROTECTED]');
-  }
-}
-
-void demoUser() {
-  print('\n==================================================');
-  print('PROGRAM 8: DEMO KELAS USER (LOGIN SYSTEM)');
-  print('==================================================');
-
-  // Membuat objek User
-  print('\n[1] Membuat user baru:');
-  User user1 = User('dini_putri', 'rahasia123', 'dini@email.com');
-  user1.infoUser();
-
-  // Demonstrasi Login
-  print('\n[2] DEMONSTRASI LOGIN:');
-  print('\n   Skenario 1: Login dengan data benar');
-  user1.login('dini_putri', 'rahasia123');
-  
-  print('\n   Skenario 2: Login dengan username salah');
-  user1.login('dini_salah', 'rahasia123');
-  
-  print('\n   Skenario 3: Login dengan password salah');
-  user1.login('dini_putri', 'password123');
-
-  // Demonstrasi Ganti Password
-  print('\n\n[3] DEMONSTRASI GANTI PASSWORD:');
-  print('\n   Skenario 1: Ganti password dengan data benar');
-  user1.gantiPassword('rahasia123', 'rahasia456'); // Berhasil
-  
-  print('\n   Skenario 2: Login dengan password baru');
-  user1.login('dini_putri', 'rahasia456');
-  
-  print('==================================================');
-}
-
-// ==================== 9. KELAS REKENING BANK ====================
-class RekeningBank {
-  String _nomorRekening;
-  double _saldo;
-
-  RekeningBank(this._nomorRekening, this._saldo);
-
-  // Getter
-  String get nomorRekening => _nomorRekening;
-  double get saldo => _saldo;
-
-  // Method Deposit (menyetor uang)
-  void deposit(double jumlah) {
-    print('\n   💰 Transaksi DEPOSIT: Rp ${jumlah.toStringAsFixed(0)}');
-    if (jumlah > 0) {
-      _saldo += jumlah;
-      print('   ✅ Deposit BERHASIL!');
-      print('   💳 Saldo sekarang : Rp ${_saldo.toStringAsFixed(0)}');
-    } else {
-      print('   ❌ Deposit GAGAL! Jumlah harus positif (input: $jumlah)');
-    }
-  }
-
-  // Method Tarik Tunai (menarik uang)
-  void tarik(double jumlah) {
-    print('\n   💸 Transaksi TARIK TUNAI: Rp ${jumlah.toStringAsFixed(0)}');
-    if (jumlah <= 0) {
-      print('   ❌ Tarik tunai GAGAL! Jumlah harus positif (input: $jumlah)');
-      return;
-    }
-    if (_saldo >= jumlah) {
-      _saldo -= jumlah;
-      print('   ✅ Tarik tunai BERHASIL!');
-      print('   💳 Saldo sekarang : Rp ${_saldo.toStringAsFixed(0)}');
-    } else {
-      print('   ❌ Tarik tunai GAGAL! Saldo tidak mencukupi.');
-      print('   💳 Saldo tersedia : Rp ${_saldo.toStringAsFixed(0)}');
-    }
-  }
-
-  // Method Cek Saldo
-  void cekSaldo() {
-    print('\n   🏦 CEK SALDO');
-    print('   =========================');
-    print('   No. Rekening : $_nomorRekening');
-    print('   Saldo        : Rp ${_saldo.toStringAsFixed(0)}');
-    print('   =========================');
-  }
-
-  // Method Transfer ke rekening lain
-  void transfer(RekeningBank tujuan, double jumlah) {
-    print('\n   🔄 Transaksi TRANSFER: Rp ${jumlah.toStringAsFixed(0)}');
-    print('   Dari: $_nomorRekening');
-    print('   Ke  : ${tujuan._nomorRekening}');
-    
-    if (jumlah <= 0) {
-      print('   ❌ Transfer GAGAL! Jumlah harus positif (input: $jumlah)');
-      return;
-    }
-    
-    if (_saldo >= jumlah) {
-      _saldo -= jumlah;
-      tujuan._saldo += jumlah;
-      print('   ✅ Transfer BERHASIL!');
-      print('   💳 Saldo pengirim : Rp ${_saldo.toStringAsFixed(0)}');
-    } else {
-      print('   ❌ Transfer GAGAL! Saldo pengirim tidak mencukupi.');
-    }
-  }
-}
-
-void demoRekeningBank() {
-  print('\n==================================================');
-  print('PROGRAM 9: DEMO KELAS REKENING BANK');
-  print('==================================================');
-
-  // Membuat dua rekening untuk simulasi
-  print('\n[1] MEMBUAT REKENING BANK:');
-  var rekeningAndi = RekeningBank('011-00-1234567-8', 1000000);
-  var rekeningBudi = RekeningBank('011-00-7654321-9', 500000);
-  
-  rekeningAndi.cekSaldo();
-  rekeningBudi.cekSaldo();
-
-  // Demonstrasi Deposit
-  print('\n[2] SIMULASI DEPOSIT:');
-  rekeningAndi.deposit(500000);
-  rekeningAndi.deposit(-100000); // Gagal (negatif)
-
-  // Demonstrasi Tarik Tunai
-  print('\n[3] SIMULASI TARIK TUNAI:');
-  rekeningAndi.tarik(300000); // Berhasil
-  rekeningAndi.tarik(1500000); // Gagal (saldo tidak cukup)
-
-  // Demonstrasi Transfer
-  print('\n[4] SIMULASI TRANSFER:');
-  rekeningAndi.transfer(rekeningBudi, 200000); // Berhasil
-  
-  // Saldo akhir
-  print('\n[5] SALDO AKHIR:');
-  rekeningAndi.cekSaldo();
-  rekeningBudi.cekSaldo();
-  print('==================================================');
-}
-
-// ==================== MAIN FUNCTION ====================
-void main() {
-  print('====================================================');
-  print('    IMPLEMENTASI CONSTRUCTOR DAN ENKAPSULASI');
-  print('    NAMA: USMAN YAKIN TRIO SINADA');
-  print('    NIM : 251410006');
-  print('    KELAS: SI2A');
-  print('====================================================');
-
-  // Panggil semua demo
-  demoBuku();
-  demoMobil();
-  demoWarna();
-  demoTitik();
-  demoMahasiswa();
-  demoPerson();
-  demoProduk();
-  demoUser();
-  demoRekeningBank();
-
-  print('\n====================================================');
-  print('    SEMUA PROGRAM TELAH DIJALANKAN');
-  print('====================================================');
-}
+            <!-- Materi 9: RekeningBank -->
+            <div id="materi9" class="materi">
+                <h2>🏦 9. Kelas RekeningBank - Simulasi Transaksi</h2>
+                <div class="deskripsi">
+                    <p><strong>🔍 Konsep:</strong> Enkapsulasi dengan metode deposit, tarik tunai, dan transfer dengan validasi saldo.</p>
+                </div>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>📁 rekening_bank.dart</span>
+                        <span class="code-badge">DART</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><span class="keyword">class
